@@ -1,0 +1,1 @@
+ALTER TABLE `word` ADD `word` text NOT NULL;
