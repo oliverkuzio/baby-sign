@@ -6,7 +6,6 @@
 	export let data: PageData;
 
 	const words = data.words;
-	console.log(words);
 </script>
 
 <Content>

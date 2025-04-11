@@ -13,7 +13,7 @@
 		onLogout={() => (user = undefined)}
 		onCreateAccount={() => (user = { name: 'Jane Doe' })}
 	/>
-	<main class="grow p-4">
+	<main class="relative flex grow flex-col items-stretch">
 		{@render children?.()}
 	</main>
 	<Footer />

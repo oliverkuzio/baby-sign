@@ -30,8 +30,10 @@
 					and definition
 				{/if}
 				for {word.word} sign from
-				<a href="https://babysignlanguage.com/dictionary/{word.slug}/" class="underline"
-					>babysignlanguage.com</a
+				<a
+					href="https://babysignlanguage.com/dictionary/{word.slug}/"
+					class="underline"
+					target="_blank">babysignlanguage.com</a
 				>.
 			</cite>
 		</figcaption>

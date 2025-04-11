@@ -2,6 +2,6 @@
 	let { children } = $props();
 </script>
 
-<section class="">
+<section class="p-3">
 	{@render children?.()}
 </section>
