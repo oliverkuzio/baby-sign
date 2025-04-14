@@ -48,13 +48,13 @@
 	>
 		<button
 			type="button"
-			class="absolute top-3 right-3 inline-flex h-8 w-8 items-center justify-center rounded-md bg-white/10 p-2 text-white hover:bg-white/0 focus:outline-none"
+			class="absolute top-4 right-3 inline-flex h-8 w-8 items-center justify-center rounded-md bg-white/10 p-2 text-white hover:bg-white/0 focus:outline-none"
 			onclick={onCloseMenu}
 		>
 			<span class="sr-only">Close menu</span>
 			<!-- Heroicon name: outline/x -->
 			<svg
-				class="h-6 w-6"
+				class="h-8 w-8"
 				xmlns="http://www.w3.org/2000/svg"
 				fill="none"
 				viewBox="0 0 24 24"
@@ -64,7 +64,7 @@
 				<path
 					stroke-linecap="round"
 					stroke-linejoin="round"
-					stroke-width="2"
+					stroke-width="6"
 					d="M6 18L18 6M6 6l12 12"
 				/>
 			</svg>
