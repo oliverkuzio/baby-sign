@@ -8,6 +8,13 @@
 	let showMenu = $state<boolean>();
 
 	let { children } = $props();
+
+	let items = [
+		{ href: '/', label: 'Home' },
+		{ href: '/dictionary', label: 'Dictionary' },
+		{ href: '/phrases', label: 'Phrases' },
+		{ href: '/songs', label: 'Songs' }
+	];
 </script>
 
 <Page>
@@ -18,6 +25,7 @@
 		{showMenu}
 		onToggleMenu={() => (showMenu = !showMenu)}
 		onCloseMenu={() => (showMenu = false)}
+		{items}
 	/>
 	<main class="relative flex grow flex-col items-stretch">
 		{#if user}

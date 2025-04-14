@@ -38,27 +38,52 @@
 			<span class="m-0 pl-2">Baby Sign</span>
 		</a>
 	</div>
-	{#if showMenu}
-		<nav
-			class="dark:bg-body-dark fixed top-0 bottom-0 left-0 z-[1045] flex w-96 max-w-full -translate-x-full flex-col border-none bg-white bg-clip-padding text-neutral-700 shadow-sm transition duration-300 ease-in-out outline-none dark:text-white"
-			tabindex="-1"
-			id="offcanvasExample"
-			aria-labelledby="offcanvasExampleLabel"
+	<nav
+		class="ease-in-oute fixed top-0 right-0 bottom-0 z-[1045] flex w-96 max-w-full flex-col border-none bg-gray-800 bg-clip-padding text-white shadow-sm transition duration-300 outline-none {showMenu
+			? 'translate-x-0'
+			: 'translate-x-full'}"
+		tabindex="-1"
+		id="offcanvas"
+		aria-labelledby="offcanvasExampleLabel"
+	>
+		<button
+			type="button"
+			class="absolute top-3 right-3 inline-flex h-8 w-8 items-center justify-center rounded-md bg-white/10 p-2 text-white hover:bg-white/0 focus:outline-none"
+			onclick={onCloseMenu}
 		>
-			<div class="flex items-center justify-between p-4">
-				<h5 class="mb-0 leading-normal font-semibold" id="offcanvasExampleLabel">Menu</h5>
-				{#if items.length > 0}
-					{#each items as item (item.label)}
-						<a
-							href={item.href}
-							class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white"
-							>{item.label}</a
-						>
-					{/each}
-				{/if}
-			</div>
-		</nav>
-	{/if}
+			<span class="sr-only">Close menu</span>
+			<!-- Heroicon name: outline/x -->
+			<svg
+				class="h-6 w-6"
+				xmlns="http://www.w3.org/2000/svg"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke="currentColor"
+				aria-hidden="true"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M6 18L18 6M6 6l12 12"
+				/>
+			</svg>
+		</button>
+		<div class="px-3 py-5">
+			<h5 class="mb-0 text-lg leading-normal font-semibold" id="offcanvasExampleLabel">Menu</h5>
+		</div>
+		<div class="items-center justify-between p-4 lg:flex">
+			{#if items.length > 0}
+				{#each items as item (item.label)}
+					<a
+						href={item.href}
+						class="block px-4 py-2 text-lg font-semibold text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white"
+						onclick={onCloseMenu}>{item.label}</a
+					>
+				{/each}
+			{/if}
+		</div>
+	</nav>
 	<div class="flex items-center gap-2">
 		{#if user}
 			<Button size="small" onClick={onLogout} label="Log out" />
