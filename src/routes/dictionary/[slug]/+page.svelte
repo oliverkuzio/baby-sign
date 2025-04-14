@@ -2,11 +2,13 @@
 	import type { PageData } from '../../$types.js';
 	import Content from '../../../stories/Content/Content.svelte';
 	import EditIcon from '../../../stories/EditIcon/EditIcon.svelte';
+	import NavCard from '../../../stories/NavCard/NavCard.svelte';
 	import WordCard from '../../../stories/WordCard/WordCard.svelte';
 
 	export let data: PageData;
 
 	const word = data.word;
+	console.log(word);
 </script>
 
 <Content>
@@ -24,25 +26,29 @@
 			</blockquote>
 		{/if}
 		{#if word.phrases.length}
-			<p class="mb-3">Phrases with '{word.word}':</p>
-			<ul class="mb-3 list-disc">
+			<h3 class="mb-3 text-lg font-semibold">Phrases with '{word.word}':</h3>
+			<ul
+				class="align-center mb-3 grid grid-cols-1 justify-center gap-3 md:grid-cols-2 xl:grid-cols-3"
+			>
 				{#each word.phrases as phrase}
-					<li class="ms-6">
-						<a href="/phrases/{phrase.phrase.slug}" class="underline">
-							{phrase.phrase.phrase}
-						</a>
+					<li class="shrink-0 grow-0 basis-full">
+						<NavCard
+							href="/phrases/{phrase.phrase.slug}"
+							label={phrase.phrase.title}
+							description="“{phrase.phrase.phrase}”"
+						/>
 					</li>
 				{/each}
 			</ul>
 		{/if}
 		{#if word.songs.length}
-			<p class="mb-3">Songs with '{word.word}':</p>
-			<ul class="mb-3 list-disc">
+			<h3 class="mb-3 text-lg font-semibold">Songs with '{word.word}':</h3>
+			<ul
+				class="align-center mb-3 grid grid-cols-1 justify-center gap-3 md:grid-cols-2 xl:grid-cols-3"
+			>
 				{#each word.songs as song}
-					<li class="ms-6">
-						<a href="/songs/{song.song.slug}" class="underline">
-							{song.song.title}
-						</a>
+					<li class="shrink-0 grow-0 basis-full">
+						<NavCard href="/songs/{song.song.slug}" label={song.song.title} />
 					</li>
 				{/each}
 			</ul>

@@ -13,10 +13,12 @@
 	<p class="mb-3">Here are some songs to sing and sign:</p>
 
 	{#if songs && songs.length > 0}
-		<ul class="align-center grid grid-cols-1 justify-center gap-3 md:grid-cols-2 xl:grid-cols-3">
+		<ul
+			class="align-center mb-3 grid grid-cols-1 justify-center gap-3 md:grid-cols-2 xl:grid-cols-3"
+		>
 			{#each songs as song (song.id)}
 				<li>
-					<NavCard href="/songs/{song.slug}" label={`${song.title}`} />
+					<NavCard href="/songs/{song.slug}" label={song.title} />
 				</li>
 			{/each}
 			<li>
