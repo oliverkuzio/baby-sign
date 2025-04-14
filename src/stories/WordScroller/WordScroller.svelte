@@ -14,7 +14,7 @@
 
 <HorizontalScroller>
 	{#each words as word (word.word.id)}
-		<div class="shrink-0 grow-1 basis-[50vw] md:basis-[25vw] lg:basis-[20vw] xl:basis-[15vw]">
+		<div class="shrink-0 grow-0 basis-[40vw] md:basis-[25vw] lg:basis-[20vw] xl:basis-[15vw]">
 			<WordCard word={word.word} />
 		</div>
 	{/each}

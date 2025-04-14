@@ -40,11 +40,10 @@
 	</div>
 	{#if showMenu}
 		<nav
-			class="dark:bg-body-dark fixed top-0 bottom-0 left-0 z-[1045] flex w-96 max-w-full -translate-x-full flex-col border-none bg-white bg-clip-padding text-neutral-700 shadow-sm transition duration-300 ease-in-out outline-none data-[twe-offcanvas-show]:transform-none dark:text-white"
+			class="dark:bg-body-dark fixed top-0 bottom-0 left-0 z-[1045] flex w-96 max-w-full -translate-x-full flex-col border-none bg-white bg-clip-padding text-neutral-700 shadow-sm transition duration-300 ease-in-out outline-none dark:text-white"
 			tabindex="-1"
 			id="offcanvasExample"
 			aria-labelledby="offcanvasExampleLabel"
-			data-twe-offcanvas-init
 		>
 			<div class="flex items-center justify-between p-4">
 				<h5 class="mb-0 leading-normal font-semibold" id="offcanvasExampleLabel">Menu</h5>

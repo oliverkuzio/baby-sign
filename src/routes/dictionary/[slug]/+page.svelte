@@ -23,6 +23,30 @@
 				<p class="mb-3">{word.definition}</p>
 			</blockquote>
 		{/if}
+		{#if word.phrases.length}
+			<p class="mb-3">Phrases with '{word.word}':</p>
+			<ul class="mb-3 list-disc">
+				{#each word.phrases as phrase}
+					<li class="ms-6">
+						<a href="/phrases/{phrase.phrase.slug}" class="underline">
+							{phrase.phrase.phrase}
+						</a>
+					</li>
+				{/each}
+			</ul>
+		{/if}
+		{#if word.songs.length}
+			<p class="mb-3">Songs with '{word.word}':</p>
+			<ul class="mb-3 list-disc">
+				{#each word.songs as song}
+					<li class="ms-6">
+						<a href="/songs/{song.song.slug}" class="underline">
+							{song.song.title}
+						</a>
+					</li>
+				{/each}
+			</ul>
+		{/if}
 		<figcaption>
 			<cite class="text-sm text-gray-500">
 				Graphic
