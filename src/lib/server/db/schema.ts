@@ -22,8 +22,8 @@ export const word = sqliteTable('word', {
 });
 
 export const wordRelations = relations(word, ({ many }) => ({
-	wordsToPhrases: many(wordsToPhrases),
-	wordsToSongs: many(wordsToSongs)
+	phrases: many(wordsToPhrases),
+	songs: many(wordsToSongs)
 }));
 
 export const phrase = sqliteTable('phrase', {
@@ -34,7 +34,7 @@ export const phrase = sqliteTable('phrase', {
 });
 
 export const phraseRelations = relations(phrase, ({ many }) => ({
-	wordsToPhrases: many(wordsToPhrases)
+	words: many(wordsToPhrases)
 }));
 
 export const wordsToPhrases = sqliteTable(
@@ -69,7 +69,7 @@ export const song = sqliteTable('song', {
 });
 
 export const songRelations = relations(song, ({ many }) => ({
-	wordsToSongs: many(wordsToSongs)
+	words: many(wordsToSongs)
 }));
 
 export const wordsToSongs = sqliteTable(

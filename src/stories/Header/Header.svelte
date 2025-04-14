@@ -5,20 +5,24 @@
 		user?: { name: string };
 		onLogin?: () => void;
 		onLogout?: () => void;
-		onCreateAccount?: () => void;
+		showMenu?: boolean;
+		onToggleMenu?: () => void;
+		onCloseMenu?: () => void;
+		items?: { href: string; label: string }[];
 	}
 
-	const { user, onLogin, onLogout, onCreateAccount }: Props = $props();
+	const {
+		user,
+		onLogin,
+		onLogout,
+		showMenu,
+		onToggleMenu,
+		onCloseMenu,
+		items = []
+	}: Props = $props();
 </script>
 
 <header class="flex flex-row items-center justify-between p-4">
-	<div>
-		<button class="space-y-1" aria-label="Menu" aria-expanded="false">
-			<span class="block h-1 w-6 bg-white"></span>
-			<span class="block h-1 w-6 bg-white"></span>
-			<span class="block h-1 w-6 bg-white"></span>
-		</button>
-	</div>
 	<div>
 		<a href="/" class="text-decoration-none inline-flex items-center">
 			<svg
@@ -34,15 +38,38 @@
 			<span class="m-0 pl-2">Baby Sign</span>
 		</a>
 	</div>
-	<div>
+	{#if showMenu}
+		<nav
+			class="dark:bg-body-dark fixed top-0 bottom-0 left-0 z-[1045] flex w-96 max-w-full -translate-x-full flex-col border-none bg-white bg-clip-padding text-neutral-700 shadow-sm transition duration-300 ease-in-out outline-none data-[twe-offcanvas-show]:transform-none dark:text-white"
+			tabindex="-1"
+			id="offcanvasExample"
+			aria-labelledby="offcanvasExampleLabel"
+			data-twe-offcanvas-init
+		>
+			<div class="flex items-center justify-between p-4">
+				<h5 class="mb-0 leading-normal font-semibold" id="offcanvasExampleLabel">Menu</h5>
+				{#if items.length > 0}
+					{#each items as item (item.label)}
+						<a
+							href={item.href}
+							class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white"
+							>{item.label}</a
+						>
+					{/each}
+				{/if}
+			</div>
+		</nav>
+	{/if}
+	<div class="flex items-center gap-2">
 		{#if user}
-			<span class="">
-				Welcome, <b>{user.name}</b>!
-			</span>
 			<Button size="small" onClick={onLogout} label="Log out" />
 		{:else}
-			<Button size="small" onClick={onLogin} label="Log in" />
-			<Button primary size="small" onClick={onCreateAccount} label="Sign up" />
+			<Button primary size="small" onClick={onLogin} label="Log in" />
 		{/if}
+		<button class="space-y-1" aria-label="Menu" aria-expanded="false" onclick={onToggleMenu}>
+			<span class="block h-1 w-6 bg-white"></span>
+			<span class="block h-1 w-6 bg-white"></span>
+			<span class="block h-1 w-6 bg-white"></span>
+		</button>
 	</div>
 </header>
