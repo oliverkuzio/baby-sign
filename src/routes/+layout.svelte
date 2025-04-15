@@ -20,7 +20,7 @@
 <Page>
 	<Header
 		{user}
-		onLogin={() => (user = { name: 'Jane Doe' })}
+		onLogin={() => (user = { name: 'Ashleigh Kuzio' })}
 		onLogout={() => (user = undefined)}
 		{showMenu}
 		onToggleMenu={() => (showMenu = !showMenu)}

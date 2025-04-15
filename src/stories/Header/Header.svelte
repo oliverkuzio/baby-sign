@@ -22,7 +22,9 @@
 	}: Props = $props();
 </script>
 
-<header class="flex flex-row items-center justify-between p-4">
+<header
+	class="sticky top-0 right-0 left-0 z-50 flex flex-row items-center justify-between bg-gray-900 p-4 text-white"
+>
 	<div>
 		<a href="/" class="text-decoration-none inline-flex items-center">
 			<svg
@@ -39,16 +41,16 @@
 		</a>
 	</div>
 	<nav
-		class="ease-in-oute fixed top-0 right-0 bottom-0 z-[1045] flex w-96 max-w-full flex-col border-none bg-gray-800 bg-clip-padding text-white shadow-sm transition duration-300 outline-none {showMenu
-			? 'translate-x-0'
-			: 'translate-x-full'}"
+		class="ease-in-oute transition duration-300 outline-none max-xl:fixed max-xl:top-0 max-xl:right-0 max-xl:bottom-0 max-xl:z-[1045] max-xl:flex max-xl:w-96 max-xl:max-w-full max-xl:flex-col max-xl:border-none max-xl:bg-gray-800 max-xl:bg-clip-padding max-xl:text-white max-xl:shadow-sm {showMenu
+			? 'max-xl:translate-x-0'
+			: 'max-xl:translate-x-full'}"
 		tabindex="-1"
 		id="offcanvas"
 		aria-labelledby="offcanvasExampleLabel"
 	>
 		<button
 			type="button"
-			class="absolute top-4 right-3 inline-flex h-8 w-8 items-center justify-center rounded-md bg-white/10 p-2 text-white hover:bg-white/0 focus:outline-none"
+			class="absolute top-4 right-3 inline-flex h-8 w-8 items-center justify-center rounded-md bg-white/10 p-2 text-white hover:bg-white/0 focus:outline-none xl:hidden"
 			onclick={onCloseMenu}
 		>
 			<span class="sr-only">Close menu</span>
@@ -69,10 +71,10 @@
 				/>
 			</svg>
 		</button>
-		<div class="px-3 py-5">
+		<div class="px-3 py-5 xl:hidden">
 			<h5 class="mb-0 text-lg leading-normal font-semibold" id="offcanvasExampleLabel">Menu</h5>
 		</div>
-		<div class="items-center justify-between p-4 lg:flex">
+		<div class="max-xl:p-4 items-center justify-between  xl:flex">
 			{#if items.length > 0}
 				{#each items as item (item.label)}
 					<a
@@ -90,7 +92,12 @@
 		{:else}
 			<Button primary size="small" onClick={onLogin} label="Log in" />
 		{/if}
-		<button class="space-y-1" aria-label="Menu" aria-expanded="false" onclick={onToggleMenu}>
+		<button
+			class="space-y-1 xl:hidden"
+			aria-label="Menu"
+			aria-expanded="false"
+			onclick={onToggleMenu}
+		>
 			<span class="block h-1 w-6 bg-white"></span>
 			<span class="block h-1 w-6 bg-white"></span>
 			<span class="block h-1 w-6 bg-white"></span>
