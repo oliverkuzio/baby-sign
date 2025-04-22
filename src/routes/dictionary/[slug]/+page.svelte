@@ -8,7 +8,6 @@
 	export let data: PageData;
 
 	const word = data.word;
-	console.log(word);
 </script>
 
 <Content>
