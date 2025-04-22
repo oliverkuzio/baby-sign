@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PageData } from '../$types.js';
-	import Content from '../../stories/Content/Content.svelte';
-	import NavCard from '../../stories/NavCard/NavCard.svelte';
+	import Content from '$lib/components/Content.svelte';
+	import NavCard from '$lib/components/NavCard.svelte';
 
 	export let data: PageData;
 

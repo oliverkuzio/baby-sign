@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { Word } from '../../lib/server/db/schema.js'; // Adjust path as needed to your types
-	import HorizontalScroller from '../HorizontalScroller/HorizontalScroller.svelte';
-	import WordCard from '../WordCard/WordCard.svelte';
+	import type { Word } from '../server/db/schema.js'; // Adjust path as needed to your types
+	import HorizontalScroller from './HorizontalScroller.svelte';
+	import WordCard from './WordCard.svelte';
 
 	interface Props {
 		words: {

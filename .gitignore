@@ -25,5 +25,6 @@ vite.config.ts.timestamp-*
 
 # SQLite
 *.db
-
-*storybook.log
+*.sql
+*.sqlite
+*.sqlite3

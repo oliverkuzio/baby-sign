@@ -1,9 +1,9 @@
 <script lang="ts">
 	import type { PageData } from '../../$types';
-	import Aside from '../../../stories/Aside/Aside.svelte';
-	import Content from '../../../stories/Content/Content.svelte';
-	import EditIcon from '../../../stories/EditIcon/EditIcon.svelte';
-	import WordScroller from '../../../stories/WordScroller/WordScroller.svelte';
+	import Aside from '$lib/components/Aside.svelte';
+	import Content from '$lib/components/Content.svelte';
+	import EditIcon from '$lib/components/EditIcon.svelte';
+	import WordScroller from '$lib/components/WordScroller.svelte';
 
 	export let data: PageData;
 

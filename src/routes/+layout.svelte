@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Header from '../stories/Header/Header.svelte';
-	import Footer from '../stories/Footer/Footer.svelte';
-	import Page from '../stories/Page/Page.svelte';
+	import Header from '$lib/components/Header.svelte';
+	import Footer from '$lib/components/Footer.svelte';
+	import Page from '$lib/components/Page.svelte';
 	import '../app.css';
 
 	let user = $state<{ name: string }>();

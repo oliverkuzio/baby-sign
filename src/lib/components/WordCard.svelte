@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { Word } from '../../lib/server/db/schema.ts'; // Adjust path as needed to your types
+	import type { Word } from '../server/db/schema.js'; // Adjust path as needed to your types
 	import { PUBLIC_IMAGE_URL } from '$env/static/public';
-	import EditIcon from '../EditIcon/EditIcon.svelte';
+	import EditIcon from './EditIcon.svelte';
 
 	interface Props {
 		word: Word;

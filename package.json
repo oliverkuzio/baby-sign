@@ -5,8 +5,6 @@
 		"dev": "vite dev",
 		"build": "vite build && npm run prepack",
 		"preview": "vite preview",
-		"prepare": "svelte-kit sync || echo ''",
-		"prepack": "svelte-kit sync && svelte-package && publint",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"format": "prettier --write .",
@@ -16,9 +14,7 @@
 		"db:push": "drizzle-kit push",
 		"db:generate": "drizzle-kit generate",
 		"db:migrate": "drizzle-kit migrate",
-		"db:studio": "drizzle-kit studio",
-		"storybook": "storybook dev -p 6006",
-		"build-storybook": "storybook build"
+		"db:studio": "drizzle-kit studio"
 	},
 	"files": [
 		"dist",
@@ -41,19 +37,10 @@
 		"svelte": "^5.0.0"
 	},
 	"devDependencies": {
-		"@chromatic-com/storybook": "^3",
 		"@eslint/compat": "^1.2.5",
 		"@eslint/js": "^9.18.0",
-		"@storybook/addon-essentials": "^8.6.12",
-		"@storybook/addon-svelte-csf": "^5.0.0-next.0",
-		"@storybook/blocks": "^8.6.12",
-		"@storybook/experimental-addon-test": "^8.6.12",
-		"@storybook/svelte": "^8.6.12",
-		"@storybook/sveltekit": "^8.6.12",
-		"@storybook/test": "^8.6.12",
 		"@sveltejs/adapter-cloudflare": "^7.0.1",
 		"@sveltejs/kit": "^2.16.0",
-		"@sveltejs/package": "^2.0.0",
 		"@sveltejs/vite-plugin-svelte": "^5.0.0",
 		"@tailwindcss/typography": "^0.5.15",
 		"@tailwindcss/vite": "^4.0.0",
@@ -73,7 +60,6 @@
 		"prettier-plugin-svelte": "^3.3.3",
 		"prettier-plugin-tailwindcss": "^0.6.11",
 		"publint": "^0.3.2",
-		"storybook": "^8.6.12",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.0",
 		"tailwindcss": "^4.0.0",

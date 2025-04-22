@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { PageData } from '../$types';
-	import Content from '../../stories/Content/Content.svelte';
-	import NavCard from '../../stories/NavCard/NavCard.svelte';
-	import WordCard from '../../stories/WordCard/WordCard.svelte';
+	import Content from '$lib/components/Content.svelte';
+	import NavCard from '$lib/components/NavCard.svelte';
+	import WordCard from '$lib/components/WordCard.svelte';
 
 	export let data: PageData;
 
