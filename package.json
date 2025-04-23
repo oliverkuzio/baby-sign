@@ -40,7 +40,6 @@
 		"svelte": "^5.0.0"
 	},
 	"devDependencies": {
-		"@cloudflare/workers-types": "^4.20250422.0",
 		"@eslint/compat": "^1.2.5",
 		"@eslint/js": "^9.18.0",
 		"@playwright/test": "^1.52.0",
@@ -52,6 +51,7 @@
 		"@tailwindcss/vite": "^4.0.0",
 		"@testing-library/jest-dom": "^6.6.3",
 		"@testing-library/svelte": "^5.2.4",
+		"@types/node": "^22.14.1",
 		"@vitest/browser": "3.1.1",
 		"@vitest/coverage-v8": "3.1.1",
 		"drizzle-kit": "^0.30.2",

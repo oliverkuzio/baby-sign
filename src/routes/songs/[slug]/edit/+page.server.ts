@@ -1,20 +1,18 @@
 import type { PageServerLoad } from './$types.js';
-import type { Song } from '$lib/server/db/schema.js';
-
-import { db } from '$lib/server/db/index.js';
 import { song } from '$lib/server/db/schema.js';
 import { eq } from 'drizzle-orm';
 
-export const load: PageServerLoad = async ({ params }) => {
+export const load: PageServerLoad = async ({ locals, params }) => {
 	const { slug } = params;
+	const res = await locals.db.query.song.findFirst({
+		where: eq(song.slug, slug)
+	});
 
-	const result = await db.select().from(song).where(eq(song.slug, slug)).limit(1);
-
-	if (result.length === 0) {
+	if (res === null) {
 		throw new Error(`Song with slug "${slug}" not found`);
 	}
 
 	return {
-		song: result[0]
+		song: res
 	};
 };
