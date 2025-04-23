@@ -7,16 +7,16 @@
 	"observability": {
 		"enabled": true
 	},
-	"assets": {
-		"binding": "ASSETS",
-		"directory": ".svelte-kit/cloudflare"
-	},
 	/**
 	 * Bindings
 	 * Bindings allow your Worker to interact with resources on the Cloudflare Developer Platform, including
 	 * databases, object storage, AI inference, real-time communication and more.
 	 * https://developers.cloudflare.com/workers/runtime-apis/bindings/
 	 */
+	"assets": {
+		"binding": "ASSETS",
+		"directory": ".svelte-kit/cloudflare"
+	},
 	"d1_databases": [
 		{
 			"binding": "DB",
