@@ -1,9 +1,6 @@
 <script lang="ts">
-	import type { PageData } from '../../$types';
 	import Content from '$lib/components/Content.svelte';
 	import Button from '$lib/components/Button.svelte';
-
-	export let data: PageData;
 </script>
 
 <Content>

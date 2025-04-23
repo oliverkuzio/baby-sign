@@ -1,20 +1,6 @@
 import { sqliteTable, text, integer, primaryKey } from 'drizzle-orm/sqlite-core';
 import { relations } from 'drizzle-orm';
 
-export const user = sqliteTable('user', {
-	id: integer('id', { mode: 'number' }).primaryKey({ autoIncrement: true }),
-	username: text('username').notNull().unique(),
-	passwordHash: text('password_hash').notNull()
-});
-
-export const session = sqliteTable('session', {
-	id: integer('id', { mode: 'number' }).primaryKey({ autoIncrement: true }),
-	userId: text('user_id')
-		.notNull()
-		.references(() => user.id),
-	expiresAt: integer('expires_at', { mode: 'timestamp' }).notNull()
-});
-
 export const word = sqliteTable('word', {
 	id: integer('id', { mode: 'number' }).primaryKey({ autoIncrement: true }),
 	slug: text('slug').notNull().unique(),
@@ -96,8 +82,6 @@ export const wordsToSongsRelations = relations(wordsToSongs, ({ one }) => ({
 	})
 }));
 
-export type User = typeof user.$inferSelect;
-export type Session = typeof session.$inferSelect;
 export type Word = typeof word.$inferSelect;
 export type Phrase = typeof phrase.$inferSelect;
 export type WordsToPhrases = typeof wordsToPhrases.$inferSelect;
