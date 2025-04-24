@@ -7,6 +7,10 @@
 	"observability": {
 		"enabled": true
 	},
+	"assets": {
+		"binding": "ASSETS",
+		"directory": ".svelte-kit/cloudflare"
+	},
 	"routes": [
 		{
 			"pattern": "babysign.kuzio.app",
@@ -31,10 +35,6 @@
 	 * Static Assets
 	 * https://developers.cloudflare.com/workers/static-assets/binding/
 	 */
-	"assets": {
-		"binding": "ASSETS",
-		"directory": ".svelte-kit/cloudflare"
-	},
 
 	/**
 	 * Service Bindings (communicate between multiple Workers)
