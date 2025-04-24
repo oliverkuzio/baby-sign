@@ -29,7 +29,7 @@
 	/>
 	<main class="relative flex grow flex-col items-stretch">
 		{#if user}
-			<div class="p-3">
+			<div class="p-4">
 				<h5 class="mb-0 leading-normal font-semibold" id="offcanvasExampleLabel">
 					Welcome, <b>{user.name}</b>!
 				</h5>

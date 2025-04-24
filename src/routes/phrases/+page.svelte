@@ -13,7 +13,7 @@
 	<p class="mb-3">Here are some phrases to learn:</p>
 
 	{#if phrases && phrases.length > 0}
-		<ul class="align-center grid grid-cols-1 justify-center gap-3 md:grid-cols-2 xl:grid-cols-3">
+		<ul class="align-center grid grid-cols-1 justify-center gap-4 md:grid-cols-2 xl:grid-cols-3">
 			{#each phrases as phrase (phrase.id)}
 				<li class="shrink-0 grow-0 basis-full">
 					<NavCard

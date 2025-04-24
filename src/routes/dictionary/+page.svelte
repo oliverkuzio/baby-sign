@@ -14,7 +14,7 @@
 	<p class="mb-3">Here are some words you can learn:</p>
 
 	{#if words && words.length > 0}
-		<ul class="align-center grid grid-cols-2 justify-center gap-3 md:grid-cols-4 xl:grid-cols-6">
+		<ul class="align-center grid grid-cols-2 justify-center gap-4 md:grid-cols-4 xl:grid-cols-6">
 			{#each words as word (word.id)}
 				<li>
 					<WordCard {word} />

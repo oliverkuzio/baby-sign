@@ -15,10 +15,10 @@
 	class:text-lg={size === 'large'}
 	class:top-0={!inset}
 	class:top-1={inset && size === 'small'}
-	class:top-3={inset && size === 'large'}
+	class:top-4={inset && size === 'large'}
 	class:right-0={!inset}
 	class:right-1={inset && size === 'small'}
-	class:right-3={inset && size === 'large'}
+	class:right-4={inset && size === 'large'}
 	aria-label="Edit"
 >
 	<svg

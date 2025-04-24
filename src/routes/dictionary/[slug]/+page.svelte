@@ -27,7 +27,7 @@
 		{#if word.phrases.length}
 			<h3 class="mb-3 text-lg font-semibold">Phrases with '{word.word}':</h3>
 			<ul
-				class="align-center mb-3 grid grid-cols-1 justify-center gap-3 md:grid-cols-2 xl:grid-cols-3"
+				class="align-center mb-3 grid grid-cols-1 justify-center gap-4 md:grid-cols-2 xl:grid-cols-3"
 			>
 				{#each word.phrases as phrase}
 					<li class="shrink-0 grow-0 basis-full">
@@ -43,7 +43,7 @@
 		{#if word.songs.length}
 			<h3 class="mb-3 text-lg font-semibold">Songs with '{word.word}':</h3>
 			<ul
-				class="align-center mb-3 grid grid-cols-1 justify-center gap-3 md:grid-cols-2 xl:grid-cols-3"
+				class="align-center mb-3 grid grid-cols-1 justify-center gap-4 md:grid-cols-2 xl:grid-cols-3"
 			>
 				{#each word.songs as song}
 					<li class="shrink-0 grow-0 basis-full">

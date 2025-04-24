@@ -7,7 +7,7 @@
 	<h1 class="mb-3 text-2xl leading-none font-extrabold">Baby Sign</h1>
 	<p class="mb-3">Welcome to the Baby Sign app!</p>
 	<nav>
-		<ul class="align-center grid grid-cols-1 justify-center gap-3 md:grid-cols-2 xl:grid-cols-3">
+		<ul class="align-center grid grid-cols-1 justify-center gap-4 md:grid-cols-2 xl:grid-cols-3">
 			<li>
 				<NavCard
 					href="/dictionary"

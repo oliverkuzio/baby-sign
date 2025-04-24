@@ -14,7 +14,7 @@
 
 	{#if songs && songs.length > 0}
 		<ul
-			class="align-center mb-3 grid grid-cols-1 justify-center gap-3 md:grid-cols-2 xl:grid-cols-3"
+			class="align-center mb-3 grid grid-cols-1 justify-center gap-4 md:grid-cols-2 xl:grid-cols-3"
 		>
 			{#each songs as song (song.id)}
 				<li>
