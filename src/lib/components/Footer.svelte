@@ -12,8 +12,7 @@
 				href="https://babysignlanguage.com/"
 				class="underline"
 				target="_blank">babysignlanguage.com</a
-			>.<br />
-			Videos provided by
+			>. Videos provided by
 			<a href="https://www.bbc.co.uk/teach/school-radio" class="underline" target="_blank"
 				>BBC Bitesize</a
 			>.
