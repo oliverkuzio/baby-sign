@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { PageData } from '../../$types';
+	import type { PageData } from './$types';
 	import Aside from '$lib/components/Aside.svelte';
 	import Content from '$lib/components/Content.svelte';
 	// import EditIcon from '$lib/components/EditIcon.svelte';

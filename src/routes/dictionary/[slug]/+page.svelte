@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { PageData } from '../../$types.js';
+	import type { PageData } from './$types';
 	import Content from '$lib/components/Content.svelte';
 	// import EditIcon from '$lib/components/EditIcon.svelte';
 	import NavCard from '$lib/components/NavCard.svelte';
@@ -24,11 +24,13 @@
 		<WordCard {word} size="large" />
 	</div>
 	<figure>
+		<!--
 		{#if word.definition}
 			<blockquote class="border-l-4 border-l-gray-700 pl-4">
 				<p class="mb-3">{word.definition}</p>
 			</blockquote>
 		{/if}
+		-->
 		{#if word.phrases.length}
 			<h3 class="mb-3 text-lg font-semibold">Phrases with '{word.word}':</h3>
 			<ul
@@ -60,9 +62,11 @@
 		<figcaption>
 			<cite class="text-sm text-gray-500">
 				Graphic
+				<!--
 				{#if word.definition}
 					and definition
 				{/if}
+				-->
 				for {word.word} sign from
 				<a
 					href="https://babysignlanguage.com/dictionary/{word.slug}/"

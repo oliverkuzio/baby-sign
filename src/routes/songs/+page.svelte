@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { PageData } from '../$types';
+	import type { PageData } from './$types';
 	import Content from '$lib/components/Content.svelte';
 	import NavCard from '$lib/components/NavCard.svelte';
 
