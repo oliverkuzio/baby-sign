@@ -8,9 +8,14 @@
 	const songs = data.songs;
 </script>
 
+<svelte:head>
+	<title>Songs to sign and sing • Baby Sign • Kuzio Apps</title>
+	<meta name="description" content="Songs to sign and sing" />
+</svelte:head>
+
 <Content>
 	<h1 class="mb-3 text-2xl leading-none font-extrabold">Songs</h1>
-	<p class="mb-3">Here are some songs to sing and sign:</p>
+	<p class="mb-3">Here are some songs to sign and sing:</p>
 
 	{#if songs && songs.length > 0}
 		<ul

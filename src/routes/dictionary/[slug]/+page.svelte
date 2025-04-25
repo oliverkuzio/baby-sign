@@ -10,6 +10,11 @@
 	const word = data.word;
 </script>
 
+<svelte:head>
+	<title>Learn to sign the word '{word.word}' • Baby Sign • Kuzio Apps</title>
+	<meta name="description" content="Learn to sign the word '{word.word}'" />
+</svelte:head>
+
 <Content>
 	<h1 class="relative mb-3 text-2xl leading-none font-extrabold">
 		{word.word}

@@ -10,6 +10,11 @@
 	const song = data.song;
 </script>
 
+<svelte:head>
+	<title>Sign and sing '{song.title}' • Baby Sign • Kuzio Apps</title>
+	<meta name="description" content="Sign and sing '{song.title}'" />
+</svelte:head>
+
 <Content>
 	<h1 class="relative mb-3 text-center text-2xl leading-none font-extrabold">
 		{song.title}

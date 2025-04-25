@@ -8,9 +8,14 @@
 	const phrases = data.phrases;
 </script>
 
+<svelte:head>
+	<title>Phrases to learn and sign • Baby Sign • Kuzio Apps</title>
+	<meta name="description" content="Phrases to learn and sign" />
+</svelte:head>
+
 <Content>
 	<h1 class="mb-3 text-2xl leading-none font-extrabold">Phrases</h1>
-	<p class="mb-3">Here are some phrases to learn:</p>
+	<p class="mb-3">Here are some phrases to learn and sign:</p>
 
 	{#if phrases && phrases.length > 0}
 		<ul class="align-center grid grid-cols-1 justify-center gap-4 md:grid-cols-2 xl:grid-cols-3">

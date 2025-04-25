@@ -10,6 +10,11 @@
 	const phrase = data.phrase;
 </script>
 
+<svelte:head>
+	<title>Learn to sign the phrase '{phrase.phrase}' • Baby Sign • Kuzio Apps</title>
+	<meta name="description" content="Learn to sign the phrase '{phrase.phrase}'" />
+</svelte:head>
+
 <Content>
 	<h1 class="relative mb-3 text-2xl leading-none font-extrabold">
 		{phrase.title}

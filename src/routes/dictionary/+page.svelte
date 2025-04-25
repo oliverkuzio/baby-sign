@@ -9,6 +9,11 @@
 	const words = data.words;
 </script>
 
+<svelte:head>
+	<title>Words to learn and sign • Baby Sign • Kuzio Apps</title>
+	<meta name="description" content="Words to learn and sign" />
+</svelte:head>
+
 <Content>
 	<h1 class="mb-3 text-2xl leading-none font-extrabold">Dictionary</h1>
 	<p class="mb-3">Here are some words you can learn:</p>
