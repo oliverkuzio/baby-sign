@@ -3,6 +3,11 @@
 	import NavCard from '$lib/components/NavCard.svelte';
 </script>
 
+<svelte:head>
+	<title>Welcome to the Baby Sign app! • Baby Sign • Kuzio Apps</title>
+	<meta name="description" content="Sign, sing and play!" />
+</svelte:head>
+
 <Content>
 	<h1 class="mb-3 text-2xl leading-none font-extrabold">Baby Sign</h1>
 	<p class="mb-3">Welcome to the Baby Sign app!</p>

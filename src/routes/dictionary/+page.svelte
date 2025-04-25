@@ -20,9 +20,11 @@
 					<WordCard {word} />
 				</li>
 			{/each}
+			<!--
 			<li>
 				<NavCard href="/dictionary/add" label="Add word +" />
 			</li>
+			-->
 		</ul>
 	{:else}
 		<p>No words found.</p>

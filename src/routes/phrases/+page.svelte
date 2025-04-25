@@ -23,9 +23,11 @@
 					/>
 				</li>
 			{/each}
+			<!--
 			<li>
 				<NavCard href="/phrases/add" label="Add phrase +" />
 			</li>
+			 -->
 		</ul>
 	{:else}
 		<p>No phrases found.</p>

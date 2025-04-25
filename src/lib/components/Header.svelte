@@ -2,24 +2,13 @@
 	import Button from './Button.svelte';
 
 	interface Props {
-		user?: { name: string };
-		onLogin?: () => void;
-		onLogout?: () => void;
 		showMenu?: boolean;
 		onToggleMenu?: () => void;
 		onCloseMenu?: () => void;
 		items?: { href: string; label: string }[];
 	}
 
-	const {
-		user,
-		onLogin,
-		onLogout,
-		showMenu,
-		onToggleMenu,
-		onCloseMenu,
-		items = []
-	}: Props = $props();
+	const { showMenu, onToggleMenu, onCloseMenu, items = [] }: Props = $props();
 </script>
 
 <header
@@ -74,7 +63,7 @@
 		<div class="px-3 py-5 xl:hidden">
 			<h5 class="mb-0 text-lg leading-normal font-semibold" id="offcanvasExampleLabel">Menu</h5>
 		</div>
-		<div class="max-xl:p-4 items-center justify-between  xl:flex">
+		<div class="items-center justify-between max-xl:p-4 xl:flex">
 			{#if items.length > 0}
 				{#each items as item (item.label)}
 					<a
@@ -86,18 +75,8 @@
 			{/if}
 		</div>
 	</nav>
-	<div class="flex items-center gap-2">
-		{#if user}
-			<Button size="small" onClick={onLogout} label="Log out" />
-		{:else}
-			<Button primary size="small" onClick={onLogin} label="Log in" />
-		{/if}
-		<button
-			class="space-y-1 xl:hidden"
-			aria-label="Menu"
-			aria-expanded="false"
-			onclick={onToggleMenu}
-		>
+	<div class="flex items-center gap-2 xl:hidden">
+		<button class="space-y-1" aria-label="Menu" aria-expanded="false" onclick={onToggleMenu}>
 			<span class="block h-1 w-6 bg-white"></span>
 			<span class="block h-1 w-6 bg-white"></span>
 			<span class="block h-1 w-6 bg-white"></span>
