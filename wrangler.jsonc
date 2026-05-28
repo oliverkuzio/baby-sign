@@ -24,6 +24,14 @@
 	 * databases, object storage, AI inference, real-time communication and more.
 	 * https://developers.cloudflare.com/workers/runtime-apis/bindings/
 	 */
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "babysign",
+			"database_id": "72bb2e65-ef80-4d90-8847-92fa5c19a3a5",
+			"migrations_dir": "./drizzle"
+		}
+	]
 
 	/**
 	 * Environment Variables
@@ -40,12 +48,4 @@
 	 * Service Bindings (communicate between multiple Workers)
 	 * https://developers.cloudflare.com/workers/wrangler/configuration/#service-bindings
 	 */
-	"d1_databases": [
-		{
-			"binding": "DB",
-			"database_name": "babysign",
-			"database_id": "72bb2e65-ef80-4d90-8847-92fa5c19a3a5",
-			"migrations_dir": "./drizzle"
-		}
-	]
 }
