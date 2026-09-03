@@ -15,35 +15,20 @@
 
   <form method='POST' action='?/update' use:enhance class='flex max-w-md flex-col gap-4'>
     {#if form?.error}
-      <p class='rounded bg-red-900/50 px-3 py-2 text-red-200'>{form.error}</p>
+      <p class='alert alert-error'>{form.error}</p>
     {/if}
 
-    <label class='flex flex-col gap-1'>
-      <span class='text-sm text-gray-300'>Word</span>
-      <input
-        name='word'
-        required
-        value={form?.word ?? data.word.word}
-        class='rounded bg-white/10 px-3 py-2 focus:ring-2 focus:ring-pink-500 focus:outline-none'
-      />
+    <label class='fieldset'>
+      <span class='label'>Word</span>
+      <input name='word' required value={form?.word ?? data.word.word} class='input w-full' />
     </label>
 
-    <label class='flex flex-col gap-1'>
-      <span class='text-sm text-gray-300'>Slug</span>
-      <input
-        name='slug'
-        required
-        value={form?.slug ?? data.word.slug}
-        class='rounded bg-white/10 px-3 py-2 focus:ring-2 focus:ring-pink-500 focus:outline-none'
-      />
+    <label class='fieldset'>
+      <span class='label'>Slug</span>
+      <input name='slug' required value={form?.slug ?? data.word.slug} class='input w-full' />
     </label>
 
-    <button
-      type='submit'
-      class='self-start rounded bg-pink-500 px-4 py-2 font-semibold text-white hover:bg-pink-700'
-    >
-      Save changes
-    </button>
+    <button type='submit' class='btn btn-primary self-start'>Save changes</button>
   </form>
 
   <form
@@ -58,8 +43,6 @@
       }
     }}
   >
-    <button type='submit' class='rounded bg-red-900 px-4 py-2 font-semibold text-red-100 hover:bg-red-800'>
-      Delete word
-    </button>
+    <button type='submit' class='btn btn-error'>Delete word</button>
   </form>
 </Content>

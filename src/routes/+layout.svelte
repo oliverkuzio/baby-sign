@@ -1,10 +1,7 @@
 <script lang='ts'>
   import Footer from '$lib/components/Footer.svelte'
   import Header from '$lib/components/Header.svelte'
-  import Page from '$lib/components/Page.svelte'
   import '../app.css'
-
-  let showMenu = $state<boolean>()
 
   const { children, data } = $props()
 
@@ -16,16 +13,9 @@
   ]
 </script>
 
-<Page>
-  <Header
-    {showMenu}
-    onToggleMenu={() => (showMenu = !showMenu)}
-    onCloseMenu={() => (showMenu = false)}
-    {items}
-    user={data.user}
-  />
+<Header {items} user={data.user}>
   <main class='relative flex grow flex-col items-stretch'>
     {@render children?.()}
   </main>
   <Footer />
-</Page>
+</Header>

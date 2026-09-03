@@ -62,7 +62,7 @@
       </ul>
     {/if}
     <figcaption>
-      <cite class='text-sm text-gray-500'>
+      <cite class='text-base-content/60 text-sm'>
         Graphic
         <!--
         {#if word.definition}
@@ -72,7 +72,7 @@
         for {word.word} sign from
         <a
           href='https://babysignlanguage.com/dictionary/{word.slug}/'
-          class='underline'
+          class='link link-hover'
           target='_blank'>babysignlanguage.com</a
         >.
       </cite>

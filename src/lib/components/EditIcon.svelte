@@ -10,9 +10,9 @@
 
 <a
   {href}
-  class='absolute rounded-full bg-pink-500 p-2 text-white'
-  class:text-xs={size === 'small'}
-  class:text-lg={size === 'large'}
+  class='btn btn-primary btn-circle absolute'
+  class:btn-xs={size === 'small'}
+  class:btn-md={size === 'large'}
   class:top-0={!inset}
   class:top-1={inset && size === 'small'}
   class:top-4={inset && size === 'large'}
