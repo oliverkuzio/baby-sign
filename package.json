@@ -33,10 +33,9 @@
     "lint": "eslint .",
     "test:unit": "vitest",
     "test": "pnpm run test:unit -- --run",
-    "db:push": "drizzle-kit push",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate",
-    "db:studio": "drizzle-kit studio",
+    "db:migrate": "wrangler d1 migrations apply babysign --local",
+    "db:migrate:remote": "wrangler d1 migrations apply babysign --remote",
     "deploy": "pnpm run build && wrangler deploy",
     "cf-typegen": "wrangler types && mv worker-configuration.d.ts src/"
   },
@@ -44,7 +43,7 @@
     "svelte": "^5.0.0"
   },
   "dependencies": {
-    "@libsql/client": "^0.15.4",
+    "better-auth": "^1.7.2",
     "drizzle-orm": "^0.40.0"
   },
   "devDependencies": {

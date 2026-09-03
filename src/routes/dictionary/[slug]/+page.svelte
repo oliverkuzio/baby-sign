@@ -1,7 +1,7 @@
 <script lang='ts'>
   import type { PageData } from './$types'
   import Content from '$lib/components/Content.svelte'
-  // import EditIcon from '$lib/components/EditIcon.svelte';
+  import EditIcon from '$lib/components/EditIcon.svelte'
   import NavCard from '$lib/components/NavCard.svelte'
   import WordCard from '$lib/components/WordCard.svelte'
 
@@ -18,7 +18,9 @@
 <Content>
   <h1 class='relative mb-3 text-2xl leading-none font-extrabold'>
     {word.word}
-    <!-- <EditIcon href="/dictionary/{word.slug}/edit" size="large" /> -->
+    {#if data.user}
+      <EditIcon href='/dictionary/{word.slug}/edit' size='large' />
+    {/if}
   </h1>
   <div class='mt-10 mb-3'>
     <WordCard {word} size='large' />
