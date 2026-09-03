@@ -17,22 +17,24 @@
   <h1 class='mb-3 text-2xl leading-none font-extrabold'>Songs</h1>
   <p class='mb-3'>Here are some songs to sign and sing:</p>
 
-  {#if songs && songs.length > 0}
-    <ul
-      class='align-center mb-3 grid grid-cols-1 justify-center gap-4 md:grid-cols-2 xl:grid-cols-3'
-    >
+  {#if !songs || songs.length === 0}
+    <p>No songs found.</p>
+  {/if}
+
+  <ul
+    class='align-center mb-3 grid grid-cols-1 justify-center gap-4 md:grid-cols-2 xl:grid-cols-3'
+  >
+    {#if songs && songs.length > 0}
       {#each songs as song (song.id)}
         <li>
           <NavCard href='/songs/{song.slug}' label={song.title} />
         </li>
       {/each}
-      {#if data.user}
-        <li>
-          <NavCard href='/songs/new' label='Add song +' />
-        </li>
-      {/if}
-    </ul>
-  {:else}
-    <p>No songs found.</p>
-  {/if}
+    {/if}
+    {#if data.user}
+      <li>
+        <NavCard href='/songs/new' label='Add song +' />
+      </li>
+    {/if}
+  </ul>
 </Content>

@@ -5,6 +5,9 @@
 # Random string used to sign session tokens/cookies, e.g. `openssl rand -base64 32`.
 BETTER_AUTH_SECRET=
 
+# Overrides the production BETTER_AUTH_URL set in wrangler.jsonc's `vars`.
+BETTER_AUTH_URL=http://localhost:5173
+
 # GitHub OAuth App credentials: https://github.com/settings/developers
 # Authorization callback URL: <origin>/api/auth/callback/github
 # (http://localhost:5173/api/auth/callback/github for local dev)

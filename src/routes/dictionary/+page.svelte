@@ -18,20 +18,22 @@
   <h1 class='mb-3 text-2xl leading-none font-extrabold'>Dictionary</h1>
   <p class='mb-3'>Here are some words you can learn:</p>
 
-  {#if words && words.length > 0}
-    <ul class='align-center grid grid-cols-2 justify-center gap-4 md:grid-cols-4 xl:grid-cols-6'>
+  {#if !words || words.length === 0}
+    <p>No words found.</p>
+  {/if}
+
+  <ul class='align-center grid grid-cols-2 justify-center gap-4 md:grid-cols-4 xl:grid-cols-6'>
+    {#if words && words.length > 0}
       {#each words as word (word.id)}
         <li>
           <WordCard {word} showEdit={!!data.user} />
         </li>
       {/each}
-      {#if data.user}
-        <li>
-          <NavCard href='/dictionary/new' label='Add word +' />
-        </li>
-      {/if}
-    </ul>
-  {:else}
-    <p>No words found.</p>
-  {/if}
+    {/if}
+    {#if data.user}
+      <li>
+        <NavCard href='/dictionary/new' label='Add word +' />
+      </li>
+    {/if}
+  </ul>
 </Content>
