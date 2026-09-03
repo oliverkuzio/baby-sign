@@ -17,8 +17,12 @@
   <h1 class='mb-3 text-2xl leading-none font-extrabold'>Phrases</h1>
   <p class='mb-3'>Here are some phrases to learn and sign:</p>
 
-  {#if phrases && phrases.length > 0}
-    <ul class='align-center grid grid-cols-1 justify-center gap-4 md:grid-cols-2 xl:grid-cols-3'>
+  {#if !phrases || phrases.length === 0}
+    <p>No phrases found.</p>
+  {/if}
+
+  <ul class='align-center grid grid-cols-1 justify-center gap-4 md:grid-cols-2 xl:grid-cols-3'>
+    {#if phrases && phrases.length > 0}
       {#each phrases as phrase (phrase.id)}
         <li class='shrink-0 grow-0 basis-full'>
           <NavCard
@@ -28,13 +32,11 @@
           />
         </li>
       {/each}
-      {#if data.user}
-        <li class='shrink-0 grow-0 basis-full'>
-          <NavCard href='/phrases/new' label='Add phrase +' />
-        </li>
-      {/if}
-    </ul>
-  {:else}
-    <p>No phrases found.</p>
-  {/if}
+    {/if}
+    {#if data.user}
+      <li class='shrink-0 grow-0 basis-full'>
+        <NavCard href='/phrases/new' label='Add phrase +' />
+      </li>
+    {/if}
+  </ul>
 </Content>
