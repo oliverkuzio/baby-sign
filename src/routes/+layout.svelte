@@ -1,30 +1,30 @@
-<script lang="ts">
-	import Header from '$lib/components/Header.svelte';
-	import Footer from '$lib/components/Footer.svelte';
-	import Page from '$lib/components/Page.svelte';
-	import '../app.css';
+<script lang='ts'>
+  import Footer from '$lib/components/Footer.svelte'
+  import Header from '$lib/components/Header.svelte'
+  import Page from '$lib/components/Page.svelte'
+  import '../app.css'
 
-	let showMenu = $state<boolean>();
+  let showMenu = $state<boolean>()
 
-	let { children } = $props();
+  const { children } = $props()
 
-	let items = [
-		{ href: '/', label: 'Home' },
-		{ href: '/dictionary', label: 'Dictionary' },
-		{ href: '/phrases', label: 'Phrases' },
-		{ href: '/songs', label: 'Songs' }
-	];
+  const items = [
+    { href: '/', label: 'Home' },
+    { href: '/dictionary', label: 'Dictionary' },
+    { href: '/phrases', label: 'Phrases' },
+    { href: '/songs', label: 'Songs' },
+  ]
 </script>
 
 <Page>
-	<Header
-		{showMenu}
-		onToggleMenu={() => (showMenu = !showMenu)}
-		onCloseMenu={() => (showMenu = false)}
-		{items}
-	/>
-	<main class="relative flex grow flex-col items-stretch">
-		{@render children?.()}
-	</main>
-	<Footer />
+  <Header
+    {showMenu}
+    onToggleMenu={() => (showMenu = !showMenu)}
+    onCloseMenu={() => (showMenu = false)}
+    {items}
+  />
+  <main class='relative flex grow flex-col items-stretch'>
+    {@render children?.()}
+  </main>
+  <Footer />
 </Page>

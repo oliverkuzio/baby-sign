@@ -1,17 +1,17 @@
-import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
-import { relations } from 'drizzle-orm';
+import { relations } from 'drizzle-orm'
+import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 
-import { wordsToPhrases } from './wordsToPhrases';
+import { wordsToPhrases } from './wordsToPhrases'
 
 export const phrase = sqliteTable('phrase', {
-	id: integer('id', { mode: 'number' }).primaryKey({ autoIncrement: true }),
-	slug: text('slug').notNull().unique(),
-	title: text('title').notNull(),
-	phrase: text('phrase').notNull()
-});
+  id: integer('id', { mode: 'number' }).primaryKey({ autoIncrement: true }),
+  slug: text('slug').notNull().unique(),
+  title: text('title').notNull(),
+  phrase: text('phrase').notNull(),
+})
 
 export const phraseRelations = relations(phrase, ({ many }) => ({
-	words: many(wordsToPhrases)
-}));
+  words: many(wordsToPhrases),
+}))
 
-export type Phrase = typeof phrase.$inferSelect;
+export type Phrase = typeof phrase.$inferSelect
