@@ -31,13 +31,18 @@
       "database_id": "72bb2e65-ef80-4d90-8847-92fa5c19a3a5",
       "migrations_dir": "./drizzle"
     }
-  ]
+  ],
 
   /**
    * Environment Variables
    * https://developers.cloudflare.com/workers/wrangler/configuration/#environment-variables
    */
-  // "vars": { "MY_VARIABLE": "production_value" },
+  "vars": {
+    // Not secret — Better Auth's own recommended way to pin its base origin
+    // instead of trusting request headers. Overridden to localhost for
+    // local dev via `.dev.vars` (which takes precedence over this).
+    "BETTER_AUTH_URL": "https://babysign.kuzio.app"
+  }
 
   /**
    * Static Assets

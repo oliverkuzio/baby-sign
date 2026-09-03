@@ -17,6 +17,7 @@ export function createAuth(db: DrizzleClient, env: Env) {
       schema,
     }),
     secret: env.BETTER_AUTH_SECRET,
+    baseURL: env.BETTER_AUTH_URL,
     socialProviders: {
       github: {
         clientId: env.GITHUB_CLIENT_ID,
