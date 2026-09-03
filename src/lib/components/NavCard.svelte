@@ -11,13 +11,11 @@
   const { href, label, description = '' }: Props = $props()
 </script>
 
-<article class='overflow-hidden rounded bg-white/10 shadow-lg'>
-  <a {href} class='block'>
-    <div class='px-6 py-4'>
-      <h2 class='text-lg font-bold'>{label}</h2>
-      {#if description}
-        <p class='text-sm text-gray-500'>{description}</p>
-      {/if}
-    </div>
-  </a>
-</article>
+<a {href} class='card bg-base-200 shadow-lg'>
+  <div class='card-body p-6'>
+    <h2 class='card-title text-lg'>{label}</h2>
+    {#if description}
+      <p class='text-sm opacity-60'>{description}</p>
+    {/if}
+  </div>
+</a>
