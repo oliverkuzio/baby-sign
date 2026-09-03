@@ -26,7 +26,7 @@
     {#if words && words.length > 0}
       {#each words as word (word.id)}
         <li>
-          <WordCard {word} showEdit={!!data.user} />
+          <WordCard {word} imageUrl={data.imageUrl} showEdit={!!data.user} />
         </li>
       {/each}
     {/if}

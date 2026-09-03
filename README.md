@@ -8,12 +8,6 @@ Install dependencies:
 pnpm install
 ```
 
-Create dotenv file:
-
-```bash
-cp .env.example .env
-```
-
 The app uses [Cloudflare D1](https://developers.cloudflare.com/d1/) as its database, configured as the `DB` binding in [wrangler.jsonc](wrangler.jsonc). Apply migrations to a local D1 database (emulated on disk by Wrangler under `.wrangler/`):
 
 ```bash
@@ -42,6 +36,10 @@ wrangler secret put GITHUB_CLIENT_SECRET
 ```
 
 Once signed in, a "Add word/phrase/song +" link appears on each list page and an edit icon appears on each entry — creating, editing, and deleting words, phrases, and songs (`/dictionary/new`, `/dictionary/[slug]/edit`, and the equivalent `/phrases` and `/songs` routes) all require a signed-in user, enforced server-side in each route's `load`/`actions` via `requireUser` (see [src/lib/server/auth.ts](src/lib/server/auth.ts)), not just hidden in the UI.
+
+### Sign images
+
+Word/phrase/song sign images are served from a Cloudinary CDN, pinned via the non-secret `PUBLIC_IMAGE_URL` var in [wrangler.jsonc](wrangler.jsonc) (same pattern as `BETTER_AUTH_URL`) and read from `platform.env` in [+layout.server.ts](src/routes/+layout.server.ts) — no local setup needed.
 
 ## Developing
 

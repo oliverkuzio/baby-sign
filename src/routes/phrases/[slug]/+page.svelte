@@ -30,6 +30,6 @@
 {#if phrase.words && phrase.words.length > 0}
   <Aside>
     <h2 class='mb-3 text-xl font-semibold'>Words in this phrase:</h2>
-    <WordScroller words={phrase.words} />
+    <WordScroller words={phrase.words} imageUrl={data.imageUrl} />
   </Aside>
 {/if}

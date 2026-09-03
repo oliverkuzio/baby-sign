@@ -23,7 +23,7 @@
     {/if}
   </h1>
   <div class='mt-10 mb-3'>
-    <WordCard {word} size='large' />
+    <WordCard {word} imageUrl={data.imageUrl} size='large' />
   </div>
   <figure>
     <!--
