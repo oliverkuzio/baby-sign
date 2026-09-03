@@ -1,6 +1,7 @@
 <script lang='ts'>
   import type { PageData } from './$types'
   import Content from '$lib/components/Content.svelte'
+  import NavCard from '$lib/components/NavCard.svelte'
   import WordCard from '$lib/components/WordCard.svelte'
 
   export let data: PageData
@@ -21,14 +22,14 @@
     <ul class='align-center grid grid-cols-2 justify-center gap-4 md:grid-cols-4 xl:grid-cols-6'>
       {#each words as word (word.id)}
         <li>
-          <WordCard {word} />
+          <WordCard {word} showEdit={!!data.user} />
         </li>
       {/each}
-      <!--
-      <li>
-        <NavCard href="/dictionary/add" label="Add word +" />
-      </li>
-      -->
+      {#if data.user}
+        <li>
+          <NavCard href='/dictionary/new' label='Add word +' />
+        </li>
+      {/if}
     </ul>
   {:else}
     <p>No words found.</p>

@@ -2,7 +2,7 @@
   import type { PageData } from './$types'
   import Aside from '$lib/components/Aside.svelte'
   import Content from '$lib/components/Content.svelte'
-  // import EditIcon from '$lib/components/EditIcon.svelte';
+  import EditIcon from '$lib/components/EditIcon.svelte'
   import WordScroller from '$lib/components/WordScroller.svelte'
 
   export let data: PageData
@@ -18,7 +18,9 @@
 <Content>
   <h1 class='relative mb-3 text-center text-2xl leading-none font-extrabold'>
     {song.title}
-    <!-- <EditIcon href="/songs/{song.slug}/edit" size="large" /> -->
+    {#if data.user}
+      <EditIcon href='/songs/{song.slug}/edit' size='large' />
+    {/if}
   </h1>
   {#each song.lyrics.split('.').filter(Boolean) as segment, i (i)}
     <p class='mt-10 text-center text-xl italic'>

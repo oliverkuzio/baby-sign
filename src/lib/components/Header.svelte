@@ -1,13 +1,28 @@
 <script lang='ts'>
+  import { goto } from '$app/navigation'
+  import { authClient } from '$lib/auth-client'
 
   interface Props {
     showMenu?: boolean
     onToggleMenu?: () => void
     onCloseMenu?: () => void
     items?: { href: string, label: string }[]
+    user?: { name: string } | null
   }
 
-  const { showMenu, onToggleMenu, onCloseMenu, items = [] }: Props = $props()
+  const { showMenu, onToggleMenu, onCloseMenu, items = [], user }: Props = $props()
+
+  function signIn() {
+    authClient.signIn.social({ provider: 'github', callbackURL: '/' })
+  }
+
+  function signOut() {
+    authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => goto('/', { invalidateAll: true }),
+      },
+    })
+  }
 </script>
 
 <header
@@ -74,11 +89,31 @@
       {/if}
     </div>
   </nav>
-  <div class='flex items-center gap-2 xl:hidden'>
-    <button class='space-y-1' aria-label='Menu' aria-expanded='false' onclick={onToggleMenu}>
-      <span class='block h-1 w-6 bg-white'></span>
-      <span class='block h-1 w-6 bg-white'></span>
-      <span class='block h-1 w-6 bg-white'></span>
-    </button>
+  <div class='flex items-center gap-4'>
+    {#if user}
+      <span class='hidden text-sm text-gray-300 sm:inline'>{user.name}</span>
+      <button
+        type='button'
+        class='rounded-md bg-white/10 px-3 py-1.5 text-sm hover:bg-white/20'
+        onclick={signOut}
+      >
+        Sign out
+      </button>
+    {:else}
+      <button
+        type='button'
+        class='rounded-md bg-white/10 px-3 py-1.5 text-sm hover:bg-white/20'
+        onclick={signIn}
+      >
+        Sign in with GitHub
+      </button>
+    {/if}
+    <div class='flex items-center gap-2 xl:hidden'>
+      <button class='space-y-1' aria-label='Menu' aria-expanded='false' onclick={onToggleMenu}>
+        <span class='block h-1 w-6 bg-white'></span>
+        <span class='block h-1 w-6 bg-white'></span>
+        <span class='block h-1 w-6 bg-white'></span>
+      </button>
+    </div>
   </div>
 </header>

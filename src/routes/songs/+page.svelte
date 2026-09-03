@@ -26,11 +26,11 @@
           <NavCard href='/songs/{song.slug}' label={song.title} />
         </li>
       {/each}
-      <!--
-      <li>
-        <NavCard href="/songs/add" label="Add song +" />
-      </li>
-      -->
+      {#if data.user}
+        <li>
+          <NavCard href='/songs/new' label='Add song +' />
+        </li>
+      {/if}
     </ul>
   {:else}
     <p>No songs found.</p>

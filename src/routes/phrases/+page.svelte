@@ -28,11 +28,11 @@
           />
         </li>
       {/each}
-      <!--
-      <li>
-        <NavCard href="/phrases/add" label="Add phrase +" />
-      </li>
-      -->
+      {#if data.user}
+        <li class='shrink-0 grow-0 basis-full'>
+          <NavCard href='/phrases/new' label='Add phrase +' />
+        </li>
+      {/if}
     </ul>
   {:else}
     <p>No phrases found.</p>

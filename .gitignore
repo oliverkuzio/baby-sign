@@ -21,6 +21,8 @@ Thumbs.db
 .env.*
 !.env.example
 !.env.test
+.dev.vars
+!.dev.vars.example
 
 # Vite
 vite.config.js.timestamp-*
@@ -31,3 +33,7 @@ vite.config.ts.timestamp-*
 *.sql
 *.sqlite
 *.sqlite3
+# ...but not the generated migrations drizzle-kit commits under /drizzle — the
+# blanket *.sql rule above was silently swallowing every one of them (see
+# the gap this left at drizzle/0001_wandering_secret_warriors.sql).
+!/drizzle/**/*.sql

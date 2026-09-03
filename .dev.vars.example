@@ -1,0 +1,12 @@
+# Wrangler-style local secrets, proxied into `platform.env` during `vite dev` / `wrangler dev`.
+# Copy to `.dev.vars` (untracked) and fill in real values.
+# For production, set these with `wrangler secret put <NAME>` instead of committing them.
+
+# Random string used to sign session tokens/cookies, e.g. `openssl rand -base64 32`.
+BETTER_AUTH_SECRET=
+
+# GitHub OAuth App credentials: https://github.com/settings/developers
+# Authorization callback URL: <origin>/api/auth/callback/github
+# (http://localhost:5173/api/auth/callback/github for local dev)
+GITHUB_CLIENT_ID=
+GITHUB_CLIENT_SECRET=

@@ -6,7 +6,7 @@
 
   let showMenu = $state<boolean>()
 
-  const { children } = $props()
+  const { children, data } = $props()
 
   const items = [
     { href: '/', label: 'Home' },
@@ -22,6 +22,7 @@
     onToggleMenu={() => (showMenu = !showMenu)}
     onCloseMenu={() => (showMenu = false)}
     {items}
+    user={data.user}
   />
   <main class='relative flex grow flex-col items-stretch'>
     {@render children?.()}
