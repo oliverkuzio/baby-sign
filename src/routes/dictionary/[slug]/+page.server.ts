@@ -1,32 +1,32 @@
-import type { PageServerLoad } from './$types.js';
-import { word } from '$lib/server/db/schema.js';
-import { eq } from 'drizzle-orm';
+import type { PageServerLoad } from './$types.js'
+import { word } from '$lib/server/db/schema'
+import { eq } from 'drizzle-orm'
 
 export const load: PageServerLoad = async ({ locals, params }) => {
-	const { slug } = params;
-	const res = await locals.db.query.word.findFirst({
-		where: eq(word.slug, slug),
-		with: {
-			phrases: {
-				columns: {},
-				with: {
-					phrase: true
-				}
-			},
-			songs: {
-				columns: {},
-				with: {
-					song: true
-				}
-			}
-		}
-	});
+  const { slug } = params
+  const res = await locals.db.query.word.findFirst({
+    where: eq(word.slug, slug),
+    with: {
+      phrases: {
+        columns: {},
+        with: {
+          phrase: true,
+        },
+      },
+      songs: {
+        columns: {},
+        with: {
+          song: true,
+        },
+      },
+    },
+  })
 
-	if (res === null) {
-		throw new Error(`Word with slug "${slug}" not found`);
-	}
+  if (res === null) {
+    throw new Error(`Word with slug "${slug}" not found`)
+  }
 
-	return {
-		word: res
-	};
-};
+  return {
+    word: res,
+  }
+}

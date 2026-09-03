@@ -1,7 +1,7 @@
-<script lang="ts">
-	let { children } = $props();
+<script lang='ts'>
+  const { children } = $props()
 </script>
 
-<section class="px-4 py-10">
-	{@render children?.()}
+<section class='px-4 py-10'>
+  {@render children?.()}
 </section>
