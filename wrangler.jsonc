@@ -41,7 +41,11 @@
     // Not secret — Better Auth's own recommended way to pin its base origin
     // instead of trusting request headers. Overridden to localhost for
     // local dev via `.dev.vars` (which takes precedence over this).
-    "BETTER_AUTH_URL": "https://babysign.kuzio.app"
+    "BETTER_AUTH_URL": "https://babysign.kuzio.app",
+    // Not secret — base URL for the sign-image CDN, read via `platform.env`
+    // (see `+layout.server.ts`) rather than `$env/static/public` so it's
+    // available at runtime without needing a build-time env var.
+    "PUBLIC_IMAGE_URL": "https://res.cloudinary.com/spiralyze/image/upload/f_auto,w_auto/BabySignLanguage/DictionaryPages"
   }
 
   /**

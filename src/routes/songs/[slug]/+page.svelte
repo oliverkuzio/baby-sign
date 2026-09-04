@@ -41,6 +41,6 @@
 {#if song.words && song.words.length > 0}
   <Aside>
     <h2 class='mb-3 text-xl font-semibold'>Words in this song:</h2>
-    <WordScroller words={song.words} />
+    <WordScroller words={song.words} imageUrl={data.imageUrl} />
   </Aside>
 {/if}
