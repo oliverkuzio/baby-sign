@@ -12,6 +12,7 @@ overrides:
   shell-quote: ^1.8.5
 
 allowBuilds:
+  '@sentry/cli': false
   better-sqlite3: true
   esbuild: true
   sharp: true
