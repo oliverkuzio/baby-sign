@@ -1,8 +1,15 @@
 overrides:
+  # Patched transitive versions for known advisories (none used directly by
+  # the app): drizzle-kit's deprecated esbuild-kit loader pulls an old esbuild.
+  '@esbuild-kit/core-utils>esbuild': ^0.25.0
+  # @sveltejs/kit still declares an old cookie range.
+  cookie: ^0.7.2
   # Force a single drizzle-orm instance: without this, better-auth's drizzle
   # adapter pulls in its own peer-resolved copy, and TS treats the two
   # `Column` classes (which have a protected member) as structurally distinct.
-  drizzle-orm: ^0.40.0
+  drizzle-orm: ^0.45.2
+  # better-auth/drizzle-orm's optional `gel` driver pulls an old shell-quote.
+  shell-quote: ^1.8.5
 
 allowBuilds:
   better-sqlite3: true

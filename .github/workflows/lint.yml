@@ -2,6 +2,8 @@ name: Lint
 
 on:
   push:
+    branches: [development, production]
+  pull_request:
 
 jobs:
   lint:
@@ -24,3 +26,12 @@ jobs:
 
       - name: Lint
         run: pnpm run lint
+
+      - name: Check types
+        # PUBLIC_IMAGE_URL and PUBLIC_SENTRY_DSN aren't secret (see .env.example)
+        # but $env/static/public still needs them defined at sync/check time,
+        # or svelte-check errors that the module has no such export.
+        run: pnpm run check
+        env:
+          PUBLIC_IMAGE_URL: https://placeholder@localhost
+          PUBLIC_SENTRY_DSN: https://placeholder@localhost/0
