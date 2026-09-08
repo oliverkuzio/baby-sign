@@ -37,3 +37,6 @@ vite.config.ts.timestamp-*
 # blanket *.sql rule above was silently swallowing every one of them (see
 # the gap this left at drizzle/0001_wandering_secret_warriors.sql).
 !/drizzle/**/*.sql
+
+# Sentry Config File
+.env.sentry-build-plugin

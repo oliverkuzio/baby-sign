@@ -2,9 +2,11 @@ import type { Handle } from '@sveltejs/kit'
 import { building } from '$app/environment'
 import { createAuth } from '$lib/server/auth'
 import { createD1Client } from '$lib/server/db'
+import * as Sentry from '@sentry/sveltekit'
+import { sequence } from '@sveltejs/kit/hooks'
 import { svelteKitHandler } from 'better-auth/svelte-kit'
 
-export const handle: Handle = async ({ event, resolve }) => {
+export const handle: Handle = sequence(Sentry.sentryHandle(), async ({ event, resolve }) => {
   if (!event.platform?.env.DB) {
     throw new Error('No database found.')
   }
@@ -17,4 +19,6 @@ export const handle: Handle = async ({ event, resolve }) => {
   event.locals.user = session?.user
 
   return svelteKitHandler({ event, resolve, auth: event.locals.auth, building })
-}
+})
+
+export const handleError = Sentry.handleErrorWithSentry()
