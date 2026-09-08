@@ -1,12 +1,12 @@
 import type { Actions, PageServerLoad } from './$types'
-import { requireUser } from '$lib/server/auth'
+import { requireAdmin } from '$lib/server/auth'
 import { word } from '$lib/server/db/schema'
 import { slugify } from '$lib/server/slugify'
 import { error, fail, redirect } from '@sveltejs/kit'
 import { eq } from 'drizzle-orm'
 
 export const load: PageServerLoad = async ({ locals, params }) => {
-  requireUser(locals)
+  requireAdmin(locals)
 
   const res = await locals.db.query.word.findFirst({
     where: eq(word.slug, params.slug),
@@ -25,7 +25,7 @@ export const load: PageServerLoad = async ({ locals, params }) => {
 
 export const actions: Actions = {
   update: async ({ request, locals, params }) => {
-    requireUser(locals)
+    requireAdmin(locals)
 
     const data = await request.formData()
     const wordText = String(data.get('word') ?? '').trim()
@@ -55,7 +55,7 @@ export const actions: Actions = {
   },
 
   delete: async ({ locals, params }) => {
-    requireUser(locals)
+    requireAdmin(locals)
 
     const existing = await locals.db.query.word.findFirst({
       where: eq(word.slug, params.slug),

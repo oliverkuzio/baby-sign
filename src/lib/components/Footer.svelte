@@ -8,9 +8,9 @@
       <a href='https://oliverkuzio.com/' class='link link-hover'>Oliver Kuzio</a>.
     </p>
     <p class='text-sm'>
-      Sign cards provided by <a href='https://babysignlanguage.com/' class='link link-hover'
+      Sign cards sourced from <a href='https://babysignlanguage.com/' class='link link-hover'
       >babysignlanguage.com</a
-      >. Videos provided by
+      >. Videos sourced from
       <a href='https://www.bbc.co.uk/teach/school-radio' class='link link-hover'>BBC Bitesize</a>.
     </p>
   </div>

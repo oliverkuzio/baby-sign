@@ -1,16 +1,16 @@
 import type { Actions, PageServerLoad } from './$types'
-import { requireUser } from '$lib/server/auth'
+import { requireAdmin } from '$lib/server/auth'
 import { word } from '$lib/server/db/schema'
 import { slugify } from '$lib/server/slugify'
 import { fail, redirect } from '@sveltejs/kit'
 
 export const load: PageServerLoad = ({ locals }) => {
-  requireUser(locals)
+  requireAdmin(locals)
 }
 
 export const actions: Actions = {
   default: async ({ request, locals }) => {
-    requireUser(locals)
+    requireAdmin(locals)
 
     const data = await request.formData()
     const wordText = String(data.get('word') ?? '').trim()
