@@ -1,8 +1,11 @@
 import type { PageServerLoad } from './$types.js'
+import { requireUser } from '$lib/server/auth'
 import { phrase } from '$lib/server/db/schema'
 import { eq } from 'drizzle-orm'
 
 export const load: PageServerLoad = async ({ locals, params }) => {
+  requireUser(locals)
+
   const { slug } = params
   const res = await locals.db.query.phrase.findFirst({
     where: eq(phrase.slug, slug),

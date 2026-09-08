@@ -50,6 +50,13 @@
       "when": 1788864261771,
       "tag": "0006_damp_dark_phoenix",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "6",
+      "when": 1788873967608,
+      "tag": "0007_noisy_logan",
+      "breakpoints": true
     }
   ]
 }
