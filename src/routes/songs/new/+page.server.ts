@@ -1,12 +1,12 @@
 import type { Actions, PageServerLoad } from './$types'
-import { requireUser } from '$lib/server/auth'
+import { requireAdmin } from '$lib/server/auth'
 import { song, word, wordsToSongs } from '$lib/server/db/schema'
 import { slugify } from '$lib/server/slugify'
 import { fail, redirect } from '@sveltejs/kit'
 import { asc } from 'drizzle-orm'
 
 export const load: PageServerLoad = async ({ locals }) => {
-  requireUser(locals)
+  requireAdmin(locals)
 
   const words = await locals.db.query.word.findMany({ orderBy: [asc(word.word)] })
 
@@ -15,7 +15,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 
 export const actions: Actions = {
   default: async ({ request, locals }) => {
-    requireUser(locals)
+    requireAdmin(locals)
 
     const data = await request.formData()
     const title = String(data.get('title') ?? '').trim()

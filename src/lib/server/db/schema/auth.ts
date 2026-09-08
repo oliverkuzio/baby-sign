@@ -9,6 +9,11 @@ export const user = sqliteTable('user', {
   image: text('image'),
   createdAt: integer('created_at', { mode: 'timestamp' }).notNull(),
   updatedAt: integer('updated_at', { mode: 'timestamp' }).notNull(),
+  // Added by the Better Auth `admin` plugin.
+  role: text('role'),
+  banned: integer('banned', { mode: 'boolean' }),
+  banReason: text('ban_reason'),
+  banExpires: integer('ban_expires', { mode: 'timestamp' }),
 })
 
 export const session = sqliteTable('session', {
@@ -22,6 +27,8 @@ export const session = sqliteTable('session', {
   userId: text('user_id')
     .notNull()
     .references(() => user.id, { onDelete: 'cascade' }),
+  // Added by the Better Auth `admin` plugin.
+  impersonatedBy: text('impersonated_by'),
 })
 
 export const sessionRelations = relations(session, ({ one }) => ({
@@ -35,7 +42,6 @@ export const account = sqliteTable('account', {
   id: text('id').primaryKey(),
   accountId: text('account_id').notNull(),
   providerId: text('provider_id').notNull(),
-  issuer: text('issuer').notNull(),
   userId: text('user_id')
     .notNull()
     .references(() => user.id, { onDelete: 'cascade' }),

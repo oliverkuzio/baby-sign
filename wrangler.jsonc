@@ -1,9 +1,11 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "babysign",
+  "name": "baby-sign",
   "main": ".svelte-kit/cloudflare/_worker.js",
   "compatibility_date": "2025-01-01",
-  "compatibility_flags": ["nodejs_compat"],
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
   "observability": {
     "enabled": true
   },
@@ -17,7 +19,6 @@
       "custom_domain": true
     }
   ],
-
   /**
    * Bindings
    * Bindings allow your Worker to interact with resources on the Cloudflare Developer Platform, including
@@ -27,12 +28,11 @@
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "babysign",
-      "database_id": "72bb2e65-ef80-4d90-8847-92fa5c19a3a5",
+      "database_name": "baby-sign",
+      "database_id": "f161072b-8858-4178-8a0c-7cf62827f29f",
       "migrations_dir": "./drizzle"
     }
   ],
-
   /**
    * Environment Variables
    * https://developers.cloudflare.com/workers/wrangler/configuration/#environment-variables
@@ -47,12 +47,10 @@
     // available at runtime without needing a build-time env var.
     "PUBLIC_IMAGE_URL": "https://res.cloudinary.com/spiralyze/image/upload/f_auto,w_auto/BabySignLanguage/DictionaryPages"
   }
-
   /**
    * Static Assets
    * https://developers.cloudflare.com/workers/static-assets/binding/
    */
-
   /**
    * Service Bindings (communicate between multiple Workers)
    * https://developers.cloudflare.com/workers/wrangler/configuration/#service-bindings
