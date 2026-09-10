@@ -1,6 +1,7 @@
 <script lang='ts'>
   import type { PageData } from './$types'
   import Content from '$lib/components/Content.svelte'
+  import EntryCard from '$lib/components/EntryCard.svelte'
   import NavCard from '$lib/components/NavCard.svelte'
   import Pagination from '$lib/components/Pagination.svelte'
   import SearchAutocomplete from '$lib/components/SearchAutocomplete.svelte'
@@ -52,13 +53,18 @@
     </p>
   {/if}
 
-  <ul
-    class='align-center mb-3 grid grid-cols-1 justify-center gap-4 md:grid-cols-2 xl:grid-cols-3'
-  >
+  <ul class='mb-3 flex flex-col gap-4'>
     {#if filteredSongs && filteredSongs.length > 0}
       {#each filteredSongs as song (song.id)}
         <li>
-          <NavCard href='/songs/{song.slug}' label={song.title} />
+          <EntryCard
+            href='/songs/{song.slug}'
+            title={song.title}
+            tags={song.tags}
+            tagFilterHref='/songs'
+            words={song.words}
+            imageUrl={data.imageUrl}
+          />
         </li>
       {/each}
     {/if}
