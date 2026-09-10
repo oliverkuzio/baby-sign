@@ -2,11 +2,19 @@
   import type { PageData } from './$types'
   import Content from '$lib/components/Content.svelte'
   import NavCard from '$lib/components/NavCard.svelte'
+  import Pagination from '$lib/components/Pagination.svelte'
+  import TagFilter from '$lib/components/TagFilter.svelte'
+  import WordAutocomplete from '$lib/components/WordAutocomplete.svelte'
   import WordCard from '$lib/components/WordCard.svelte'
 
   export let data: PageData
 
-  const words = data.words
+  let query = ''
+
+  $: words = data.words.filter(word =>
+    !query.trim() || word.word.toLowerCase().includes(query.trim().toLowerCase()),
+  )
+  $: extraParams = data.selectedTagSlugs.map((slug): [string, string] => ['tag', slug])
 </script>
 
 <svelte:head>
@@ -18,8 +26,30 @@
   <h1 class='mb-3 text-2xl leading-none font-extrabold'>Dictionary</h1>
   <p class='mb-3'>Here are some words you can learn:</p>
 
+  <TagFilter tags={data.tags} selectedTagSlugs={data.selectedTagSlugs} />
+
+  {#if data.words.length > 0}
+    <div class='mb-4 max-w-sm'>
+      <WordAutocomplete
+        words={data.words}
+        imageUrl={data.imageUrl}
+        selectable={false}
+        bind:query
+        placeholder='Search words…'
+      />
+    </div>
+  {/if}
+
   {#if !words || words.length === 0}
-    <p>No words found.</p>
+    <p>
+      {#if data.words.length === 0 && data.selectedTagSlugs.length > 0}
+        No words match the selected tags.
+      {:else if data.words.length === 0}
+        No words found.
+      {:else}
+        No words match your search.
+      {/if}
+    </p>
   {/if}
 
   <ul class='align-center grid grid-cols-2 justify-center gap-4 md:grid-cols-4 xl:grid-cols-6'>
@@ -36,4 +66,6 @@
       </li>
     {/if}
   </ul>
+
+  <Pagination page={data.pagination.page} totalPages={data.pagination.totalPages} {extraParams} />
 </Content>

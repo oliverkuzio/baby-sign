@@ -1,16 +1,20 @@
 import type { Actions, PageServerLoad } from './$types'
 import { requireAdmin } from '$lib/server/auth'
-import { song, word, wordsToSongs } from '$lib/server/db/schema'
+import { song, tag, tagsToSongs, word, wordsToSongs } from '$lib/server/db/schema'
 import { slugify } from '$lib/server/slugify'
+import { resolveTagIds } from '$lib/server/tags'
 import { fail, redirect } from '@sveltejs/kit'
 import { asc } from 'drizzle-orm'
 
 export const load: PageServerLoad = async ({ locals }) => {
   requireAdmin(locals)
 
-  const words = await locals.db.query.word.findMany({ orderBy: [asc(word.word)] })
+  const [words, tags] = await Promise.all([
+    locals.db.query.word.findMany({ orderBy: [asc(word.word)] }),
+    locals.db.query.tag.findMany({ orderBy: [asc(tag.name)] }),
+  ])
 
-  return { words }
+  return { words, tags }
 }
 
 export const actions: Actions = {
@@ -22,6 +26,8 @@ export const actions: Actions = {
     const lyrics = String(data.get('lyrics') ?? '').trim()
     const slugInput = String(data.get('slug') ?? '').trim()
     const wordIds = data.getAll('wordIds').map(String)
+    const tagIds = data.getAll('tagIds').map(String)
+    const newTagNames = data.getAll('newTagNames').map(String)
 
     if (!title || !lyrics) {
       return fail(400, {
@@ -30,6 +36,8 @@ export const actions: Actions = {
         lyrics,
         slug: slugInput,
         wordIds,
+        tagIds,
+        newTagNames,
       })
     }
 
@@ -41,6 +49,8 @@ export const actions: Actions = {
         lyrics,
         slug: slugInput,
         wordIds,
+        tagIds,
+        newTagNames,
       })
     }
 
@@ -56,6 +66,8 @@ export const actions: Actions = {
         lyrics,
         slug: slugInput,
         wordIds,
+        tagIds,
+        newTagNames,
       })
     }
 
@@ -63,6 +75,13 @@ export const actions: Actions = {
       await locals.db
         .insert(wordsToSongs)
         .values(wordIds.map(wordId => ({ wordId, songId: String(createdId) })))
+    }
+
+    const resolvedTagIds = await resolveTagIds(locals.db, tagIds, newTagNames)
+    if (resolvedTagIds.length > 0) {
+      await locals.db
+        .insert(tagsToSongs)
+        .values(resolvedTagIds.map(tagId => ({ tagId, songId: String(createdId) })))
     }
 
     redirect(303, `/songs/${slug}`)

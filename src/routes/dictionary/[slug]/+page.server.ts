@@ -22,6 +22,12 @@ export const load: PageServerLoad = async ({ locals, params }) => {
           song: true,
         },
       },
+      tags: {
+        columns: {},
+        with: {
+          tag: true,
+        },
+      },
     },
   })
 

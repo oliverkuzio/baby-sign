@@ -22,6 +22,13 @@
       <EditIcon href='/dictionary/{word.slug}/edit' size='large' />
     {/if}
   </h1>
+  {#if word.tags.length > 0}
+    <div class='mb-3 flex flex-wrap gap-2'>
+      {#each word.tags as { tag } (tag.id)}
+        <a href='/dictionary?tag={tag.slug}' class='badge badge-outline'>{tag.name}</a>
+      {/each}
+    </div>
+  {/if}
   <div class='mt-10 mb-3'>
     <WordCard {word} imageUrl={data.imageUrl} size='large' />
   </div>

@@ -1,21 +1,24 @@
 import type { Actions, PageServerLoad } from './$types'
 import { requireAdmin } from '$lib/server/auth'
-import { phrase, word, wordsToPhrases } from '$lib/server/db/schema'
+import { phrase, tag, tagsToPhrases, word, wordsToPhrases } from '$lib/server/db/schema'
 import { slugify } from '$lib/server/slugify'
+import { resolveTagIds } from '$lib/server/tags'
 import { error, fail, redirect } from '@sveltejs/kit'
 import { asc, eq } from 'drizzle-orm'
 
 export const load: PageServerLoad = async ({ locals, params }) => {
   requireAdmin(locals)
 
-  const [existing, words] = await Promise.all([
+  const [existing, words, tags] = await Promise.all([
     locals.db.query.phrase.findFirst({
       where: eq(phrase.slug, params.slug),
       with: {
         words: { columns: { wordId: true } },
+        tags: { columns: { tagId: true } },
       },
     }),
     locals.db.query.word.findMany({ orderBy: [asc(word.word)] }),
+    locals.db.query.tag.findMany({ orderBy: [asc(tag.name)] }),
   ])
 
   if (!existing) {
@@ -25,7 +28,9 @@ export const load: PageServerLoad = async ({ locals, params }) => {
   return {
     phrase: existing,
     words,
+    tags,
     selectedWordIds: existing.words.map(w => w.wordId),
+    selectedTagIds: existing.tags.map(t => t.tagId),
   }
 }
 
@@ -38,6 +43,8 @@ export const actions: Actions = {
     const phraseText = String(data.get('phrase') ?? '').trim()
     const slugInput = String(data.get('slug') ?? '').trim()
     const wordIds = data.getAll('wordIds').map(String)
+    const tagIds = data.getAll('tagIds').map(String)
+    const newTagNames = data.getAll('newTagNames').map(String)
     const slug = slugify(slugInput)
 
     if (!title || !phraseText || !slug) {
@@ -47,6 +54,8 @@ export const actions: Actions = {
         phrase: phraseText,
         slug: slugInput,
         wordIds,
+        tagIds,
+        newTagNames,
       })
     }
 
@@ -70,6 +79,8 @@ export const actions: Actions = {
         phrase: phraseText,
         slug: slugInput,
         wordIds,
+        tagIds,
+        newTagNames,
       })
     }
 
@@ -78,6 +89,14 @@ export const actions: Actions = {
       await locals.db
         .insert(wordsToPhrases)
         .values(wordIds.map(wordId => ({ wordId, phraseId: String(phraseId) })))
+    }
+
+    const resolvedTagIds = await resolveTagIds(locals.db, tagIds, newTagNames)
+    await locals.db.delete(tagsToPhrases).where(eq(tagsToPhrases.phraseId, String(phraseId)))
+    if (resolvedTagIds.length > 0) {
+      await locals.db
+        .insert(tagsToPhrases)
+        .values(resolvedTagIds.map(tagId => ({ tagId, phraseId: String(phraseId) })))
     }
 
     redirect(303, `/phrases/${slug}`)
@@ -92,6 +111,7 @@ export const actions: Actions = {
     }
 
     await locals.db.delete(wordsToPhrases).where(eq(wordsToPhrases.phraseId, String(existing.id)))
+    await locals.db.delete(tagsToPhrases).where(eq(tagsToPhrases.phraseId, String(existing.id)))
     await locals.db.delete(phrase).where(eq(phrase.slug, params.slug))
 
     redirect(303, '/phrases')
