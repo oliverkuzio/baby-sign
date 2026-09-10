@@ -25,7 +25,7 @@
   {#if phrase.tags.length > 0}
     <div class='mb-3 flex flex-wrap gap-2'>
       {#each phrase.tags as { tag } (tag.id)}
-        <a href='/phrases?tag={tag.slug}' class='badge badge-outline'>{tag.name}</a>
+        <a href='/phrases?tag={tag.slug}' class='badge badge-primary'>{tag.name}</a>
       {/each}
     </div>
   {/if}

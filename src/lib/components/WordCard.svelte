@@ -1,5 +1,5 @@
 <script lang='ts'>
-  import type { Word } from '../server/db/schema'
+  import type { Tag, Word } from '../server/db/schema'
   import EditIcon from './EditIcon.svelte'
 
   interface Props {
@@ -7,18 +7,31 @@
     imageUrl: string
     size?: 'small' | 'large'
     showEdit?: boolean
+    tags?: { tag: Tag }[]
   }
 
-  const { word, imageUrl, size = 'small', showEdit = false }: Props = $props()
+  const { word, imageUrl, size = 'small', showEdit = false, tags = [] }: Props = $props()
 </script>
 
 <div class='card bg-base-200 relative aspect-square max-w-96 shadow-md transition-shadow duration-300 hover:shadow-lg'>
-  <a href='/words/{word.slug}/' class='card-body flex aspect-square flex-col p-4'>
+  {#if tags.length > 0}
+    <div class='absolute top-4 left-4 flex max-w-[calc(100%-1rem)] flex-wrap gap-1'>
+      {#each tags as { tag } (tag.id)}
+        <a href='/words?tag={tag.slug}' class='badge badge-primary badge-sm'>
+          {tag.name}
+        </a>
+      {/each}
+    </div>
+  {/if}
+  <a
+    href='/words/{word.slug}/'
+    class='card-body flex aspect-square flex-col items-center justify-center p-4 gap-4'
+  >
     {#if word.slug}
-      <img class='mt-auto mb-3' src={`${imageUrl}/${word.slug}.svg`} alt={word.word} />
+      <img src={`${imageUrl}/${word.slug}.svg`} alt={word.word} />
     {/if}
     <p
-      class='mt-auto text-center font-bold uppercase'
+      class='grow-0 text-center font-bold uppercase mb-0'
       class:text-xl={size === 'small'}
       class:text-2xl={size === 'large'}
     >

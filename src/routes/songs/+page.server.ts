@@ -38,6 +38,7 @@ export const load: PageServerLoad = async ({ locals, url }) => {
         offset: pagination.offset,
         with: {
           tags: { with: { tag: true } },
+          words: { with: { word: true } },
         },
       })
 
