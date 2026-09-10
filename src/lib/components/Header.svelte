@@ -15,7 +15,7 @@
   let drawerOpen = $state(false)
 
   function signIn() {
-    authClient.signIn.social({ provider: 'github', callbackURL: '/' })
+    authClient.signIn.social({ provider: 'github', callbackURL: '/dashboard' })
   }
 
   function signOut() {

@@ -49,6 +49,6 @@ export const actions: Actions = {
         .values(resolvedTagIds.map(tagId => ({ tagId, wordId: String(createdId) })))
     }
 
-    redirect(303, `/dictionary/${slug}`)
+    redirect(303, `/words/${slug}`)
   },
 }

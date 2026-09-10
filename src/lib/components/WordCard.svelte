@@ -13,7 +13,7 @@
 </script>
 
 <div class='card bg-base-200 relative aspect-square max-w-96 shadow-md transition-shadow duration-300 hover:shadow-lg'>
-  <a href='/dictionary/{word.slug}/' class='card-body flex aspect-square flex-col p-4'>
+  <a href='/words/{word.slug}/' class='card-body flex aspect-square flex-col p-4'>
     {#if word.slug}
       <img class='mt-auto mb-3' src={`${imageUrl}/${word.slug}.svg`} alt={word.word} />
     {/if}
@@ -26,6 +26,6 @@
     </p>
   </a>
   {#if showEdit}
-    <EditIcon href='/dictionary/{word.slug}/edit' size='large' inset={true} />
+    <EditIcon href='/words/{word.slug}/edit' size='large' inset={true} />
   {/if}
 </div>

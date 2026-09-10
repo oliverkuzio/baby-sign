@@ -62,7 +62,7 @@
     {/if}
     {#if data.user}
       <li>
-        <NavCard href='/dictionary/new' label='Add word +' />
+        <NavCard href='/words/new' label='Add word +' />
       </li>
     {/if}
   </ul>

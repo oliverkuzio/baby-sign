@@ -19,13 +19,13 @@
   <h1 class='relative mb-3 text-2xl leading-none font-extrabold'>
     {word.word}
     {#if data.user}
-      <EditIcon href='/dictionary/{word.slug}/edit' size='large' />
+      <EditIcon href='/words/{word.slug}/edit' size='large' />
     {/if}
   </h1>
   {#if word.tags.length > 0}
     <div class='mb-3 flex flex-wrap gap-2'>
       {#each word.tags as { tag } (tag.id)}
-        <a href='/dictionary?tag={tag.slug}' class='badge badge-outline'>{tag.name}</a>
+        <a href='/words?tag={tag.slug}' class='badge badge-outline'>{tag.name}</a>
       {/each}
     </div>
   {/if}

@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
 @plugin 'daisyui' {
-  themes: babysign-light --default, babysign-dark;
+  themes: sign-light --default, sign-dark;
 }
 
 /*
@@ -11,103 +11,57 @@
  * below and reused, unchanged, by both theme blocks.
  */
 :root {
-  --brand-primary: oklch(65.6% 0.241 354.308);
-  --brand-primary-content: oklch(98% 0 0);
-  --brand-secondary: oklch(58% 0.192 253.9);
-  --brand-secondary-content: oklch(98% 0 0);
-  --brand-accent: oklch(75% 0.14 181.9);
-  --brand-accent-content: oklch(25% 0.05 181.9);
-  --brand-neutral: oklch(35% 0.02 264.7);
-  --brand-neutral-content: oklch(96% 0 0);
-  --brand-info: oklch(74% 0.16 232.7);
-  --brand-info-content: oklch(29% 0.07 243.2);
-  --brand-success: oklch(76% 0.177 163.2);
-  --brand-success-content: oklch(37% 0.077 168.9);
-  --brand-warning: oklch(82% 0.189 84.4);
-  --brand-warning-content: oklch(41% 0.112 45.9);
-  --brand-error: oklch(63% 0.21 25.3);
-  --brand-error-content: oklch(97% 0.02 25.3);
-
-  --brand-radius-selector: 0.5rem;
-  --brand-radius-field: 0.375rem;
-  --brand-radius-box: 0.5rem;
-  --brand-size-selector: 0.25rem;
-  --brand-size-field: 0.25rem;
-  --brand-border: 1px;
-  --brand-depth: 0;
-  --brand-noise: 0;
+  --color-base-100: oklch(98% 0.014 180.72);
+  --color-base-200: oklch(95% 0.051 180.801);
+  --color-base-300: oklch(91% 0.096 180.426);
+  --color-base-content: oklch(38% 0.063 188.416);
+  --color-primary: oklch(65% 0.241 354.308);
+  --color-primary-content: oklch(97% 0.014 343.198);
+  --color-secondary: oklch(58% 0.233 277.117);
+  --color-secondary-content: oklch(96% 0.018 272.314);
+  --color-accent: oklch(69% 0.17 162.48);
+  --color-accent-content: oklch(97% 0.021 166.113);
+  --color-neutral: oklch(60% 0.118 184.704);
+  --color-neutral-content: oklch(98% 0.014 180.72);
+  --color-info: oklch(60% 0.126 221.723);
+  --color-info-content: oklch(98% 0.019 200.873);
+  --color-success: oklch(64% 0.2 131.684);
+  --color-success-content: oklch(98% 0.031 120.757);
+  --color-warning: oklch(68% 0.162 75.834);
+  --color-warning-content: oklch(98% 0.026 102.212);
+  --color-error: oklch(58% 0.253 17.585);
+  --color-error-content: oklch(96% 0.015 12.422);
+  --radius-selector: 2rem;
+  --radius-field: 2rem;
+  --radius-box: 2rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 1;
+  --noise: 1;
 }
 
-@plugin 'daisyui/theme' {
-  name: 'babysign-light';
+
+@plugin "daisyui/theme" {
+  name: "sign-light";
   default: true;
-  color-scheme: light;
-
-  --color-base-100: oklch(100% 0 0);
-  --color-base-200: oklch(96% 0 0);
-  --color-base-300: oklch(92% 0 0);
-  --color-base-content: oklch(21% 0.006 285.9);
-
-  --color-primary: var(--brand-primary);
-  --color-primary-content: var(--brand-primary-content);
-  --color-secondary: var(--brand-secondary);
-  --color-secondary-content: var(--brand-secondary-content);
-  --color-accent: var(--brand-accent);
-  --color-accent-content: var(--brand-accent-content);
-  --color-neutral: var(--brand-neutral);
-  --color-neutral-content: var(--brand-neutral-content);
-  --color-info: var(--brand-info);
-  --color-info-content: var(--brand-info-content);
-  --color-success: var(--brand-success);
-  --color-success-content: var(--brand-success-content);
-  --color-warning: var(--brand-warning);
-  --color-warning-content: var(--brand-warning-content);
-  --color-error: var(--brand-error);
-  --color-error-content: var(--brand-error-content);
-
-  --radius-selector: var(--brand-radius-selector);
-  --radius-field: var(--brand-radius-field);
-  --radius-box: var(--brand-radius-box);
-  --size-selector: var(--brand-size-selector);
-  --size-field: var(--brand-size-field);
-  --border: var(--brand-border);
-  --depth: var(--brand-depth);
-  --noise: var(--brand-noise);
+  prefersdark: false;
+  color-scheme: "light";
+  --color-base-100: oklch(98% 0.014 180.72);
+  --color-base-200: oklch(95% 0.051 180.801);
+  --color-base-300: oklch(91% 0.096 180.426);
+  --color-base-content: oklch(38% 0.063 188.416);
 }
 
+
 @plugin 'daisyui/theme' {
-  name: 'babysign-dark';
+  name: 'sign-dark';
   default: false;
+  prefersdark: true;
   color-scheme: dark;
 
   --color-base-100: oklch(21% 0.006 264.7);
   --color-base-200: oklch(18% 0.006 264.7);
   --color-base-300: oklch(14% 0.006 264.7);
   --color-base-content: oklch(96% 0 0);
-
-  --color-primary: var(--brand-primary);
-  --color-primary-content: var(--brand-primary-content);
-  --color-secondary: var(--brand-secondary);
-  --color-secondary-content: var(--brand-secondary-content);
-  --color-accent: var(--brand-accent);
-  --color-accent-content: var(--brand-accent-content);
-  --color-neutral: var(--brand-neutral);
-  --color-neutral-content: var(--brand-neutral-content);
-  --color-info: var(--brand-info);
-  --color-info-content: var(--brand-info-content);
-  --color-success: var(--brand-success);
-  --color-success-content: var(--brand-success-content);
-  --color-warning: var(--brand-warning);
-  --color-warning-content: var(--brand-warning-content);
-  --color-error: var(--brand-error);
-  --color-error-content: var(--brand-error-content);
-
-  --radius-selector: var(--brand-radius-selector);
-  --radius-field: var(--brand-radius-field);
-  --radius-box: var(--brand-radius-box);
-  --size-selector: var(--brand-size-selector);
-  --size-field: var(--brand-size-field);
-  --border: var(--brand-border);
-  --depth: var(--brand-depth);
-  --noise: var(--brand-noise);
 }

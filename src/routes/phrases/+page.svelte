@@ -19,12 +19,12 @@
 </script>
 
 <svelte:head>
-  <title>Phrases to learn and sign • Baby Sign • Kuzio Apps</title>
+  <title>Phrasebook • Baby Sign • Kuzio Apps</title>
   <meta name='description' content='Phrases to learn and sign' />
 </svelte:head>
 
 <Content>
-  <h1 class='mb-3 text-2xl leading-none font-extrabold'>Phrases</h1>
+  <h1 class='mb-3 text-2xl leading-none font-extrabold'>Phrasebook</h1>
   <p class='mb-3'>Here are some phrases to learn and sign:</p>
 
   <TagFilter tags={data.tags} selectedTagSlugs={data.selectedTagSlugs} />
