@@ -72,7 +72,7 @@ export const actions: Actions = {
         .values(resolvedTagIds.map(tagId => ({ tagId, wordId: String(updatedId) })))
     }
 
-    redirect(303, `/dictionary/${slug}`)
+    redirect(303, `/words/${slug}`)
   },
 
   delete: async ({ locals, params }) => {
@@ -99,6 +99,6 @@ export const actions: Actions = {
     await locals.db.delete(tagsToWords).where(eq(tagsToWords.wordId, String(existing.id)))
     await locals.db.delete(word).where(eq(word.slug, params.slug))
 
-    redirect(303, '/dictionary')
+    redirect(303, '/words')
   },
 }

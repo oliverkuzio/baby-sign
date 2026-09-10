@@ -50,7 +50,7 @@ The core content entities — `word`, `phrase`, `song` — and `tag` are all con
 
 ### The word/phrase/song triad
 
-`/dictionary` (word), `/phrases`, and `/songs` are three parallel implementations of the same route shape — when changing one, the same change almost always needs to land in the other two:
+`/words` (word, labelled "Dictionary" in the UI), `/phrases`, and `/songs` are three parallel implementations of the same route shape — when changing one, the same change almost always needs to land in the other two:
 - `+page.server.ts` — paginated, tag-filterable listing (see below)
 - `[slug]/+page.server.ts` + `+page.svelte` — public detail view
 - `new/+page.server.ts` + `+page.svelte` — admin create form
@@ -60,7 +60,7 @@ Create/update actions read `wordIds`/`tagIds`/`newTagNames` off the submitted `F
 
 ### Listing pagination + tag filtering
 
-Listing loads (`dictionary`, `phrases`, `songs` `+page.server.ts`) filter by tag at the SQL level — `selectDistinct` over the entity's join table joined to `tag`, filtered with `inArray(tag.slug, selectedTagSlugs)` — and only then paginate the parent query with `limit`/`offset`, because filtering must happen before pagination is applied (not after, on an already-limited page). `src/lib/server/pagination.ts#resolvePagination` clamps `?page=` against a total count and returns the `limit`/`offset` to use. `TagFilter.svelte` and `Pagination.svelte` both build plain `?tag=…&page=…` links (progressive-enhancement friendly, no client JS required) and each preserves the other's query params.
+Listing loads (`words`, `phrases`, `songs` `+page.server.ts`) filter by tag at the SQL level — `selectDistinct` over the entity's join table joined to `tag`, filtered with `inArray(tag.slug, selectedTagSlugs)` — and only then paginate the parent query with `limit`/`offset`, because filtering must happen before pagination is applied (not after, on an already-limited page). `src/lib/server/pagination.ts#resolvePagination` clamps `?page=` against a total count and returns the `limit`/`offset` to use. `TagFilter.svelte` and `Pagination.svelte` both build plain `?tag=…&page=…` links (progressive-enhancement friendly, no client JS required) and each preserves the other's query params.
 
 Page components read `data.words`/`data.phrases`/`data.songs` reactively (`$: phrases = data.phrases`, not `const`) — SvelteKit reuses the component instance across same-route navigations (e.g. clicking a tag filter or page link), so a non-reactive top-level `const` binding silently goes stale.
 

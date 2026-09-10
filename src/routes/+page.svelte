@@ -1,6 +1,11 @@
 <script lang='ts'>
+  import { authClient } from '$lib/auth-client'
   import Content from '$lib/components/Content.svelte'
-  import NavCard from '$lib/components/NavCard.svelte'
+  import Hero from '$lib/components/Hero.svelte'
+
+  function signIn() {
+    authClient.signIn.social({ provider: 'github', callbackURL: '/dashboard' })
+  }
 </script>
 
 <svelte:head>
@@ -9,27 +14,9 @@
 </svelte:head>
 
 <Content>
-  <h1 class='mb-3 text-2xl leading-none font-extrabold'>Baby Sign</h1>
-  <p class='mb-3'>Welcome to the Baby Sign app!</p>
-  <nav>
-    <ul class='align-center grid grid-cols-1 justify-center gap-4 md:grid-cols-2 xl:grid-cols-3'>
-      <li>
-        <NavCard
-          href='/dictionary'
-          label='Dictionary'
-          description='See the full list of words to sign!'
-        />
-      </li>
-      <li>
-        <NavCard
-          href='/phrases'
-          label='Phrases'
-          description='See some common phrases to learn and sign!'
-        />
-      </li>
-      <li>
-        <NavCard href='/songs' label='Songs' description='See some songs to sing and sign!' />
-      </li>
-    </ul>
-  </nav>
+  <Hero title='Baby Sign' message='Sign, sing and play — learn baby sign language together.'>
+    <button type='button' class='btn btn-primary btn-lg' onclick={signIn}>
+      Sign in with GitHub
+    </button>
+  </Hero>
 </Content>
