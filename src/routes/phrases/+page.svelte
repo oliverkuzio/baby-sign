@@ -1,6 +1,7 @@
 <script lang='ts'>
   import type { PageData } from './$types.js'
   import Content from '$lib/components/Content.svelte'
+  import EntryCard from '$lib/components/EntryCard.svelte'
   import NavCard from '$lib/components/NavCard.svelte'
   import Pagination from '$lib/components/Pagination.svelte'
   import SearchAutocomplete from '$lib/components/SearchAutocomplete.svelte'
@@ -52,20 +53,24 @@
     </p>
   {/if}
 
-  <ul class='align-center grid grid-cols-1 justify-center gap-4 md:grid-cols-2 xl:grid-cols-3'>
+  <ul class='flex flex-col gap-4'>
     {#if filteredPhrases && filteredPhrases.length > 0}
       {#each filteredPhrases as phrase (phrase.id)}
-        <li class='shrink-0 grow-0 basis-full'>
-          <NavCard
+        <li>
+          <EntryCard
             href='/phrases/{phrase.slug}'
-            label={phrase.title}
+            title={phrase.title}
             description='“{phrase.phrase}”'
+            tags={phrase.tags}
+            tagFilterHref='/phrases'
+            words={phrase.words}
+            imageUrl={data.imageUrl}
           />
         </li>
       {/each}
     {/if}
     {#if data.user}
-      <li class='shrink-0 grow-0 basis-full'>
+      <li>
         <NavCard href='/phrases/new' label='Add phrase +' />
       </li>
     {/if}

@@ -25,7 +25,7 @@
   {#if song.tags.length > 0}
     <div class='mb-3 flex flex-wrap justify-center gap-2'>
       {#each song.tags as { tag } (tag.id)}
-        <a href='/songs?tag={tag.slug}' class='badge badge-outline'>{tag.name}</a>
+        <a href='/songs?tag={tag.slug}' class='badge badge-primary'>{tag.name}</a>
       {/each}
     </div>
   {/if}
