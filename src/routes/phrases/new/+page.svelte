@@ -2,10 +2,15 @@
   import type { ActionData, PageData } from './$types'
   import { enhance } from '$app/forms'
   import Content from '$lib/components/Content.svelte'
+  import TagPicker from '$lib/components/TagPicker.svelte'
+  import WordAutocomplete from '$lib/components/WordAutocomplete.svelte'
+  import { untrack } from 'svelte'
 
   const { data, form }: { data: PageData, form: ActionData } = $props()
 
-  const selectedWordIds = new Set((form?.wordIds ?? []).map(String))
+  let selectedWordIds = $state(untrack(() => (form?.wordIds ?? []).map(String)))
+  let selectedTagIds = $state(untrack(() => (form?.tagIds ?? []).map(String)))
+  let newTagNames = $state(untrack(() => form?.newTagNames ?? []))
 </script>
 
 <svelte:head>
@@ -36,24 +41,15 @@
     </label>
 
     {#if data.words.length > 0}
-      <fieldset class='fieldset'>
-        <legend class='fieldset-legend'>Words in this phrase</legend>
-        <div class='bg-base-200 grid max-h-48 grid-cols-2 gap-1 overflow-y-auto rounded-box p-2'>
-          {#each data.words as w (w.id)}
-            <label class='label gap-2'>
-              <input
-                type='checkbox'
-                name='wordIds'
-                value={w.id}
-                checked={selectedWordIds.has(String(w.id))}
-                class='checkbox checkbox-sm'
-              />
-              {w.word}
-            </label>
-          {/each}
-        </div>
-      </fieldset>
+      <WordAutocomplete
+        words={data.words}
+        imageUrl={data.imageUrl}
+        legend='Words in this phrase'
+        bind:selectedWordIds
+      />
     {/if}
+
+    <TagPicker tags={data.tags} legend='Tags' bind:selectedTagIds bind:newTagNames />
 
     <button type='submit' class='btn btn-primary self-start'>Add phrase</button>
   </form>

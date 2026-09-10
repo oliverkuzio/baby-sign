@@ -1,9 +1,14 @@
 <script lang='ts'>
-  import type { ActionData } from './$types'
+  import type { ActionData, PageData } from './$types'
   import { enhance } from '$app/forms'
   import Content from '$lib/components/Content.svelte'
+  import TagPicker from '$lib/components/TagPicker.svelte'
+  import { untrack } from 'svelte'
 
-  const { form }: { form: ActionData } = $props()
+  const { data, form }: { data: PageData, form: ActionData } = $props()
+
+  let selectedTagIds = $state(untrack(() => (form?.tagIds ?? []).map(String)))
+  let newTagNames = $state(untrack(() => form?.newTagNames ?? []))
 </script>
 
 <svelte:head>
@@ -27,6 +32,8 @@
       <span class='label'>Slug <span class='opacity-60'>(optional — derived from the word if left blank)</span></span>
       <input name='slug' value={form?.slug ?? ''} class='input w-full' />
     </label>
+
+    <TagPicker tags={data.tags} legend='Tags' bind:selectedTagIds bind:newTagNames />
 
     <button type='submit' class='btn btn-primary self-start'>Add word</button>
   </form>
