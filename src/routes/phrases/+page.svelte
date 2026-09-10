@@ -2,10 +2,20 @@
   import type { PageData } from './$types.js'
   import Content from '$lib/components/Content.svelte'
   import NavCard from '$lib/components/NavCard.svelte'
+  import Pagination from '$lib/components/Pagination.svelte'
+  import SearchAutocomplete from '$lib/components/SearchAutocomplete.svelte'
+  import TagFilter from '$lib/components/TagFilter.svelte'
 
   export let data: PageData
 
-  const phrases = data.phrases
+  let query = ''
+
+  $: phrases = data.phrases
+  $: extraParams = data.selectedTagSlugs.map((slug): [string, string] => ['tag', slug])
+  $: searchItems = phrases.map(phrase => ({ id: phrase.id, label: phrase.title }))
+  $: filteredPhrases = phrases.filter(phrase =>
+    !query.trim() || phrase.title.toLowerCase().includes(query.trim().toLowerCase()),
+  )
 </script>
 
 <svelte:head>
@@ -17,13 +27,34 @@
   <h1 class='mb-3 text-2xl leading-none font-extrabold'>Phrases</h1>
   <p class='mb-3'>Here are some phrases to learn and sign:</p>
 
-  {#if !phrases || phrases.length === 0}
-    <p>No phrases found.</p>
+  <TagFilter tags={data.tags} selectedTagSlugs={data.selectedTagSlugs} />
+
+  {#if phrases.length > 0}
+    <div class='mb-4 max-w-sm'>
+      <SearchAutocomplete
+        items={searchItems}
+        bind:query
+        placeholder='Search phrases…'
+        emptyLabel='No matching phrases.'
+      />
+    </div>
+  {/if}
+
+  {#if !filteredPhrases || filteredPhrases.length === 0}
+    <p>
+      {#if phrases.length === 0 && data.selectedTagSlugs.length > 0}
+        No phrases match the selected tags.
+      {:else if phrases.length === 0}
+        No phrases found.
+      {:else}
+        No phrases match your search.
+      {/if}
+    </p>
   {/if}
 
   <ul class='align-center grid grid-cols-1 justify-center gap-4 md:grid-cols-2 xl:grid-cols-3'>
-    {#if phrases && phrases.length > 0}
-      {#each phrases as phrase (phrase.id)}
+    {#if filteredPhrases && filteredPhrases.length > 0}
+      {#each filteredPhrases as phrase (phrase.id)}
         <li class='shrink-0 grow-0 basis-full'>
           <NavCard
             href='/phrases/{phrase.slug}'
@@ -39,4 +70,6 @@
       </li>
     {/if}
   </ul>
+
+  <Pagination page={data.pagination.page} totalPages={data.pagination.totalPages} {extraParams} />
 </Content>

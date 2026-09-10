@@ -5,12 +5,12 @@
 
   const { children, data } = $props()
 
-  const items = [
-    { href: '/', label: 'Home' },
+  const items = $derived([
     { href: '/dictionary', label: 'Dictionary' },
     { href: '/phrases', label: 'Phrases' },
     { href: '/songs', label: 'Songs' },
-  ]
+    ...(data.user?.role === 'admin' ? [{ href: '/tags', label: 'Tags' }] : []),
+  ])
 </script>
 
 <Header {items} user={data.user}>

@@ -22,6 +22,13 @@
       <EditIcon href='/phrases/{phrase.slug}/edit' size='large' />
     {/if}
   </h1>
+  {#if phrase.tags.length > 0}
+    <div class='mb-3 flex flex-wrap gap-2'>
+      {#each phrase.tags as { tag } (tag.id)}
+        <a href='/phrases?tag={tag.slug}' class='badge badge-outline'>{tag.name}</a>
+      {/each}
+    </div>
+  {/if}
   <blockquote class='mt-10 border-l-4 border-l-gray-700 pl-4'>
     <p class='mb-3 text-xl font-semibold'>“{phrase.phrase}”</p>
   </blockquote>

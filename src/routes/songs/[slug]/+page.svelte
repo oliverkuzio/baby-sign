@@ -22,6 +22,13 @@
       <EditIcon href='/songs/{song.slug}/edit' size='large' />
     {/if}
   </h1>
+  {#if song.tags.length > 0}
+    <div class='mb-3 flex flex-wrap justify-center gap-2'>
+      {#each song.tags as { tag } (tag.id)}
+        <a href='/songs?tag={tag.slug}' class='badge badge-outline'>{tag.name}</a>
+      {/each}
+    </div>
+  {/if}
   {#each song.lyrics.split('.').filter(Boolean) as segment, i (i)}
     <p class='mt-10 text-center text-xl italic'>
       ♬
