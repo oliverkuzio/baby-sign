@@ -1,6 +1,10 @@
 import { relations } from 'drizzle-orm'
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 
+import { usersToPhrases } from './usersToPhrases'
+import { usersToSongs } from './usersToSongs'
+import { usersToWords } from './usersToWords'
+
 export const user = sqliteTable('user', {
   id: text('id').primaryKey(),
   name: text('name').notNull(),
@@ -66,6 +70,9 @@ export const accountRelations = relations(account, ({ one }) => ({
 export const userRelations = relations(user, ({ many }) => ({
   sessions: many(session),
   accounts: many(account),
+  favouriteWords: many(usersToWords),
+  favouritePhrases: many(usersToPhrases),
+  favouriteSongs: many(usersToSongs),
 }))
 
 export const verification = sqliteTable('verification', {
