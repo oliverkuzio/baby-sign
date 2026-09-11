@@ -1,9 +1,15 @@
 <script lang='ts'>
   import type { Tag, Word } from '$lib/server/db/schema'
+  import EditIcon from './EditIcon.svelte'
+  import FavouriteIcon from './FavouriteIcon.svelte'
 
   interface Props {
+    /** Entry's numeric id — needed for the favourite toggle's hidden input. */
+    id: number
     /** Where the title links to. */
     href: string
+    /** Where the edit pencil links to. */
+    editHref: string
     /** Entry title. */
     title: string
     /** Short description/quote shown under the title. */
@@ -15,16 +21,24 @@
     /** Words used in the entry, shown as up to four circular preview icons. */
     words?: { word: Word }[]
     imageUrl: string
+    showEdit?: boolean
+    showFavourite?: boolean
+    favourited?: boolean
   }
 
   const {
+    id,
     href,
+    editHref,
     title,
     description = '',
     tags = [],
     tagFilterHref = '',
     words = [],
     imageUrl,
+    showEdit = false,
+    showFavourite = false,
+    favourited = false,
   }: Props = $props()
 
   const hasMoreWords = $derived(words.length > 4)
@@ -32,6 +46,16 @@
 </script>
 
 <div class='card bg-base-200 shadow-lg'>
+  {#if showFavourite || showEdit}
+    <div class='relative mt-2 mr-2 h-10'>
+      {#if showFavourite}
+        <FavouriteIcon {id} {favourited} size='large' />
+      {/if}
+      {#if showEdit}
+        <EditIcon href={editHref} size='large' />
+      {/if}
+    </div>
+  {/if}
   <div class='card-body flex flex-col gap-3 p-6 md:flex-row md:items-center md:justify-between'>
     <div class='min-w-0'>
       <a href={href} class='block'>

@@ -1,17 +1,21 @@
-import type { PageServerLoad } from './$types'
+import type { Actions, PageServerLoad } from './$types'
 import { requireUser } from '$lib/server/auth'
 import { song, tag, tagsToSongs } from '$lib/server/db/schema'
+import { getFavouritedSongIds, toggleSongFavourite } from '$lib/server/favourites'
 import { resolvePagination } from '$lib/server/pagination'
+import { fail } from '@sveltejs/kit'
 import { asc, count, eq, inArray } from 'drizzle-orm'
 
 const PAGE_SIZE = 20
 
 export const load: PageServerLoad = async ({ locals, url }) => {
-  requireUser(locals)
+  const user = requireUser(locals)
 
   const selectedTagSlugs = url.searchParams.getAll('tag')
+  const favouritesOnly = url.searchParams.get('favourite') === '1'
 
   const tags = await locals.db.query.tag.findMany({ orderBy: [asc(tag.name)] })
+  const favouritedSongIds = await getFavouritedSongIds(locals.db, user.id)
 
   let matchingIds: number[] | undefined
   if (selectedTagSlugs.length > 0) {
@@ -21,6 +25,12 @@ export const load: PageServerLoad = async ({ locals, url }) => {
       .innerJoin(tag, eq(tag.id, tagsToSongs.tagId))
       .where(inArray(tag.slug, selectedTagSlugs))
     matchingIds = rows.map(row => Number(row.id))
+  }
+
+  if (favouritesOnly) {
+    matchingIds = matchingIds
+      ? matchingIds.filter(id => favouritedSongIds.has(id))
+      : [...favouritedSongIds]
   }
 
   const totalItems = matchingIds
@@ -46,6 +56,23 @@ export const load: PageServerLoad = async ({ locals, url }) => {
     songs,
     tags,
     selectedTagSlugs,
+    favouritesOnly,
+    favouritedSongIds,
     pagination,
   }
+}
+
+export const actions: Actions = {
+  toggleFavourite: async ({ request, locals }) => {
+    const user = requireUser(locals)
+
+    const data = await request.formData()
+    const id = Number(data.get('id'))
+    if (!Number.isInteger(id)) {
+      return fail(400, { error: 'Invalid song id.' })
+    }
+
+    const favourited = await toggleSongFavourite(locals.db, user.id, id)
+    return { favourited }
+  },
 }

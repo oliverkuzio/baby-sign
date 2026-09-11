@@ -2,6 +2,7 @@ import { relations } from 'drizzle-orm'
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 
 import { tagsToPhrases } from './tagsToPhrases'
+import { usersToPhrases } from './usersToPhrases'
 import { wordsToPhrases } from './wordsToPhrases'
 
 export const phrase = sqliteTable('phrase', {
@@ -14,6 +15,7 @@ export const phrase = sqliteTable('phrase', {
 export const phraseRelations = relations(phrase, ({ many }) => ({
   words: many(wordsToPhrases),
   tags: many(tagsToPhrases),
+  favouritedBy: many(usersToPhrases),
 }))
 
 export type Phrase = typeof phrase.$inferSelect
