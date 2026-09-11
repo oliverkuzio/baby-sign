@@ -1,16 +1,27 @@
 <script lang='ts'>
   import type { Tag, Word } from '../server/db/schema'
   import EditIcon from './EditIcon.svelte'
+  import FavouriteIcon from './FavouriteIcon.svelte'
 
   interface Props {
     word: Word
     imageUrl: string
     size?: 'small' | 'large'
     showEdit?: boolean
+    showFavourite?: boolean
+    favourited?: boolean
     tags?: { tag: Tag }[]
   }
 
-  const { word, imageUrl, size = 'small', showEdit = false, tags = [] }: Props = $props()
+  const {
+    word,
+    imageUrl,
+    size = 'small',
+    showEdit = false,
+    showFavourite = false,
+    favourited = false,
+    tags = [],
+  }: Props = $props()
 </script>
 
 <div class='card bg-base-200 relative aspect-square max-w-96 shadow-md transition-shadow duration-300 hover:shadow-lg'>
@@ -38,6 +49,9 @@
       {word.word}
     </p>
   </a>
+  {#if showFavourite}
+    <FavouriteIcon id={word.id} {favourited} size='large' inset={true} />
+  {/if}
   {#if showEdit}
     <EditIcon href='/words/{word.slug}/edit' size='large' inset={true} />
   {/if}

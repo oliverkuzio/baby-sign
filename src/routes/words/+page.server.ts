@@ -1,17 +1,21 @@
-import type { PageServerLoad } from './$types'
+import type { Actions, PageServerLoad } from './$types'
 import { requireUser } from '$lib/server/auth'
 import { tag, tagsToWords, word } from '$lib/server/db/schema'
+import { getFavouritedWordIds, toggleWordFavourite } from '$lib/server/favourites'
 import { resolvePagination } from '$lib/server/pagination'
+import { fail } from '@sveltejs/kit'
 import { asc, count, eq, inArray } from 'drizzle-orm'
 
 const PAGE_SIZE = 80
 
 export const load: PageServerLoad = async ({ locals, url }) => {
-  requireUser(locals)
+  const user = requireUser(locals)
 
   const selectedTagSlugs = url.searchParams.getAll('tag')
+  const favouritesOnly = url.searchParams.get('favourite') === '1'
 
   const tags = await locals.db.query.tag.findMany({ orderBy: [asc(tag.name)] })
+  const favouritedWordIds = await getFavouritedWordIds(locals.db, user.id)
 
   let matchingIds: number[] | undefined
   if (selectedTagSlugs.length > 0) {
@@ -21,6 +25,12 @@ export const load: PageServerLoad = async ({ locals, url }) => {
       .innerJoin(tag, eq(tag.id, tagsToWords.tagId))
       .where(inArray(tag.slug, selectedTagSlugs))
     matchingIds = rows.map(row => Number(row.id))
+  }
+
+  if (favouritesOnly) {
+    matchingIds = matchingIds
+      ? matchingIds.filter(id => favouritedWordIds.has(id))
+      : [...favouritedWordIds]
   }
 
   const totalItems = matchingIds
@@ -45,6 +55,23 @@ export const load: PageServerLoad = async ({ locals, url }) => {
     words,
     tags,
     selectedTagSlugs,
+    favouritesOnly,
+    favouritedWordIds,
     pagination,
   }
+}
+
+export const actions: Actions = {
+  toggleFavourite: async ({ request, locals }) => {
+    const user = requireUser(locals)
+
+    const data = await request.formData()
+    const id = Number(data.get('id'))
+    if (!Number.isInteger(id)) {
+      return fail(400, { error: 'Invalid word id.' })
+    }
+
+    const favourited = await toggleWordFavourite(locals.db, user.id, id)
+    return { favourited }
+  },
 }

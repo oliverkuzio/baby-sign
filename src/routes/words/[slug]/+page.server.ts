@@ -1,10 +1,12 @@
-import type { PageServerLoad } from './$types.js'
+import type { Actions, PageServerLoad } from './$types.js'
 import { requireUser } from '$lib/server/auth'
 import { word } from '$lib/server/db/schema'
+import { isWordFavourited, toggleWordFavourite } from '$lib/server/favourites'
+import { fail } from '@sveltejs/kit'
 import { eq } from 'drizzle-orm'
 
 export const load: PageServerLoad = async ({ locals, params }) => {
-  requireUser(locals)
+  const user = requireUser(locals)
 
   const { slug } = params
   const res = await locals.db.query.word.findFirst({
@@ -35,7 +37,25 @@ export const load: PageServerLoad = async ({ locals, params }) => {
     throw new Error(`Word with slug "${slug}" not found`)
   }
 
+  const favourited = await isWordFavourited(locals.db, user.id, res.id)
+
   return {
     word: res,
+    favourited,
   }
+}
+
+export const actions: Actions = {
+  toggleFavourite: async ({ request, locals }) => {
+    const user = requireUser(locals)
+
+    const data = await request.formData()
+    const id = Number(data.get('id'))
+    if (!Number.isInteger(id)) {
+      return fail(400, { error: 'Invalid word id.' })
+    }
+
+    const favourited = await toggleWordFavourite(locals.db, user.id, id)
+    return { favourited }
+  },
 }

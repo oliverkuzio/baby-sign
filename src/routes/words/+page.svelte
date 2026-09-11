@@ -1,9 +1,9 @@
 <script lang='ts'>
   import type { PageData } from './$types'
   import Content from '$lib/components/Content.svelte'
+  import ListingFilters from '$lib/components/ListingFilters.svelte'
   import NavCard from '$lib/components/NavCard.svelte'
   import Pagination from '$lib/components/Pagination.svelte'
-  import TagFilter from '$lib/components/TagFilter.svelte'
   import WordAutocomplete from '$lib/components/WordAutocomplete.svelte'
   import WordCard from '$lib/components/WordCard.svelte'
 
@@ -14,7 +14,10 @@
   $: words = data.words.filter(word =>
     !query.trim() || word.word.toLowerCase().includes(query.trim().toLowerCase()),
   )
-  $: extraParams = data.selectedTagSlugs.map((slug): [string, string] => ['tag', slug])
+  $: extraParams = [
+    ...data.selectedTagSlugs.map((slug): [string, string] => ['tag', slug]),
+    ...(data.favouritesOnly ? [['favourite', '1'] as [string, string]] : []),
+  ]
 </script>
 
 <svelte:head>
@@ -26,7 +29,7 @@
   <h1 class='mb-3 text-2xl leading-none font-extrabold'>Dictionary</h1>
   <p class='mb-3'>Here are some words you can learn:</p>
 
-  <TagFilter tags={data.tags} selectedTagSlugs={data.selectedTagSlugs} />
+  <ListingFilters tags={data.tags} selectedTagSlugs={data.selectedTagSlugs} favouritesOnly={data.favouritesOnly} />
 
   {#if data.words.length > 0}
     <div class='mb-4 max-w-sm'>
@@ -42,7 +45,9 @@
 
   {#if !words || words.length === 0}
     <p>
-      {#if data.words.length === 0 && data.selectedTagSlugs.length > 0}
+      {#if data.words.length === 0 && data.favouritesOnly}
+        You haven't favourited any words yet.
+      {:else if data.words.length === 0 && data.selectedTagSlugs.length > 0}
         No words match the selected tags.
       {:else if data.words.length === 0}
         No words found.
@@ -56,7 +61,14 @@
     {#if words && words.length > 0}
       {#each words as word (word.id)}
         <li>
-          <WordCard {word} imageUrl={data.imageUrl} showEdit={!!data.user} tags={word.tags} />
+          <WordCard
+            {word}
+            imageUrl={data.imageUrl}
+            showEdit={!!data.user}
+            showFavourite={!!data.user}
+            favourited={data.favouritedWordIds.has(word.id)}
+            tags={word.tags}
+          />
         </li>
       {/each}
     {/if}

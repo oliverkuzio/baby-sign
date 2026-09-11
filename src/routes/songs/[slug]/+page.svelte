@@ -3,6 +3,7 @@
   import Aside from '$lib/components/Aside.svelte'
   import Content from '$lib/components/Content.svelte'
   import EditIcon from '$lib/components/EditIcon.svelte'
+  import FavouriteIcon from '$lib/components/FavouriteIcon.svelte'
   import WordScroller from '$lib/components/WordScroller.svelte'
 
   export let data: PageData
@@ -19,6 +20,7 @@
   <h1 class='relative mb-3 text-center text-2xl leading-none font-extrabold'>
     {song.title}
     {#if data.user}
+      <FavouriteIcon id={song.id} favourited={data.favourited} size='large' />
       <EditIcon href='/songs/{song.slug}/edit' size='large' />
     {/if}
   </h1>

@@ -1,17 +1,21 @@
-import type { PageServerLoad } from './$types.js'
+import type { Actions, PageServerLoad } from './$types.js'
 import { requireUser } from '$lib/server/auth'
 import { phrase, tag, tagsToPhrases } from '$lib/server/db/schema'
+import { getFavouritedPhraseIds, togglePhraseFavourite } from '$lib/server/favourites'
 import { resolvePagination } from '$lib/server/pagination'
+import { fail } from '@sveltejs/kit'
 import { asc, count, eq, inArray } from 'drizzle-orm'
 
 const PAGE_SIZE = 20
 
 export const load: PageServerLoad = async ({ locals, url }) => {
-  requireUser(locals)
+  const user = requireUser(locals)
 
   const selectedTagSlugs = url.searchParams.getAll('tag')
+  const favouritesOnly = url.searchParams.get('favourite') === '1'
 
   const tags = await locals.db.query.tag.findMany({ orderBy: [asc(tag.name)] })
+  const favouritedPhraseIds = await getFavouritedPhraseIds(locals.db, user.id)
 
   let matchingIds: number[] | undefined
   if (selectedTagSlugs.length > 0) {
@@ -21,6 +25,12 @@ export const load: PageServerLoad = async ({ locals, url }) => {
       .innerJoin(tag, eq(tag.id, tagsToPhrases.tagId))
       .where(inArray(tag.slug, selectedTagSlugs))
     matchingIds = rows.map(row => Number(row.id))
+  }
+
+  if (favouritesOnly) {
+    matchingIds = matchingIds
+      ? matchingIds.filter(id => favouritedPhraseIds.has(id))
+      : [...favouritedPhraseIds]
   }
 
   const totalItems = matchingIds
@@ -46,6 +56,23 @@ export const load: PageServerLoad = async ({ locals, url }) => {
     phrases,
     tags,
     selectedTagSlugs,
+    favouritesOnly,
+    favouritedPhraseIds,
     pagination,
   }
+}
+
+export const actions: Actions = {
+  toggleFavourite: async ({ request, locals }) => {
+    const user = requireUser(locals)
+
+    const data = await request.formData()
+    const id = Number(data.get('id'))
+    if (!Number.isInteger(id)) {
+      return fail(400, { error: 'Invalid phrase id.' })
+    }
+
+    const favourited = await togglePhraseFavourite(locals.db, user.id, id)
+    return { favourited }
+  },
 }

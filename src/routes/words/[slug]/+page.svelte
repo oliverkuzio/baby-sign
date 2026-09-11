@@ -2,6 +2,7 @@
   import type { PageData } from './$types'
   import Content from '$lib/components/Content.svelte'
   import EditIcon from '$lib/components/EditIcon.svelte'
+  import FavouriteIcon from '$lib/components/FavouriteIcon.svelte'
   import NavCard from '$lib/components/NavCard.svelte'
   import WordCard from '$lib/components/WordCard.svelte'
 
@@ -19,6 +20,7 @@
   <h1 class='relative mb-3 text-2xl leading-none font-extrabold'>
     {word.word}
     {#if data.user}
+      <FavouriteIcon id={word.id} favourited={data.favourited} size='large' />
       <EditIcon href='/words/{word.slug}/edit' size='large' />
     {/if}
   </h1>

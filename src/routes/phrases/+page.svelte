@@ -2,17 +2,20 @@
   import type { PageData } from './$types.js'
   import Content from '$lib/components/Content.svelte'
   import EntryCard from '$lib/components/EntryCard.svelte'
+  import ListingFilters from '$lib/components/ListingFilters.svelte'
   import NavCard from '$lib/components/NavCard.svelte'
   import Pagination from '$lib/components/Pagination.svelte'
   import SearchAutocomplete from '$lib/components/SearchAutocomplete.svelte'
-  import TagFilter from '$lib/components/TagFilter.svelte'
 
   export let data: PageData
 
   let query = ''
 
   $: phrases = data.phrases
-  $: extraParams = data.selectedTagSlugs.map((slug): [string, string] => ['tag', slug])
+  $: extraParams = [
+    ...data.selectedTagSlugs.map((slug): [string, string] => ['tag', slug]),
+    ...(data.favouritesOnly ? [['favourite', '1'] as [string, string]] : []),
+  ]
   $: searchItems = phrases.map(phrase => ({ id: phrase.id, label: phrase.title }))
   $: filteredPhrases = phrases.filter(phrase =>
     !query.trim() || phrase.title.toLowerCase().includes(query.trim().toLowerCase()),
@@ -28,7 +31,7 @@
   <h1 class='mb-3 text-2xl leading-none font-extrabold'>Phrasebook</h1>
   <p class='mb-3'>Here are some phrases to learn and sign:</p>
 
-  <TagFilter tags={data.tags} selectedTagSlugs={data.selectedTagSlugs} />
+  <ListingFilters tags={data.tags} selectedTagSlugs={data.selectedTagSlugs} favouritesOnly={data.favouritesOnly} />
 
   {#if phrases.length > 0}
     <div class='mb-4 max-w-sm'>
@@ -43,7 +46,9 @@
 
   {#if !filteredPhrases || filteredPhrases.length === 0}
     <p>
-      {#if phrases.length === 0 && data.selectedTagSlugs.length > 0}
+      {#if phrases.length === 0 && data.favouritesOnly}
+        You haven't favourited any phrases yet.
+      {:else if phrases.length === 0 && data.selectedTagSlugs.length > 0}
         No phrases match the selected tags.
       {:else if phrases.length === 0}
         No phrases found.
@@ -58,13 +63,18 @@
       {#each filteredPhrases as phrase (phrase.id)}
         <li>
           <EntryCard
+            id={phrase.id}
             href='/phrases/{phrase.slug}'
+            editHref='/phrases/{phrase.slug}/edit'
             title={phrase.title}
             description='“{phrase.phrase}”'
             tags={phrase.tags}
             tagFilterHref='/phrases'
             words={phrase.words}
             imageUrl={data.imageUrl}
+            showEdit={!!data.user}
+            showFavourite={!!data.user}
+            favourited={data.favouritedPhraseIds.has(phrase.id)}
           />
         </li>
       {/each}
