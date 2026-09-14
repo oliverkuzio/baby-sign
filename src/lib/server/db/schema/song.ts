@@ -10,6 +10,7 @@ export const song = sqliteTable('song', {
   slug: text('slug').notNull().unique(),
   title: text('title').notNull(),
   lyrics: text('lyrics').notNull(),
+  videoUrl: text('videoUrl'),
 })
 
 export const songRelations = relations(song, ({ many }) => ({
