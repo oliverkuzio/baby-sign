@@ -5,10 +5,16 @@
   import EditIcon from '$lib/components/EditIcon.svelte'
   import FavouriteIcon from '$lib/components/FavouriteIcon.svelte'
   import WordScroller from '$lib/components/WordScroller.svelte'
+  import { extractYouTubeVideoId } from '$lib/youtube'
 
   export let data: PageData
 
   const song = data.song
+  const hasLyrics = song.lyrics.trim().length > 0
+  const videoId = song.videoUrl ? extractYouTubeVideoId(song.videoUrl) : null
+  const hasVideo = videoId !== null
+
+  let activeTab: 'lyrics' | 'video' = hasLyrics ? 'lyrics' : 'video'
 </script>
 
 <svelte:head>
@@ -31,20 +37,58 @@
       {/each}
     </div>
   {/if}
-  {#each song.lyrics.split('.').filter(Boolean) as segment, i (i)}
-    <p class='mt-10 text-center text-xl italic'>
-      ♬
-      <br />
+  {#if hasLyrics && hasVideo}
+    <div role='tablist' class='tabs tabs-boxed mt-6 justify-center'>
+      <button
+        type='button'
+        role='tab'
+        class='tab'
+        class:tab-active={activeTab === 'lyrics'}
+        onclick={() => (activeTab = 'lyrics')}
+      >
+        Lyrics
+      </button>
+      <button
+        type='button'
+        role='tab'
+        class='tab'
+        class:tab-active={activeTab === 'video'}
+        onclick={() => (activeTab = 'video')}
+      >
+        Video
+      </button>
+    </div>
+  {/if}
 
-      {#each segment.split(',') as verse, i (verse + i)}
-        {#if i < segment.split(',').length - 1}
-          {verse}, <br />
-        {:else}
-          {verse}
-        {/if}
-      {/each}
-    </p>
-  {/each}
+  {#if hasLyrics && (!hasVideo || activeTab === 'lyrics')}
+    {#each song.lyrics.split('.').filter(Boolean) as verse, i (i)}
+      {@const lines = verse.split(/,\s*\n/)}
+      <p class='mt-10 text-center text-xl italic'>
+        ♬
+        <br />
+
+        {#each lines as line, i (line + i)}
+          {#if i < lines.length - 1}
+            {line}, <br />
+          {:else}
+            {line}.
+          {/if}
+        {/each}
+      </p>
+    {/each}
+  {/if}
+
+  {#if hasVideo && (!hasLyrics || activeTab === 'video')}
+    <div class='mx-auto mt-10 aspect-video w-full max-w-2xl'>
+      <iframe
+        class='h-full w-full rounded-box'
+        src='https://www.youtube.com/embed/{videoId}'
+        title={song.title}
+        allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+        allowfullscreen
+      ></iframe>
+    </div>
+  {/if}
 </Content>
 
 {#if song.words && song.words.length > 0}

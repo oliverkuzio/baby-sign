@@ -3,6 +3,7 @@ import { requireAdmin } from '$lib/server/auth'
 import { song, tag, tagsToSongs, word, wordsToSongs } from '$lib/server/db/schema'
 import { slugify } from '$lib/server/slugify'
 import { resolveTagIds } from '$lib/server/tags'
+import { isValidYouTubeUrl } from '$lib/youtube'
 import { error, fail, redirect } from '@sveltejs/kit'
 import { asc, eq } from 'drizzle-orm'
 
@@ -41,17 +42,32 @@ export const actions: Actions = {
     const data = await request.formData()
     const title = String(data.get('title') ?? '').trim()
     const lyrics = String(data.get('lyrics') ?? '').trim()
+    const videoUrl = String(data.get('videoUrl') ?? '').trim()
     const slugInput = String(data.get('slug') ?? '').trim()
     const wordIds = data.getAll('wordIds').map(String)
     const tagIds = data.getAll('tagIds').map(String)
     const newTagNames = data.getAll('newTagNames').map(String)
     const slug = slugify(slugInput)
 
-    if (!title || !lyrics || !slug) {
+    if (!title || !slug || (!lyrics && !videoUrl)) {
       return fail(400, {
-        error: 'A title, lyrics, and slug are required.',
+        error: 'A title and slug are required, along with lyrics, a video URL, or both.',
         title,
         lyrics,
+        videoUrl,
+        slug: slugInput,
+        wordIds,
+        tagIds,
+        newTagNames,
+      })
+    }
+
+    if (videoUrl && !isValidYouTubeUrl(videoUrl)) {
+      return fail(400, {
+        error: 'That doesn\'t look like a valid YouTube video link.',
+        title,
+        lyrics,
+        videoUrl,
         slug: slugInput,
         wordIds,
         tagIds,
@@ -63,7 +79,7 @@ export const actions: Actions = {
     try {
       const [updated] = await locals.db
         .update(song)
-        .set({ title, lyrics, slug })
+        .set({ title, lyrics, videoUrl: videoUrl || null, slug })
         .where(eq(song.slug, params.slug))
         .returning()
 
@@ -77,6 +93,7 @@ export const actions: Actions = {
         error: `The slug "${slug}" is already in use.`,
         title,
         lyrics,
+        videoUrl,
         slug: slugInput,
         wordIds,
         tagIds,

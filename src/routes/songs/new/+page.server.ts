@@ -3,6 +3,7 @@ import { requireAdmin } from '$lib/server/auth'
 import { song, tag, tagsToSongs, word, wordsToSongs } from '$lib/server/db/schema'
 import { slugify } from '$lib/server/slugify'
 import { resolveTagIds } from '$lib/server/tags'
+import { isValidYouTubeUrl } from '$lib/youtube'
 import { fail, redirect } from '@sveltejs/kit'
 import { asc } from 'drizzle-orm'
 
@@ -24,16 +25,31 @@ export const actions: Actions = {
     const data = await request.formData()
     const title = String(data.get('title') ?? '').trim()
     const lyrics = String(data.get('lyrics') ?? '').trim()
+    const videoUrl = String(data.get('videoUrl') ?? '').trim()
     const slugInput = String(data.get('slug') ?? '').trim()
     const wordIds = data.getAll('wordIds').map(String)
     const tagIds = data.getAll('tagIds').map(String)
     const newTagNames = data.getAll('newTagNames').map(String)
 
-    if (!title || !lyrics) {
+    if (!title || (!lyrics && !videoUrl)) {
       return fail(400, {
-        error: 'A title and lyrics are required.',
+        error: 'A title is required, along with lyrics, a video URL, or both.',
         title,
         lyrics,
+        videoUrl,
+        slug: slugInput,
+        wordIds,
+        tagIds,
+        newTagNames,
+      })
+    }
+
+    if (videoUrl && !isValidYouTubeUrl(videoUrl)) {
+      return fail(400, {
+        error: 'That doesn\'t look like a valid YouTube video link.',
+        title,
+        lyrics,
+        videoUrl,
         slug: slugInput,
         wordIds,
         tagIds,
@@ -47,6 +63,7 @@ export const actions: Actions = {
         error: 'Could not derive a slug from that title — set one explicitly.',
         title,
         lyrics,
+        videoUrl,
         slug: slugInput,
         wordIds,
         tagIds,
@@ -56,7 +73,10 @@ export const actions: Actions = {
 
     let createdId: number
     try {
-      const [created] = await locals.db.insert(song).values({ title, lyrics, slug }).returning()
+      const [created] = await locals.db
+        .insert(song)
+        .values({ title, lyrics, videoUrl: videoUrl || null, slug })
+        .returning()
       createdId = created.id
     }
     catch {
@@ -64,6 +84,7 @@ export const actions: Actions = {
         error: `The slug "${slug}" is already in use.`,
         title,
         lyrics,
+        videoUrl,
         slug: slugInput,
         wordIds,
         tagIds,

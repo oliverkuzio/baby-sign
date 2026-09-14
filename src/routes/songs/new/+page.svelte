@@ -4,6 +4,7 @@
   import Content from '$lib/components/Content.svelte'
   import TagPicker from '$lib/components/TagPicker.svelte'
   import WordAutocomplete from '$lib/components/WordAutocomplete.svelte'
+  import { isValidYouTubeUrl } from '$lib/youtube'
   import { untrack } from 'svelte'
 
   const { data, form }: { data: PageData, form: ActionData } = $props()
@@ -11,6 +12,13 @@
   let selectedWordIds = $state(untrack(() => (form?.wordIds ?? []).map(String)))
   let selectedTagIds = $state(untrack(() => (form?.tagIds ?? []).map(String)))
   let newTagNames = $state(untrack(() => form?.newTagNames ?? []))
+
+  function validateVideoUrl(event: Event & { currentTarget: HTMLInputElement }) {
+    const value = event.currentTarget.value.trim()
+    event.currentTarget.setCustomValidity(
+      value && !isValidYouTubeUrl(value) ? 'Enter a valid YouTube video link.' : '',
+    )
+  }
 </script>
 
 <svelte:head>
@@ -31,8 +39,20 @@
     </label>
 
     <label class='fieldset'>
-      <span class='label'>Lyrics</span>
-      <textarea name='lyrics' required rows='6' class='textarea w-full'>{form?.lyrics ?? ''}</textarea>
+      <span class='label'>Lyrics <span class='opacity-60'>(optional if a video URL is set)</span></span>
+      <textarea name='lyrics' rows='6' class='textarea w-full'>{form?.lyrics ?? ''}</textarea>
+    </label>
+
+    <label class='fieldset'>
+      <span class='label'>Video URL <span class='opacity-60'>(optional — a YouTube link)</span></span>
+      <input
+        name='videoUrl'
+        type='url'
+        value={form?.videoUrl ?? ''}
+        oninput={validateVideoUrl}
+        placeholder='https://www.youtube.com/watch?v=...'
+        class='input w-full'
+      />
     </label>
 
     <label class='fieldset'>
