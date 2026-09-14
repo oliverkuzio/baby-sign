@@ -2,7 +2,7 @@
   const { children } = $props()
 </script>
 
-<aside class='bg-base-200 sticky bottom-0 mt-auto'>
+<aside class='bg-base-200 sticky bottom-0 text-center mt-auto'>
   <div class='p-4'>
     {@render children()}
   </div>

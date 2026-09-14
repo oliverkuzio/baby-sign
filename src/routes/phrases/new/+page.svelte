@@ -20,23 +20,23 @@
 <Content>
   <h1 class='mb-3 text-2xl leading-none font-extrabold'>Add a phrase</h1>
 
-  <form method='POST' use:enhance class='flex max-w-md flex-col gap-4'>
+  <form method='POST' use:enhance class='flex max-w-md flex-col ml-auto mr-auto gap-4'>
     {#if form?.error}
       <p class='alert alert-error'>{form.error}</p>
     {/if}
 
     <label class='fieldset'>
-      <span class='label'>Title</span>
+      <span class='label font-semibold text-base-content'>Title</span>
       <input name='title' required value={form?.title ?? ''} class='input w-full' />
     </label>
 
     <label class='fieldset'>
-      <span class='label'>Phrase</span>
+      <span class='label font-semibold text-base-content'>Phrase</span>
       <textarea name='phrase' required rows='3' class='textarea w-full'>{form?.phrase ?? ''}</textarea>
     </label>
 
     <label class='fieldset'>
-      <span class='label'>Slug <span class='opacity-60'>(optional — derived from the title if left blank)</span></span>
+      <span class='label font-semibold text-base-content'>Slug <span class='opacity-60'>(optional — derived from the title if left blank)</span></span>
       <input name='slug' value={form?.slug ?? ''} class='input w-full' />
     </label>
 
@@ -51,6 +51,6 @@
 
     <TagPicker tags={data.tags} legend='Tags' bind:selectedTagIds bind:newTagNames />
 
-    <button type='submit' class='btn btn-primary self-start'>Add phrase</button>
+    <button type='submit' class='btn btn-primary self-center'>Add phrase</button>
   </form>
 </Content>

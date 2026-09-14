@@ -45,7 +45,7 @@
   const previewWords = $derived(words.slice(0, hasMoreWords ? 3 : 4).map(({ word }) => word))
 </script>
 
-<div class='card bg-base-200 shadow-lg'>
+<div class='card bg-base-200 border-base-300 border-4'>
   {#if showFavourite || showEdit}
     <div class='relative mt-2 mr-2 h-10'>
       {#if showFavourite}

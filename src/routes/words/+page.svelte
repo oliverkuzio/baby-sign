@@ -32,7 +32,7 @@
   <ListingFilters tags={data.tags} selectedTagSlugs={data.selectedTagSlugs} favouritesOnly={data.favouritesOnly} />
 
   {#if data.words.length > 0}
-    <div class='mb-4 max-w-sm'>
+    <div class='mb-4 max-w-sm ml-auto mr-auto'>
       <WordAutocomplete
         words={data.words}
         imageUrl={data.imageUrl}
@@ -74,7 +74,7 @@
     {/if}
     {#if data.user}
       <li>
-        <NavCard href='/words/new' label='Add word +' />
+        <NavCard href='/words/new' label='Add word +' shape='square' />
       </li>
     {/if}
   </ul>

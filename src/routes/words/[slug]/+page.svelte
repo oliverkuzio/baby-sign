@@ -25,13 +25,13 @@
     {/if}
   </h1>
   {#if word.tags.length > 0}
-    <div class='mb-3 flex flex-wrap gap-2'>
+    <div class='mb-3 flex flex-wrap justify-center gap-2'>
       {#each word.tags as { tag } (tag.id)}
         <a href='/words?tag={tag.slug}' class='badge badge-primary'>{tag.name}</a>
       {/each}
     </div>
   {/if}
-  <div class='mt-10 mb-3'>
+  <div class='mt-10 mb-3 flex justify-center'>
     <WordCard {word} imageUrl={data.imageUrl} size='large' />
   </div>
   <figure>

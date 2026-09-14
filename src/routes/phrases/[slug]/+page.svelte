@@ -25,14 +25,14 @@
     {/if}
   </h1>
   {#if phrase.tags.length > 0}
-    <div class='mb-3 flex flex-wrap gap-2'>
+    <div class='mb-3 flex flex-wrap justify-center gap-2'>
       {#each phrase.tags as { tag } (tag.id)}
         <a href='/phrases?tag={tag.slug}' class='badge badge-primary'>{tag.name}</a>
       {/each}
     </div>
   {/if}
-  <blockquote class='mt-10 border-l-4 border-l-gray-700 pl-4'>
-    <p class='mb-3 text-xl font-semibold'>“{phrase.phrase}”</p>
+  <blockquote class='mt-10 border-l-4 border-l-base-content text-center ml-auto mr-auto pl-4 w-fit'>
+    <p class='mb-3 text-xl md:text-2xl lg:text-4xl font-semibold italic'>“{phrase.phrase}”</p>
   </blockquote>
 </Content>
 

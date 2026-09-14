@@ -34,7 +34,7 @@
   <ListingFilters tags={data.tags} selectedTagSlugs={data.selectedTagSlugs} favouritesOnly={data.favouritesOnly} />
 
   {#if phrases.length > 0}
-    <div class='mb-4 max-w-sm'>
+    <div class='mb-4 max-w-sm ml-auto mr-auto'>
       <SearchAutocomplete
         items={searchItems}
         bind:query
@@ -58,7 +58,7 @@
     </p>
   {/if}
 
-  <ul class='flex flex-col gap-4'>
+  <ul class='flex flex-col max-w-4xl ml-auto mr-auto gap-4'>
     {#if filteredPhrases && filteredPhrases.length > 0}
       {#each filteredPhrases as phrase (phrase.id)}
         <li>

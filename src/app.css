@@ -4,6 +4,20 @@
   themes: sign-light --default, sign-dark;
 }
 
+@font-face {
+  font-family: 'Pally';
+  src: url('/fonts/Pally-Variable.woff2') format('woff2'),
+       url('/fonts/Pally-Variable.woff') format('woff'),
+       url('/fonts/Pally-Variable.ttf') format('truetype');
+  font-weight: 400 700;
+  font-display: swap;
+  font-style: normal;
+}
+
+@theme {
+  --font-sans: 'Pally', 'Comic Sans', sans-serif;
+}
+
 /*
  * Light and dark only ever change the base surface colors and the default
  * text color (base-100/200/300 + base-content). Every other token —
@@ -11,51 +25,42 @@
  * below and reused, unchanged, by both theme blocks.
  */
 :root {
-  --color-base-100: oklch(98% 0.014 180.72);
-  --color-base-200: oklch(95% 0.051 180.801);
-  --color-base-300: oklch(91% 0.096 180.426);
-  --color-base-content: oklch(38% 0.063 188.416);
-  --color-primary: oklch(65% 0.241 354.308);
-  --color-primary-content: oklch(97% 0.014 343.198);
-  --color-secondary: oklch(58% 0.233 277.117);
-  --color-secondary-content: oklch(96% 0.018 272.314);
-  --color-accent: oklch(69% 0.17 162.48);
-  --color-accent-content: oklch(97% 0.021 166.113);
-  --color-neutral: oklch(60% 0.118 184.704);
-  --color-neutral-content: oklch(98% 0.014 180.72);
-  --color-info: oklch(60% 0.126 221.723);
-  --color-info-content: oklch(98% 0.019 200.873);
-  --color-success: oklch(64% 0.2 131.684);
-  --color-success-content: oklch(98% 0.031 120.757);
-  --color-warning: oklch(68% 0.162 75.834);
-  --color-warning-content: oklch(98% 0.026 102.212);
-  --color-error: oklch(58% 0.253 17.585);
-  --color-error-content: oklch(96% 0.015 12.422);
-  /* Favourite icon (star) colors — not a registered DaisyUI theme color,
-   * consumed directly by FavouriteIcon.svelte's scoped styles. */
-  --color-favourite: oklch(80% 0.15 85);
-  --color-favourite-content: oklch(33% 0.08 55);
-  --color-favourite-muted: oklch(55% 0.1 70);
-  --radius-selector: 2rem;
-  --radius-field: 2rem;
-  --radius-box: 2rem;
+  --color-primary: oklch(70% 0.213 47.604);
+  --color-primary-content: oklch(95% 0.038 75.164);
+  --color-secondary: oklch(0% 0 0);
+  --color-secondary-content: oklch(100% 0 0);
+  --color-accent: oklch(68% 0.169 237.323);
+  --color-accent-content: oklch(95% 0.026 236.824);
+  --color-neutral: oklch(76% 0.233 130.85);
+  --color-neutral-content: oklch(40% 0.101 131.063);
+  --color-info: oklch(68% 0.169 237.323);
+  --color-info-content: oklch(95% 0.026 236.824);
+  --color-success: oklch(76% 0.233 130.85);
+  --color-success-content: oklch(40% 0.101 131.063);
+  --color-warning: oklch(70% 0.213 47.604);
+  --color-warning-content: oklch(95% 0.038 75.164);
+  --color-error: oklch(63% 0.237 25.331);
+  --color-error-content: oklch(93% 0.032 17.717);
+  --radius-selector: 0.25rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.5rem;
   --size-selector: 0.25rem;
   --size-field: 0.25rem;
-  --border: 1px;
-  --depth: 1;
+  --border: 2px;
+  --depth: 0;
   --noise: 1;
 }
 
-
 @plugin "daisyui/theme" {
-  name: "sign-light";
+  name: 'sign-light';
   default: true;
   prefersdark: false;
-  color-scheme: "light";
-  --color-base-100: oklch(98% 0.014 180.72);
-  --color-base-200: oklch(95% 0.051 180.801);
-  --color-base-300: oklch(91% 0.096 180.426);
-  --color-base-content: oklch(38% 0.063 188.416);
+  color-scheme: light;
+
+  --color-base-100: oklch(98% 0.031 120.757);
+  --color-base-200: oklch(96% 0.067 122.328);
+  --color-base-300: oklch(93% 0.127 124.321);
+  --color-base-content: oklch(40% 0.101 131.063);
 }
 
 
@@ -63,10 +68,10 @@
   name: 'sign-dark';
   default: false;
   prefersdark: true;
-  color-scheme: dark;
+  color-scheme: "dark";
 
-  --color-base-100: oklch(21% 0.006 264.7);
-  --color-base-200: oklch(18% 0.006 264.7);
-  --color-base-300: oklch(14% 0.006 264.7);
-  --color-base-content: oklch(96% 0 0);
+  --color-base-100: oklch(27% 0.072 132.109);
+  --color-base-200: oklch(40% 0.101 131.063);
+  --color-base-300: oklch(45% 0.124 130.933);
+  --color-base-content: oklch(96% 0.067 122.328);
 }

@@ -24,7 +24,7 @@
   }: Props = $props()
 </script>
 
-<div class='card bg-base-200 relative aspect-square max-w-96 shadow-md transition-shadow duration-300 hover:shadow-lg'>
+<div class='card bg-base-200 border-base-300 border-4 relative aspect-square max-w-96'>
   {#if tags.length > 0}
     <div class='absolute top-4 left-4 flex max-w-[calc(100%-1rem)] flex-wrap gap-1'>
       {#each tags as { tag } (tag.id)}

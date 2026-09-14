@@ -11,13 +11,15 @@
 <Content>
   <h1 class='mb-3 text-2xl leading-none font-extrabold'>Baby Sign</h1>
   <p class='mb-3'>Welcome to the Baby Sign app!</p>
-  <nav>
+  <nav class='mt-10'>
     <ul class='align-center grid grid-cols-1 justify-center gap-4 md:grid-cols-2 xl:grid-cols-3'>
       <li>
         <NavCard
           href='/words'
           label='Dictionary'
           description='See the full list of words to sign!'
+          shape='square'
+          size='large'
         />
       </li>
       <li>
@@ -25,10 +27,18 @@
           href='/phrases'
           label='Phrasebook'
           description='See some common phrases to learn and sign!'
+          shape='square'
+          size='large'
         />
       </li>
       <li>
-        <NavCard href='/songs' label='Songbook' description='See some songs to sing and sign!' />
+        <NavCard
+          href='/songs'
+          label='Songbook'
+          description='See some songs to sing and sign!'
+          shape='square'
+          size='large'
+        />
       </li>
     </ul>
   </nav>

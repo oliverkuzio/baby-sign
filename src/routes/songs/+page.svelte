@@ -6,6 +6,7 @@
   import NavCard from '$lib/components/NavCard.svelte'
   import Pagination from '$lib/components/Pagination.svelte'
   import SearchAutocomplete from '$lib/components/SearchAutocomplete.svelte'
+  import { snippet } from '$lib/snippet'
 
   export let data: PageData
 
@@ -34,7 +35,7 @@
   <ListingFilters tags={data.tags} selectedTagSlugs={data.selectedTagSlugs} favouritesOnly={data.favouritesOnly} />
 
   {#if songs.length > 0}
-    <div class='mb-4 max-w-sm'>
+    <div class='mb-4 max-w-sm ml-auto mr-auto'>
       <SearchAutocomplete
         items={searchItems}
         bind:query
@@ -58,7 +59,7 @@
     </p>
   {/if}
 
-  <ul class='mb-3 flex flex-col gap-4'>
+  <ul class='mb-3 flex flex-col max-w-4xl ml-auto mr-auto gap-4'>
     {#if filteredSongs && filteredSongs.length > 0}
       {#each filteredSongs as song (song.id)}
         <li>
@@ -67,6 +68,7 @@
             href='/songs/{song.slug}'
             editHref='/songs/{song.slug}/edit'
             title={song.title}
+            description={snippet(song.lyrics, 50)}
             tags={song.tags}
             tagFilterHref='/songs'
             words={song.words}

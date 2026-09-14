@@ -63,7 +63,11 @@
   {#if hasLyrics && (!hasVideo || activeTab === 'lyrics')}
     {#each song.lyrics.split('.').filter(Boolean) as verse, i (i)}
       {@const lines = verse.split(/,\s*\n/)}
-      <p class='mt-10 text-center text-xl italic'>
+      <p
+        class='mt-10 text-center text-xl italic'
+        class:mt-4={i > 0}
+        class:mt-10={i === 0}
+      >
         ♬
         <br />
 

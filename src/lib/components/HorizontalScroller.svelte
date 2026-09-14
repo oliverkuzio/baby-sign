@@ -2,6 +2,6 @@
   const { children } = $props()
 </script>
 
-<div class='justify-content-center flex flex-nowrap gap-4 overflow-x-auto'>
+<div class='justify-center-safe flex flex-nowrap gap-4 overflow-x-auto'>
   {@render children()}
 </div>

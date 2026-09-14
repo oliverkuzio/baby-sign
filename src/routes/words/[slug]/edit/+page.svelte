@@ -18,24 +18,24 @@
 <Content>
   <h1 class='mb-3 text-2xl leading-none font-extrabold'>Edit word</h1>
 
-  <form method='POST' action='?/update' use:enhance class='flex max-w-md flex-col gap-4'>
+  <form method='POST' action='?/update' use:enhance class='flex max-w-md flex-col ml-auto mr-auto gap-4'>
     {#if form?.error}
       <p class='alert alert-error'>{form.error}</p>
     {/if}
 
     <label class='fieldset'>
-      <span class='label'>Word</span>
+      <span class='label font-semibold text-base-content'>Word</span>
       <input name='word' required value={form?.word ?? data.word.word} class='input w-full' />
     </label>
 
     <label class='fieldset'>
-      <span class='label'>Slug</span>
+      <span class='label font-semibold text-base-content'>Slug</span>
       <input name='slug' required value={form?.slug ?? data.word.slug} class='input w-full' />
     </label>
 
     <TagPicker tags={data.tags} legend='Tags' bind:selectedTagIds bind:newTagNames />
 
-    <button type='submit' class='btn btn-primary self-start'>Save changes</button>
+    <button type='submit' class='btn btn-primary self-center'>Save changes</button>
   </form>
 
   <form

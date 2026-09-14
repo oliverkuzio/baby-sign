@@ -14,7 +14,9 @@
 <div class='drawer'>
   <input id='nav-drawer' type='checkbox' class='drawer-toggle' bind:checked={drawerOpen} />
 
-  <div class='drawer-content bg-base-100 text-base-content flex min-h-screen flex-col'>
+  <div
+    class='drawer-content bg-base-100 text-base-content flex min-h-screen flex-col'
+  >
     {@render children?.()}
   </div>
 

@@ -25,7 +25,7 @@
       if (storedTheme())
         return
       isDark = event.matches
-      document.documentElement.setAttribute('data-theme', `babysign-${isDark ? 'dark' : 'light'}`)
+      document.documentElement.setAttribute('data-theme', `sign-${isDark ? 'dark' : 'light'}`)
     }
     media.addEventListener('change', onChange)
     return () => media.removeEventListener('change', onChange)
@@ -34,7 +34,7 @@
   function toggle() {
     isDark = !isDark
     const theme = isDark ? 'dark' : 'light'
-    document.documentElement.setAttribute('data-theme', `babysign-${theme}`)
+    document.documentElement.setAttribute('data-theme', `sign-${theme}`)
     localStorage.setItem('theme', theme)
   }
 </script>

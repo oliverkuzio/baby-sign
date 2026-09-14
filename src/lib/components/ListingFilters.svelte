@@ -33,7 +33,7 @@
   }
 </script>
 
-<div class='mb-4 flex flex-wrap items-center gap-2'>
+<div class='mb-4 text-center flex flex-wrap items-center justify-center gap-2'>
   <a
     href={hrefForFavouritesToggle()}
     class='badge badge-lg'

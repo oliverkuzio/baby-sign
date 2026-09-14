@@ -23,9 +23,9 @@
   }
 </script>
 
-<header class='navbar bg-neutral text-neutral-content sticky top-0 z-50'>
+<header class='navbar bg-base-100 text-base-content sticky top-0 z-50'>
   <div class='navbar-start'>
-    <a href='/' class='btn btn-ghost text-neutral-content px-2 text-lg normal-case'>
+    <a href='/' class='btn btn-ghost text-base-content px-2 text-lg normal-case'>
       <svg
         fill='var(--color-primary)'
         width='28'

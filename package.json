@@ -51,6 +51,7 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^9.5.1",
+    "@iconify-json/mingcute": "^1.2.8",
     "@playwright/test": "^1.63.0",
     "@sveltejs/adapter-cloudflare": "^7.2.9",
     "@sveltejs/kit": "^2.70.3",
