@@ -24,9 +24,9 @@
   }: Props = $props()
 </script>
 
-<div class='card bg-base-200 border-base-300 border-4 relative aspect-square max-w-96'>
+<div class='card w-full bg-base-200 border-base-300 border-4 relative'>
   {#if tags.length > 0}
-    <div class='absolute top-4 left-4 flex max-w-[calc(100%-1rem)] flex-wrap gap-1'>
+    <div class='absolute top-2 left-4 flex max-w-[calc(100%-1rem)] flex-wrap gap-1'>
       {#each tags as { tag } (tag.id)}
         <a href='/words?tag={tag.slug}' class='badge badge-primary badge-sm'>
           {tag.name}
@@ -36,7 +36,7 @@
   {/if}
   <a
     href='/words/{word.slug}/'
-    class='card-body flex aspect-square flex-col items-center justify-center p-4 gap-4'
+    class='card-body flex aspect-square flex-col items-center justify-center p-4 pt-10 pb-2 md:pt-4 md:pb-4 gap-4'
   >
     {#if word.slug}
       <img src={`${imageUrl}/${word.slug}.svg`} alt={word.word} />
@@ -50,9 +50,9 @@
     </p>
   </a>
   {#if showFavourite}
-    <FavouriteIcon id={word.id} {favourited} size='large' inset={true} />
+    <FavouriteIcon id={word.id} {favourited} size='small' inset={true} />
   {/if}
   {#if showEdit}
-    <EditIcon href='/words/{word.slug}/edit' size='large' inset={true} />
+    <EditIcon href='/words/{word.slug}/edit' size='small' inset={true} />
   {/if}
 </div>

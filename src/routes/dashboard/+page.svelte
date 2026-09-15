@@ -1,5 +1,6 @@
 <script lang='ts'>
   import Content from '$lib/components/Content.svelte'
+  import Hero from '$lib/components/Hero.svelte'
   import NavCard from '$lib/components/NavCard.svelte'
 </script>
 
@@ -8,12 +9,11 @@
   <meta name='description' content='Sign, sing and play!' />
 </svelte:head>
 
-<Content>
-  <h1 class='mb-3 text-2xl leading-none font-extrabold'>Baby Sign</h1>
-  <p class='mb-3'>Welcome to the Baby Sign app!</p>
+<Content justify='center'>
+  <Hero title='Baby Sign' message='Sign, sing and play — learn baby sign language together.' />
   <nav class='mt-10'>
-    <ul class='align-center grid grid-cols-1 justify-center gap-4 md:grid-cols-2 xl:grid-cols-3'>
-      <li>
+    <ul class='align-center grid grid-cols-1 justify-center gap-4 max-w-7xl ml-auto mr-auto md:grid-cols-3'>
+      <li class='flex justify-center items-center'>
         <NavCard
           href='/words'
           label='Dictionary'
@@ -22,7 +22,7 @@
           size='large'
         />
       </li>
-      <li>
+      <li class='flex justify-center items-center'>
         <NavCard
           href='/phrases'
           label='Phrasebook'
@@ -31,7 +31,7 @@
           size='large'
         />
       </li>
-      <li>
+      <li class='flex justify-center items-center'>
         <NavCard
           href='/songs'
           label='Songbook'

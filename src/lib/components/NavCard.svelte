@@ -17,9 +17,8 @@
 
 <a
   {href}
-  class='card bg-base-200 border-base-300 border-4'
+  class='card w-full bg-base-200 border-base-300 border-4'
   class:aspect-square={shape === 'square'}
-  class:max-w-96={shape === 'square'}
   class:items-center={shape === 'square'}
 >
   <div

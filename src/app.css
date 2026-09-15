@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
 @plugin 'daisyui' {
-  themes: sign-light --default, sign-dark;
+  themes: light --default, dark;
 }
 
 @font-face {
@@ -25,17 +25,17 @@
  * below and reused, unchanged, by both theme blocks.
  */
 :root {
-  --color-primary: oklch(70% 0.213 47.604);
-  --color-primary-content: oklch(95% 0.038 75.164);
-  --color-secondary: oklch(0% 0 0);
-  --color-secondary-content: oklch(100% 0 0);
+  --color-primary: oklch(76% 0.188 70.08);
+  --color-primary-content: oklch(98% 0.022 95.277);
+  --color-secondary: oklch(87% 0.169 91.605);
+  --color-secondary-content: oklch(66% 0.179 58.318);
   --color-accent: oklch(68% 0.169 237.323);
   --color-accent-content: oklch(95% 0.026 236.824);
-  --color-neutral: oklch(76% 0.233 130.85);
+  --color-neutral: oklch(84% 0.238 128.85);
   --color-neutral-content: oklch(40% 0.101 131.063);
   --color-info: oklch(68% 0.169 237.323);
   --color-info-content: oklch(95% 0.026 236.824);
-  --color-success: oklch(76% 0.233 130.85);
+  --color-success: oklch(84% 0.238 128.85);
   --color-success-content: oklch(40% 0.101 131.063);
   --color-warning: oklch(70% 0.213 47.604);
   --color-warning-content: oklch(95% 0.038 75.164);
@@ -52,7 +52,7 @@
 }
 
 @plugin "daisyui/theme" {
-  name: 'sign-light';
+  name: 'light';
   default: true;
   prefersdark: false;
   color-scheme: light;
@@ -65,10 +65,10 @@
 
 
 @plugin 'daisyui/theme' {
-  name: 'sign-dark';
+  name: 'dark';
   default: false;
   prefersdark: true;
-  color-scheme: "dark";
+  color-scheme: dark;
 
   --color-base-100: oklch(27% 0.072 132.109);
   --color-base-200: oklch(40% 0.101 131.063);

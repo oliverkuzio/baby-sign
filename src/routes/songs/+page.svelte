@@ -46,7 +46,7 @@
   {/if}
 
   {#if !filteredSongs || filteredSongs.length === 0}
-    <p>
+    <p class='mb-4'>
       {#if songs.length === 0 && data.favouritesOnly}
         You haven't favourited any songs yet.
       {:else if songs.length === 0 && data.selectedTagSlugs.length > 0}

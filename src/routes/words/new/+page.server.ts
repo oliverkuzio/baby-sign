@@ -21,25 +21,26 @@ export const actions: Actions = {
     const data = await request.formData()
     const wordText = String(data.get('word') ?? '').trim()
     const slugInput = String(data.get('slug') ?? '').trim()
+    const description = String(data.get('description') ?? '').trim()
     const tagIds = data.getAll('tagIds').map(String)
     const newTagNames = data.getAll('newTagNames').map(String)
 
     if (!wordText) {
-      return fail(400, { error: 'A word is required.', word: wordText, slug: slugInput, tagIds, newTagNames })
+      return fail(400, { error: 'A word is required.', word: wordText, slug: slugInput, description, tagIds, newTagNames })
     }
 
     const slug = slugInput ? slugify(slugInput) : slugify(wordText)
     if (!slug) {
-      return fail(400, { error: 'Could not derive a slug from that word — set one explicitly.', word: wordText, slug: slugInput, tagIds, newTagNames })
+      return fail(400, { error: 'Could not derive a slug from that word — set one explicitly.', word: wordText, slug: slugInput, description, tagIds, newTagNames })
     }
 
     let createdId: number
     try {
-      const [created] = await locals.db.insert(word).values({ word: wordText, slug }).returning()
+      const [created] = await locals.db.insert(word).values({ word: wordText, slug, description: description || null }).returning()
       createdId = created.id
     }
     catch {
-      return fail(400, { error: `The slug "${slug}" is already in use.`, word: wordText, slug: slugInput, tagIds, newTagNames })
+      return fail(400, { error: `The slug "${slug}" is already in use.`, word: wordText, slug: slugInput, description, tagIds, newTagNames })
     }
 
     const resolvedTagIds = await resolveTagIds(locals.db, tagIds, newTagNames)

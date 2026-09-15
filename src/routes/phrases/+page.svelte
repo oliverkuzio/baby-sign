@@ -45,7 +45,7 @@
   {/if}
 
   {#if !filteredPhrases || filteredPhrases.length === 0}
-    <p>
+    <p class='mb-4'>
       {#if phrases.length === 0 && data.favouritesOnly}
         You haven't favourited any phrases yet.
       {:else if phrases.length === 0 && data.selectedTagSlugs.length > 0}

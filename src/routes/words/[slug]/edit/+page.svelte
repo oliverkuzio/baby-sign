@@ -33,6 +33,11 @@
       <input name='slug' required value={form?.slug ?? data.word.slug} class='input w-full' />
     </label>
 
+    <label class='fieldset'>
+      <span class='label font-semibold text-base-content'>Description</span>
+      <textarea name='description' rows='4' class='textarea w-full'>{form?.description ?? data.word.description ?? ''}</textarea>
+    </label>
+
     <TagPicker tags={data.tags} legend='Tags' bind:selectedTagIds bind:newTagNames />
 
     <button type='submit' class='btn btn-primary self-center'>Save changes</button>
