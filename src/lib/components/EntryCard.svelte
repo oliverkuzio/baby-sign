@@ -53,7 +53,7 @@
       {/each}
     </div>
   {/if}
-  <a href={href} class='card-body flex flex-col gap-3 p-4 pt-8 md:flex-row md:items-center md:justify-between'>
+  <a href={href} class='card-body flex flex-col gap-3 p-4 pt-12 md:flex-row md:items-center md:justify-between'>
     <div>
       <h2 class='card-title text-lg'>{title}</h2>
       {#if description}

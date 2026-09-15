@@ -1,7 +1,11 @@
 <script lang='ts'>
   import Content from '$lib/components/Content.svelte'
   import Hero from '$lib/components/Hero.svelte'
+  import Icon from '$lib/components/Icon.svelte'
   import NavCard from '$lib/components/NavCard.svelte'
+  import BlockquoteFillIcon from '~icons/mingcute/blockquote-fill'
+  import MingcuteBook6Line from '~icons/mingcute/book-6-line'
+  import MusicFillIcon from '~icons/mingcute/music-fill'
 </script>
 
 <svelte:head>
@@ -20,7 +24,13 @@
           description='See the full list of words to sign!'
           shape='square'
           size='large'
-        />
+        >
+          {#snippet icon()}
+            <Icon color='primary'>
+              <MingcuteBook6Line width={64} height={64} />
+            </Icon>
+          {/snippet}
+        </NavCard>
       </li>
       <li class='flex justify-center items-center'>
         <NavCard
@@ -29,7 +39,13 @@
           description='See some common phrases to learn and sign!'
           shape='square'
           size='large'
-        />
+        >
+          {#snippet icon()}
+            <Icon color='primary'>
+              <BlockquoteFillIcon width={64} height={64} />
+            </Icon>
+          {/snippet}
+        </NavCard>
       </li>
       <li class='flex justify-center items-center'>
         <NavCard
@@ -38,7 +54,13 @@
           description='See some songs to sing and sign!'
           shape='square'
           size='large'
-        />
+        >
+          {#snippet icon()}
+            <Icon color='primary'>
+              <MusicFillIcon width={64} height={64} />
+            </Icon>
+          {/snippet}
+        </NavCard>
       </li>
     </ul>
   </nav>

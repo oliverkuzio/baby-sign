@@ -1,4 +1,6 @@
 <script lang='ts'>
+  import type { Snippet } from 'svelte'
+
   interface Props {
     /** Where should this nav item direct to? */
     href: string
@@ -10,9 +12,11 @@
     shape?: 'auto' | 'square'
     /** Title size */
     size?: 'small' | 'large'
+    /** Icon shown above the label */
+    icon?: Snippet
   }
 
-  const { href, label, description = '', shape = 'auto', size = 'small' }: Props = $props()
+  const { href, label, description = '', shape = 'auto', size = 'small', icon }: Props = $props()
 </script>
 
 <a
@@ -25,6 +29,11 @@
     class='card-body p-6'
     class:justify-center={shape === 'square'}
   >
+    {#if icon}
+      <div class='self-center'>
+        {@render icon()}
+      </div>
+    {/if}
     <h2
       class='card-title self-center'
       class:text-lg={size === 'small'}

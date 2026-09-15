@@ -1,4 +1,5 @@
 /// <reference types="./worker-configuration" />
+/// <reference types="unplugin-icons/types/svelte" />
 import type { Auth } from '$lib/server/auth'
 import type { DrizzleClient } from '$lib/server/db'
 // See https://kit.svelte.dev/docs/types#app
