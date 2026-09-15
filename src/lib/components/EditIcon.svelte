@@ -10,21 +10,21 @@
 
 <a
   {href}
-  class='btn btn-primary btn-circle absolute'
-  class:btn-xs={size === 'small'}
+  class='btn btn-accent btn-circle absolute'
+  class:btn-sm={size === 'small'}
   class:btn-md={size === 'large'}
   class:top-0={!inset}
-  class:top-1={inset && size === 'small'}
+  class:top-2={inset && size === 'small'}
   class:top-4={inset && size === 'large'}
   class:right-0={!inset}
-  class:right-1={inset && size === 'small'}
+  class:right-2={inset && size === 'small'}
   class:right-4={inset && size === 'large'}
   aria-label='Edit'
 >
   <svg
     xmlns='http://www.w3.org/2000/svg'
-    width='12'
-    height='12'
+    width='16'
+    height='16'
     fill='currentColor'
     class='bi bi-pencil'
     viewBox='0 0 16 16'

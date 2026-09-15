@@ -10,6 +10,7 @@ export const word = sqliteTable('word', {
   id: integer('id', { mode: 'number' }).primaryKey({ autoIncrement: true }),
   slug: text('slug').notNull().unique(),
   word: text('word').notNull(),
+  description: text('description'),
 })
 
 export const wordRelations = relations(word, ({ many }) => ({

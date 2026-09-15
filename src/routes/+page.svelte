@@ -13,7 +13,7 @@
   <meta name='description' content='Sign, sing and play!' />
 </svelte:head>
 
-<Content>
+<Content justify='center'>
   <Hero title='Baby Sign' message='Sign, sing and play — learn baby sign language together.'>
     <button type='button' class='btn btn-primary btn-lg' onclick={signIn}>
       Sign in with GitHub

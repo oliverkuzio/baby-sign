@@ -31,45 +31,8 @@
       {/each}
     </div>
   {/if}
-  <div class='mt-10 mb-3 flex justify-center'>
+  <figure class='mt-10 mb-3 flex flex-col items-center justify-center'>
     <WordCard {word} imageUrl={data.imageUrl} size='large' />
-  </div>
-  <figure>
-    <!--
-    {#if word.definition}
-      <blockquote class="border-l-4 border-l-gray-700 pl-4">
-        <p class="mb-3">{word.definition}</p>
-      </blockquote>
-    {/if}
-    -->
-    {#if word.phrases.length}
-      <h3 class='mb-3 text-lg font-semibold'>Phrases with '{word.word}':</h3>
-      <ul
-        class='align-center mb-3 grid grid-cols-1 justify-center gap-4 md:grid-cols-2 xl:grid-cols-3'
-      >
-        {#each word.phrases as phrase (phrase.phrase.slug)}
-          <li class='shrink-0 grow-0 basis-full'>
-            <NavCard
-              href='/phrases/{phrase.phrase.slug}'
-              label={phrase.phrase.title}
-              description='“{phrase.phrase.phrase}”'
-            />
-          </li>
-        {/each}
-      </ul>
-    {/if}
-    {#if word.songs.length}
-      <h3 class='mb-3 text-lg font-semibold'>Songs with '{word.word}':</h3>
-      <ul
-        class='align-center mb-3 grid grid-cols-1 justify-center gap-4 md:grid-cols-2 xl:grid-cols-3'
-      >
-        {#each word.songs as song (song.song.slug)}
-          <li class='shrink-0 grow-0 basis-full'>
-            <NavCard href='/songs/{song.song.slug}' label={song.song.title} />
-          </li>
-        {/each}
-      </ul>
-    {/if}
     <figcaption>
       <cite class='text-base-content/60 text-sm'>
         Graphic
@@ -87,4 +50,35 @@
       </cite>
     </figcaption>
   </figure>
+  {#if word.description}
+    <p class='mb-3 whitespace-pre-line text-center'>{word.description}</p>
+  {/if}
+  {#if word.phrases.length}
+    <h3 class='mb-3 text-lg font-semibold'>Phrases with '{word.word}':</h3>
+    <ul
+      class='align-center mb-3 grid grid-cols-1 justify-center gap-4 md:grid-cols-2 xl:grid-cols-3'
+    >
+      {#each word.phrases as phrase (phrase.phrase.slug)}
+        <li class='shrink-0 grow-0 basis-full'>
+          <NavCard
+            href='/phrases/{phrase.phrase.slug}'
+            label={phrase.phrase.title}
+            description='“{phrase.phrase.phrase}”'
+          />
+        </li>
+      {/each}
+    </ul>
+  {/if}
+  {#if word.songs.length}
+    <h3 class='mb-3 text-lg font-semibold'>Songs with '{word.word}':</h3>
+    <ul
+      class='align-center mb-3 grid grid-cols-1 justify-center gap-4 md:grid-cols-2 xl:grid-cols-3'
+    >
+      {#each word.songs as song (song.song.slug)}
+        <li class='shrink-0 grow-0 basis-full'>
+          <NavCard href='/songs/{song.song.slug}' label={song.song.title} />
+        </li>
+      {/each}
+    </ul>
+  {/if}
 </Content>

@@ -45,31 +45,19 @@
   const previewWords = $derived(words.slice(0, hasMoreWords ? 3 : 4).map(({ word }) => word))
 </script>
 
-<div class='card bg-base-200 border-base-300 border-4'>
-  {#if showFavourite || showEdit}
-    <div class='relative mt-2 mr-2 h-10'>
-      {#if showFavourite}
-        <FavouriteIcon {id} {favourited} size='large' />
-      {/if}
-      {#if showEdit}
-        <EditIcon href={editHref} size='large' />
-      {/if}
+<div class='card bg-base-200 border-base-300 border-4 relative text-left'>
+  {#if tags.length > 0}
+    <div class='absolute top-2 left-2 flex max-w-[calc(100%-1rem)] flex-wrap gap-1'>
+      {#each tags as { tag } (tag.id)}
+        <a href='{tagFilterHref}?tag={tag.slug}' class='badge badge-primary'>{tag.name}</a>
+      {/each}
     </div>
   {/if}
-  <div class='card-body flex flex-col gap-3 p-6 md:flex-row md:items-center md:justify-between'>
-    <div class='min-w-0'>
-      <a href={href} class='block'>
-        <h2 class='card-title text-lg'>{title}</h2>
-        {#if description}
-          <p class='text-sm opacity-60'>{description}</p>
-        {/if}
-      </a>
-      {#if tags.length > 0}
-        <div class='mt-2 flex flex-wrap gap-2'>
-          {#each tags as { tag } (tag.id)}
-            <a href='{tagFilterHref}?tag={tag.slug}' class='badge badge-primary'>{tag.name}</a>
-          {/each}
-        </div>
+  <a href={href} class='card-body flex flex-col gap-3 p-4 pt-8 md:flex-row md:items-center md:justify-between'>
+    <div>
+      <h2 class='card-title text-lg'>{title}</h2>
+      {#if description}
+        <p class='text-sm opacity-60'>{description}</p>
       {/if}
     </div>
 
@@ -89,5 +77,11 @@
         {/if}
       </div>
     {/if}
-  </div>
+  </a>
+  {#if showFavourite}
+    <FavouriteIcon {id} {favourited} size='small' inset={true} />
+  {/if}
+  {#if showEdit}
+    <EditIcon href={editHref} size='small' inset={true} />
+  {/if}
 </div>

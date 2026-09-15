@@ -44,7 +44,7 @@
   {/if}
 
   {#if !words || words.length === 0}
-    <p>
+    <p class='mb-4'>
       {#if data.words.length === 0 && data.favouritesOnly}
         You haven't favourited any words yet.
       {:else if data.words.length === 0 && data.selectedTagSlugs.length > 0}
@@ -57,10 +57,10 @@
     </p>
   {/if}
 
-  <ul class='align-center grid grid-cols-2 justify-center gap-4 md:grid-cols-4 xl:grid-cols-6'>
+  <ul class='flex flex-wrap justify-center gap-4'>
     {#if words && words.length > 0}
       {#each words as word (word.id)}
-        <li>
+        <li class='w-[calc(50%-0.5rem)] md:w-[calc(25%-0.75rem)] xl:w-[calc(16.6667%-0.8333rem)]'>
           <WordCard
             {word}
             imageUrl={data.imageUrl}
@@ -73,7 +73,7 @@
       {/each}
     {/if}
     {#if data.user}
-      <li>
+      <li class='w-[calc(50%-0.5rem)] md:w-[calc(25%-0.75rem)] xl:w-[calc(16.6667%-0.8333rem)]'>
         <NavCard href='/words/new' label='Add word +' shape='square' />
       </li>
     {/if}

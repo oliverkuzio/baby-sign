@@ -40,18 +40,19 @@ export const actions: Actions = {
     const wordText = String(data.get('word') ?? '').trim()
     const slugInput = String(data.get('slug') ?? '').trim()
     const slug = slugify(slugInput)
+    const description = String(data.get('description') ?? '').trim()
     const tagIds = data.getAll('tagIds').map(String)
     const newTagNames = data.getAll('newTagNames').map(String)
 
     if (!wordText || !slug) {
-      return fail(400, { error: 'A word and slug are required.', word: wordText, slug: slugInput, tagIds, newTagNames })
+      return fail(400, { error: 'A word and slug are required.', word: wordText, slug: slugInput, description, tagIds, newTagNames })
     }
 
     let updatedId: number
     try {
       const [updated] = await locals.db
         .update(word)
-        .set({ word: wordText, slug })
+        .set({ word: wordText, slug, description: description || null })
         .where(eq(word.slug, params.slug))
         .returning()
 
@@ -61,7 +62,7 @@ export const actions: Actions = {
       updatedId = updated.id
     }
     catch {
-      return fail(400, { error: `The slug "${slug}" is already in use.`, word: wordText, slug: slugInput, tagIds, newTagNames })
+      return fail(400, { error: `The slug "${slug}" is already in use.`, word: wordText, slug: slugInput, description, tagIds, newTagNames })
     }
 
     const resolvedTagIds = await resolveTagIds(locals.db, tagIds, newTagNames)

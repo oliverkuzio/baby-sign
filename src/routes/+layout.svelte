@@ -18,7 +18,7 @@
   )
 </script>
 
-<Drawer {items}>
+<Drawer {items} user={data.user}>
   <Header {items} user={data.user} />
   <main class='relative flex grow flex-col items-stretch'>
     {@render children?.()}
