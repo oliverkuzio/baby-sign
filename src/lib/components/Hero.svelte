@@ -17,7 +17,7 @@
 </script>
 
 <div class='flex flex-col items-center justify-center gap-4 text-center'>
-  <Icon color='primary'>
+  <Icon>
     <Logo size={64} />
   </Icon>
 

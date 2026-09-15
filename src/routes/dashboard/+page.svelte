@@ -26,7 +26,7 @@
           size='large'
         >
           {#snippet icon()}
-            <Icon color='primary'>
+            <Icon>
               <MingcuteBook6Line width={64} height={64} />
             </Icon>
           {/snippet}
@@ -41,7 +41,7 @@
           size='large'
         >
           {#snippet icon()}
-            <Icon color='primary'>
+            <Icon>
               <BlockquoteFillIcon width={64} height={64} />
             </Icon>
           {/snippet}
@@ -56,7 +56,7 @@
           size='large'
         >
           {#snippet icon()}
-            <Icon color='primary'>
+            <Icon>
               <MusicFillIcon width={64} height={64} />
             </Icon>
           {/snippet}
