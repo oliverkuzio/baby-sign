@@ -40,11 +40,13 @@
 
     <ul class='menu bg-base-200 text-base-content min-h-full w-72 p-4 pt-8'>
       {#if user}
-        <li>Signed in as {user.name}.</li>
-        <li><button type='button' class='btn btn-sm' onclick={signOut}>Sign out</button></li>
+        <li>
+          <span>Signed in as {user.name}. <button type='button' class='btn btn-sm inline-block' onclick={signOut}>Sign out</button></span>
+        </li>
       {:else}
-        <li>You are not signed in.</li>
-        <li><button type='button' class='btn btn-sm btn-primary' onclick={signIn}>Sign in with GitHub</button></li>
+        <li>
+          <div><button type='button' class='btn btn-sm btn-primary inline-block' onclick={signIn}>Sign in with GitHub</button></div>
+        </li>
       {/if}
 
       {#each items as item (item.label)}

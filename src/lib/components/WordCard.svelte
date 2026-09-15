@@ -26,7 +26,7 @@
 
 <div class='card w-full bg-base-200 border-base-300 border-4 relative'>
   {#if tags.length > 0}
-    <div class='absolute top-2 left-4 flex max-w-[calc(100%-1rem)] flex-wrap gap-1'>
+    <div class='absolute top-2 left-2 flex max-w-[calc(100%-1rem)] flex-wrap gap-1'>
       {#each tags as { tag } (tag.id)}
         <a href='/words?tag={tag.slug}' class='badge badge-primary badge-sm'>
           {tag.name}
@@ -36,7 +36,7 @@
   {/if}
   <a
     href='/words/{word.slug}/'
-    class='card-body flex aspect-square flex-col items-center justify-center p-4 pt-10 pb-2 md:pt-4 md:pb-4 gap-4'
+    class='card-body flex aspect-square flex-col items-center justify-center gap-2 p-4 pt-10 pb-2 md:gap-4 md:pt-4 md:pb-4'
   >
     {#if word.slug}
       <img src={`${imageUrl}/${word.slug}.svg`} alt={word.word} />
