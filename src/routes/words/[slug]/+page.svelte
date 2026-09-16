@@ -2,9 +2,10 @@
   import type { PageData } from './$types'
   import Content from '$lib/components/Content.svelte'
   import EditIcon from '$lib/components/EditIcon.svelte'
+  import EntryCard from '$lib/components/EntryCard.svelte'
   import FavouriteIcon from '$lib/components/FavouriteIcon.svelte'
-  import NavCard from '$lib/components/NavCard.svelte'
   import WordCard from '$lib/components/WordCard.svelte'
+  import { snippet } from '$lib/snippet'
 
   export let data: PageData
 
@@ -31,7 +32,7 @@
       {/each}
     </div>
   {/if}
-  <figure class='mt-10 mb-3 flex flex-col items-center justify-center'>
+  <figure class='mt-10 mb-3 flex flex-col items-center justify-center max-w-96 ml-auto mr-auto'>
     <WordCard {word} imageUrl={data.imageUrl} size='large' />
     <figcaption>
       <cite class='text-base-content/60 text-sm'>
@@ -55,15 +56,19 @@
   {/if}
   {#if word.phrases.length}
     <h3 class='mb-3 text-lg font-semibold'>Phrases with '{word.word}':</h3>
-    <ul
-      class='align-center mb-3 grid grid-cols-1 justify-center gap-4 md:grid-cols-2 xl:grid-cols-3'
-    >
-      {#each word.phrases as phrase (phrase.phrase.slug)}
-        <li class='shrink-0 grow-0 basis-full'>
-          <NavCard
-            href='/phrases/{phrase.phrase.slug}'
-            label={phrase.phrase.title}
-            description='“{phrase.phrase.phrase}”'
+    <ul class='mb-3 flex flex-col max-w-4xl ml-auto mr-auto gap-4'>
+      {#each word.phrases as { phrase } (phrase.slug)}
+        <li>
+          <EntryCard
+            id={phrase.id}
+            href='/phrases/{phrase.slug}'
+            editHref='/phrases/{phrase.slug}/edit'
+            title={phrase.title}
+            description='“{phrase.phrase}”'
+            tags={phrase.tags}
+            tagFilterHref='/phrases'
+            words={phrase.words}
+            imageUrl={data.imageUrl}
           />
         </li>
       {/each}
@@ -71,12 +76,20 @@
   {/if}
   {#if word.songs.length}
     <h3 class='mb-3 text-lg font-semibold'>Songs with '{word.word}':</h3>
-    <ul
-      class='align-center mb-3 grid grid-cols-1 justify-center gap-4 md:grid-cols-2 xl:grid-cols-3'
-    >
-      {#each word.songs as song (song.song.slug)}
-        <li class='shrink-0 grow-0 basis-full'>
-          <NavCard href='/songs/{song.song.slug}' label={song.song.title} />
+    <ul class='mb-3 flex flex-col max-w-4xl ml-auto mr-auto gap-4'>
+      {#each word.songs as { song } (song.slug)}
+        <li>
+          <EntryCard
+            id={song.id}
+            href='/songs/{song.slug}'
+            editHref='/songs/{song.slug}/edit'
+            title={song.title}
+            description={snippet(song.lyrics, 50)}
+            tags={song.tags}
+            tagFilterHref='/songs'
+            words={song.words}
+            imageUrl={data.imageUrl}
+          />
         </li>
       {/each}
     </ul>

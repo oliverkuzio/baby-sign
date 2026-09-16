@@ -58,7 +58,7 @@
     </p>
   {/if}
 
-  <ul class='flex flex-col max-w-4xl ml-auto mr-auto gap-4'>
+  <ul class='mb-3 flex flex-col max-w-4xl ml-auto mr-auto gap-4'>
     {#if filteredPhrases && filteredPhrases.length > 0}
       {#each filteredPhrases as phrase (phrase.id)}
         <li>
