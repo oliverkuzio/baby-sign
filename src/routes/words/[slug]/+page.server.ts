@@ -15,13 +15,23 @@ export const load: PageServerLoad = async ({ locals, params }) => {
       phrases: {
         columns: {},
         with: {
-          phrase: true,
+          phrase: {
+            with: {
+              tags: { with: { tag: true } },
+              words: { with: { word: true } },
+            },
+          },
         },
       },
       songs: {
         columns: {},
         with: {
-          song: true,
+          song: {
+            with: {
+              tags: { with: { tag: true } },
+              words: { with: { word: true } },
+            },
+          },
         },
       },
       tags: {

@@ -8,7 +8,7 @@
     label: string
     /** Link description */
     description?: string
-    /** Title size */
+    /** Card shape */
     shape?: 'auto' | 'square'
     /** Title size */
     size?: 'small' | 'large'
