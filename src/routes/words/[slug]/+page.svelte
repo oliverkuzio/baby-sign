@@ -51,9 +51,11 @@
       </cite>
     </figcaption>
   </figure>
-  {#if word.description}
-    <p class='mb-3 whitespace-pre-line text-center'>{word.description}</p>
-  {/if}
+  <div class='max-w-xl ml-auto mr-auto'>
+    {#if word.description}
+      <p class='mb-3 whitespace-pre-line text-center'>{word.description}</p>
+    {/if}
+  </div>
   {#if word.phrases.length}
     <h3 class='mb-3 text-lg font-semibold'>Phrases with '{word.word}':</h3>
     <ul class='mb-3 flex flex-col max-w-4xl ml-auto mr-auto gap-4'>
