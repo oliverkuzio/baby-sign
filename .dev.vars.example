@@ -13,3 +13,6 @@ BETTER_AUTH_URL=http://localhost:5173
 # (http://localhost:5173/api/auth/callback/github for local dev)
 GITHUB_CLIENT_ID=
 GITHUB_CLIENT_SECRET=
+
+# External resource for sign-language images
+PUBLIC_IMAGE_URL=
