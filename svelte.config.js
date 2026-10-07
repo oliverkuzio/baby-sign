@@ -13,6 +13,18 @@ const config = {
     // See https://svelte.dev/docs/kit/adapters for more information about adapters.
     adapter: adapter(),
 
+    // An installed PWA can stay open for days; poll for new deploys so the
+    // next navigation does a full reload (and picks up the new service worker).
+    version: {
+      pollInterval: 60_000,
+    },
+
+    // The service worker serves the prerendered /offline page in place of
+    // any uncached URL, so its asset links must not be relative to /offline.
+    paths: {
+      relative: false,
+    },
+
     experimental: {
       tracing: {
         server: true,
