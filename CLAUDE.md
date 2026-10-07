@@ -72,13 +72,34 @@ Word/phrase/song images are not stored in this repo — they're served from a Cl
 
 ## Releases & versioning
 
-The app follows semver, managed by [Changesets](https://changesets.dev). Never edit `version` in `package.json` or `CHANGELOG.md` by hand — both are written by the release workflow.
+Semver releases are managed by [Changesets](https://changesets.dev). The full guide for people is the "Releases" section of `README.md`; keep the two in sync when the process changes.
 
-- **Every PR adds a changeset** (`pnpm changeset`, committed as `.changeset/*.md`) choosing the bump and a one-line, user-facing description for the changelog:
-  - `patch` — bug fixes and small tweaks with no new functionality (1.0.0 → 1.0.1)
-  - `minor` — new features or user-visible additions (1.0.0 → 1.1.0)
-  - `major` — breaking changes, e.g. removing routes/features or changes that invalidate existing data or links (1.0.0 → 2.0.0)
-  - PRs that don't ship anything user-facing (docs, CI, internal refactors) add `pnpm changeset --empty` instead.
-  The Lint workflow fails a PR that has no changeset (`changeset status --since=origin/main`).
-- **Releasing**: `.github/workflows/release.yml` runs `changesets/action` on every push to `main`. Pending changesets accumulate in a bot PR titled "Version Packages" (branch `changeset-release/main`) that bumps `package.json` and prepends to `CHANGELOG.md`. Merging it creates the `vX.Y.Z` tag and GitHub Release. Then deploy with `pnpm deploy` (plus `pnpm db:migrate:remote` if migrations changed).
-- The version is injected at build time as `__APP_VERSION__` (`vite.config.ts` `define`, declared in `src/app.d.ts`): shown in `Footer.svelte` and used as the Sentry `release`. Don't tie SvelteKit's `kit.version.name` to it — `src/service-worker.ts` keys caches on SvelteKit's per-build `version`.
+**Rules for any change you make:**
+- **Every PR gets a changeset.** Before opening a PR, add `.changeset/<kebab-name>.md` (or run `pnpm changeset`) with the bump and a one-line, user-facing changelog entry:
+  ```md
+  ---
+  "baby-sign": patch
+  ---
+
+  Fix tag filter links losing the current page.
+  ```
+  - `patch`: bug fixes and small tweaks with no new functionality (1.0.0 → 1.0.1)
+  - `minor`: new features or user-visible additions (1.0.0 → 1.1.0)
+  - `major`: breaking changes, e.g. removing or renaming routes or features, or changes that invalidate existing links, data or installed PWAs (1.0.0 → 2.0.0)
+  - Nothing user-facing (docs, CI, refactors, invisible dependency bumps): an empty changeset, i.e. frontmatter `---\n---` only, or `pnpm changeset --empty`.
+  - Write the entry for app users, not developers. It is copied verbatim into `CHANGELOG.md` and the GitHub Release. If unsure between two bumps, ask the user.
+  The Lint workflow fails PRs without one (`pnpm changeset status --since=origin/main`), except the bot's `changeset-release/main` PR.
+- **Never** edit `version` in `package.json` or `CHANGELOG.md` by hand, and never create `v*` tags or GitHub Releases manually. The release workflow owns all of them.
+
+**How a release happens** (`.github/workflows/release.yml`, `changesets/action@v2` on every push to `main`):
+1. PRs with changesets merge into `main`. The action opens or updates a bot PR titled "Version Packages" (branch `changeset-release/main`) that runs `changeset version`: it bumps `package.json`, prepends to `CHANGELOG.md` and deletes the used changesets. A release with several changesets takes the largest bump among them.
+2. The user merges the Version Packages PR when they want to ship. The action then runs `publish-script: pnpm changeset publish`. Because `package.json` is `private` and `.changeset/config.json` has `privatePackages: { version: true, tag: true }`, this publishes nothing to npm. It only creates the `vX.Y.Z` tag, which the action pushes and turns into a GitHub Release (notes = changelog entries, with PR/author links from `@changesets/changelog-github`).
+3. Deploy is manual from an up-to-date `main`: `pnpm db:migrate:remote` if the release has new migrations, then `pnpm deploy`.
+
+**Gotchas:**
+- The combined `changesets/action@v2` skips tagging entirely if `publish-script` is unset. It also skips tagging whenever *any* changeset, even an empty one, is present on `main`. So a PR that has to trigger tagging of an already-bumped version must carry **no** changeset (that's why the fix for the 1.0.0 tag, PR #28, had none).
+- This project uses **Changesets v3** (`@changesets/cli@3`) with **`changesets/action@v2`**. The v3 CLI renamed `changeset tag` to `changeset git-tag` and has `changeset publish-plan` (shows which versions would be tagged). Older docs/examples for CLI v2 / action v1 don't apply as-is.
+- Single-package repo, so tags are `vX.Y.Z` (not `baby-sign@X.Y.Z`).
+- Repo setting *Actions → General → "Allow GitHub Actions to create and approve pull requests"* must stay enabled, or the Version Packages PR can't be opened.
+
+**Version in the app:** the version is injected at build time as `__APP_VERSION__` (`vite.config.ts` `define`, declared in `src/app.d.ts`), shown in `Footer.svelte` and used as the Sentry `release` (`baby-sign@X.Y.Z`) in `src/hooks.client.ts` and `src/instrumentation.server.ts`. Don't tie SvelteKit's `kit.version.name` to it: `src/service-worker.ts` keys caches on SvelteKit's per-build `version`, and tying that to semver would stop cache busting on deploys without a version bump.
