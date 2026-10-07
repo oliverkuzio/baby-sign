@@ -3,7 +3,16 @@
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+		<link rel="manifest" href="%sveltekit.assets%/manifest.webmanifest" />
+		<link rel="apple-touch-icon" href="%sveltekit.assets%/icons/apple-touch-icon.png" />
+		<!-- base-100 of the light/dark themes in app.css, so the browser chrome matches the header -->
+		<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5fce5" />
+		<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#182d02" />
+		<meta name="mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-title" content="Baby Sign" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="default" />
 		<script>
 			// Runs before paint so the right theme applies with no flash: an
 			// explicit stored choice if there is one, else the OS preference.

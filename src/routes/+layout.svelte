@@ -10,8 +10,9 @@
   const items = $derived(navItemsFor(data.user))
 </script>
 
-<!-- Bottom padding keeps the footer clear of the fixed mobile dock. -->
-<div class={['bg-base-100 text-base-content flex min-h-screen flex-col', items.length > 0 && 'pb-16 lg:pb-0']}>
+<!-- Bottom padding keeps the footer clear of the fixed mobile dock (whose height
+     daisyUI already grows by the safe-area inset in standalone mode). -->
+<div class={['bg-base-100 text-base-content flex min-h-screen flex-col', items.length > 0 && 'pb-[calc(4rem+env(safe-area-inset-bottom))] lg:pb-0']}>
   <Header {items} user={data.user} />
   <main class='relative flex grow flex-col items-stretch'>
     {@render children?.()}

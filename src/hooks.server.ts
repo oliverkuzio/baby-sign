@@ -7,6 +7,12 @@ import { sequence } from '@sveltejs/kit/hooks'
 import { svelteKitHandler } from 'better-auth/svelte-kit'
 
 export const handle: Handle = sequence(Sentry.sentryHandle(), async ({ event, resolve }) => {
+  // Prerendered routes (e.g. /offline) are rendered at build time with no
+  // bindings — the adapter throws on any `platform.env` access — and no session.
+  if (building) {
+    return resolve(event)
+  }
+
   if (!event.platform?.env.DB) {
     throw new Error('No database found.')
   }

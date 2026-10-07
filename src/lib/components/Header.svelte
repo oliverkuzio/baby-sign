@@ -21,13 +21,17 @@
   function signOut() {
     authClient.signOut({
       fetchOptions: {
-        onSuccess: () => goto('/', { invalidateAll: true }),
+        onSuccess: () => {
+          // Drop the pages/images the service worker kept for this user.
+          navigator.serviceWorker?.controller?.postMessage({ type: 'clear-user-cache' })
+          return goto('/', { invalidateAll: true })
+        },
       },
     })
   }
 </script>
 
-<header class='navbar bg-base-100 text-base-content sticky top-0 z-50'>
+<header class='navbar bg-base-100 text-base-content sticky top-0 z-50 pt-[calc(0.5rem+env(safe-area-inset-top))]'>
   <div class='navbar-start'>
     <a href='/' class='btn btn-ghost text-base-content px-2 text-lg normal-case'>
       <Logo size={28} />
