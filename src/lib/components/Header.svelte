@@ -1,12 +1,14 @@
 <script lang='ts'>
+  import type { NavItem } from '$lib/nav'
   import { goto } from '$app/navigation'
+  import { page } from '$app/state'
   import { authClient } from '$lib/auth-client'
-  import MenuFillIcon from '~icons/mingcute/menu-fill'
+  import { isActive } from '$lib/nav'
   import Logo from './Logo.svelte'
   import ThemeToggle from './ThemeToggle.svelte'
 
   interface Props {
-    items?: { href: string, label: string }[]
+    items?: NavItem[]
     user?: { name: string } | null
   }
 
@@ -36,16 +38,22 @@
   <div class='navbar-center hidden lg:flex'>
     <ul class='menu menu-horizontal px-1'>
       {#each items as item (item.label)}
-        <li><a href={item.href}>{item.label}</a></li>
+        {@const active = isActive(page.url.pathname, item.href)}
+        <li>
+          <a href={item.href} class:menu-active={active} aria-current={active ? 'page' : undefined}>
+            <item.icon class='size-5' />
+            {item.label}
+          </a>
+        </li>
       {/each}
     </ul>
   </div>
 
   <div class='navbar-end gap-2'>
     <ThemeToggle />
-    <div class='hidden sm:block'>
+    <div>
       {#if user}
-        <span class='text-sm'>Signed in as {user.name}.</span>
+        <span class='hidden text-sm sm:inline'>Signed in as {user.name}.</span>
         <button type='button' class='btn btn-sm' onclick={signOut}>Sign out</button>
       {:else}
         <button type='button' class='btn btn-sm btn-primary' onclick={signIn}>
@@ -53,8 +61,5 @@
         </button>
       {/if}
     </div>
-    <label for='nav-drawer' aria-label='Open menu' class='btn btn-square btn-ghost lg:hidden'>
-      <MenuFillIcon class='size-6' />
-    </label>
   </div>
 </header>
