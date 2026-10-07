@@ -36,3 +36,7 @@ jobs:
       # the package is private, see privatePackages in .changeset/config.json).
       - name: Version PR or tag release
         uses: changesets/action@v2
+        with:
+          # Required for the tag/release step to run at all. Only creates the
+          # git tag here, since the package is private.
+          publish-script: pnpm changeset publish
