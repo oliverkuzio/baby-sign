@@ -24,6 +24,8 @@ pnpm db:generate            # drizzle-kit generate — after editing src/lib/ser
 pnpm db:migrate             # wrangler d1 migrations apply DB --local
 pnpm db:migrate:remote      # apply migrations to the production D1 database
 pnpm db:studio              # drizzle-kit studio
+
+pnpm changeset              # record a version bump + changelog entry for the current branch
 ```
 
 Vitest runs two projects defined in `vite.config.ts`: `client` (jsdom + `@testing-library/svelte`, for `*.svelte.{test,spec}.ts`) and `server` (node, for every other `*.{test,spec}.ts`, excluding `src/lib/server/**`). `pnpm test` runs both.
@@ -67,3 +69,16 @@ Page components read `data.words`/`data.phrases`/`data.songs` reactively (`$: ph
 ### Sign images
 
 Word/phrase/song images are not stored in this repo — they're served from a Cloudinary CDN at `${PUBLIC_IMAGE_URL}/${slug}.svg` (or `-preview-webp.webp` for thumbnails), keyed by the entity's slug.
+
+## Releases & versioning
+
+The app follows semver, managed by [Changesets](https://changesets.dev). Never edit `version` in `package.json` or `CHANGELOG.md` by hand — both are written by the release workflow.
+
+- **Every PR adds a changeset** (`pnpm changeset`, committed as `.changeset/*.md`) choosing the bump and a one-line, user-facing description for the changelog:
+  - `patch` — bug fixes and small tweaks with no new functionality (1.0.0 → 1.0.1)
+  - `minor` — new features or user-visible additions (1.0.0 → 1.1.0)
+  - `major` — breaking changes, e.g. removing routes/features or changes that invalidate existing data or links (1.0.0 → 2.0.0)
+  - PRs that don't ship anything user-facing (docs, CI, internal refactors) add `pnpm changeset --empty` instead.
+  The Lint workflow fails a PR that has no changeset (`changeset status --since=origin/main`).
+- **Releasing**: `.github/workflows/release.yml` runs `changesets/action` on every push to `main`. Pending changesets accumulate in a bot PR titled "Version Packages" (branch `changeset-release/main`) that bumps `package.json` and prepends to `CHANGELOG.md`. Merging it creates the `vX.Y.Z` tag and GitHub Release. Then deploy with `pnpm deploy` (plus `pnpm db:migrate:remote` if migrations changed).
+- The version is injected at build time as `__APP_VERSION__` (`vite.config.ts` `define`, declared in `src/app.d.ts`): shown in `Footer.svelte` and used as the Sentry `release`. Don't tie SvelteKit's `kit.version.name` to it — `src/service-worker.ts` keys caches on SvelteKit's per-build `version`.

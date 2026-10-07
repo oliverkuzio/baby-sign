@@ -1,0 +1,38 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # With pending changesets: opens/updates a "Version Packages" PR that bumps
+      # package.json and writes CHANGELOG.md. Once that PR is merged: pushes a
+      # vX.Y.Z tag and creates a GitHub Release (nothing is published to npm —
+      # the package is private, see privatePackages in .changeset/config.json).
+      - name: Version PR or tag release
+        uses: changesets/action@v2

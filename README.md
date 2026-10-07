@@ -86,3 +86,16 @@ Run the built worker locally with Wrangler against the local D1 database:
 ```bash
 pnpm run preview
 ```
+
+## Releases
+
+Versions follow [semver](https://semver.org) and are managed with [Changesets](https://changesets.dev); see [CHANGELOG.md](CHANGELOG.md) for release notes.
+
+Each PR includes a changeset describing its change:
+
+```bash
+pnpm changeset          # pick patch (fix), minor (feature) or major (breaking) and describe the change
+pnpm changeset --empty  # for PRs with nothing user-facing (docs, CI, refactors)
+```
+
+When PRs merge into `main`, a "Version Packages" PR is opened (or updated) that bumps `package.json` and updates `CHANGELOG.md`. Merging it tags the release (`vX.Y.Z`) and publishes a GitHub Release; then deploy with `pnpm deploy`.

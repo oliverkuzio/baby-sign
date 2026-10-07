@@ -4,8 +4,11 @@ import tailwindcss from '@tailwindcss/vite'
 import { svelteTesting } from '@testing-library/svelte/vite'
 import Icons from 'unplugin-icons/vite'
 import { defineConfig } from 'vite'
+import pkg from './package.json' with { type: 'json' }
 
 export default defineConfig({
+  // Bumped by Changesets' "Version Packages" PR (see CLAUDE.md, Releases & versioning).
+  define: { __APP_VERSION__: JSON.stringify(pkg.version) },
   plugins: [sentrySvelteKit({
     org: 'ok-apps',
     project: 'baby-sign',

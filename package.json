@@ -39,7 +39,8 @@
     "db:migrate": "wrangler d1 migrations apply DB --local",
     "db:migrate:remote": "wrangler d1 migrations apply DB --remote",
     "db:studio": "drizzle-kit studio",
-    "cf-typegen": "wrangler types && mv worker-configuration.d.ts src/"
+    "cf-typegen": "wrangler types && mv worker-configuration.d.ts src/",
+    "changeset": "changeset"
   },
   "peerDependencies": {
     "svelte": "^5.0.0"
@@ -51,6 +52,8 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^9.5.1",
+    "@changesets/changelog-github": "^1.0.1",
+    "@changesets/cli": "^3.0.3",
     "@iconify-json/mingcute": "^1.2.8",
     "@playwright/test": "^1.63.0",
     "@sveltejs/adapter-cloudflare": "^7.2.9",

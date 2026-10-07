@@ -12,5 +12,6 @@
       >babysignlanguage.com</a
       >.
     </p>
+    <p class='text-xs'>v{__APP_VERSION__}</p>
   </div>
 </footer>
