@@ -6,6 +6,9 @@ import type { DrizzleClient } from '$lib/server/db'
 // for information about these interfaces
 
 declare global {
+  /** The app's semver version from package.json, injected at build time by vite.config.ts. */
+  const __APP_VERSION__: string
+
   namespace App {
     interface Platform {
       env: Env
